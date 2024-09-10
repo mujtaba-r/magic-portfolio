@@ -53,7 +53,32 @@ const home = {
     label: 'Home',
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Freelance Digital Strategy Director</>,
+    headline: <span
+    style={{
+      fontFamily: 'var(--font-primary)'
+    }}
+  >
+    <LetterFx
+      speed="medium"
+      trigger="hover"
+      charset={[
+        'X',
+        '@',
+        '$',
+        'a',
+        'H',
+        'z',
+        'o',
+        '0',
+        'y',
+        '#',
+        '?',
+        '*',
+        '0',
+        '1',
+        '+'
+      ]}
+    >Freelance Digital Strategy Director</LetterFx></span>,
     subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <br/><InlineCode>4+</InlineCode> years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
 }
 
