@@ -1,4 +1,4 @@
-const baseURL = 'nextjs-portfolio.up.railway.app'
+const baseURL = 'www.mujtabahassanrizvi.com'
 
 const routes = {
     '/':        true,
@@ -21,14 +21,14 @@ const effects = {
 }
 
 const style = {
-    theme:       'light',        // dark | light
-    neutral:     'gray',         // sand | gray | slate
-    brand:       'blue',         // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-    accent:      'blue',         // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
+    theme:       'dark',        // dark | light
+    neutral:     'slate',         // sand | gray | slate
+    brand:       'indigo',         // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
+    accent:      'violet',         // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
     solid:       'contrast',     // color | contrast
     solidStyle:  'flat',         // flat | plastic
     border:      'conservative', // rounded | playful | conservative
-    surface:     'filled',       // filled | translucent
+    surface:     'translucent',       // filled | translucent
     transition:  'all'           // all | micro | macro
 }
 
