@@ -59,8 +59,8 @@ const home = {
     }}
   >
     <LetterFx
-      speed="slow"
-      trigger="instant"
+      speed="medium"
+      trigger="hover"
       charset={[
         'X',
         '@',
