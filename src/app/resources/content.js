@@ -55,7 +55,7 @@ const home = {
     description: `Portfolio website showcasing my work as a ${person.role}`,
     headline: <span
     style={{
-      fontFamily: 'var(--font-primary)'
+      fontFamily: 'var(--font-secondary)'
     }}
   >
     <LetterFx
