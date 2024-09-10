@@ -9,7 +9,7 @@ const person = {
     },
     role:      'Software Engineer',
     avatar:    '/images/avatar.jpg',
-    location:  'America/Canada',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+    location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
     languages: ['English', 'Urdu', 'Hindi']  // optional: Leave the array empty if you don't want to display languages
 }
 
