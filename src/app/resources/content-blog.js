@@ -48,7 +48,7 @@ const home = {
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
     headline: <>Freelance Digital Strategy Director</>,
-    subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <InlineCode>4+ years</InlineCode> of experience in overseeing website development,<br/> enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
+    subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <InlineCode>4+</InlineCode> years of experience in overseeing website development,<br/> enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
 }
 
 const about = {
