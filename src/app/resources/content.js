@@ -64,7 +64,7 @@ const about = {
     },
     calendar: {
         display: true,
-        link: 'https://calendly.com/mujtabahassanrizvi/book-a-meeting'
+        link: 'https://calendly.com/mujtabahassanrizvi/schedule-a-call'
     },
     intro: {
         display: true,
