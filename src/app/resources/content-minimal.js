@@ -30,12 +30,12 @@ const social = [
     {
         name: 'GitHub',
         icon: 'github',
-        link: 'https://github.com/mujtaba-rizvi',
+        link: 'https://github.com/mujtaba-r',
     },
     {
         name: 'LinkedIn',
         icon: 'linkedin',
-        link: 'https://www.linkedin.com/in/mujtaba-rizvi/',
+        link: 'https://www.linkedin.com/in/mujtabahassanrizvi/',
     },
     {
         name: 'X',
