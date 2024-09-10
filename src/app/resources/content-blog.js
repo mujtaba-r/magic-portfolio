@@ -59,7 +59,7 @@ const home = {
     }}
   >
     <LetterFx
-      speed="medium"
+      speed="slow"
       trigger="instant"
       charset={[
         'X',
