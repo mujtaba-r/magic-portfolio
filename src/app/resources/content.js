@@ -113,7 +113,7 @@ const about = {
                 description: <>Bachelor's of Science in Computer Science.</>,
             },
             {
-                name: 'Build the Future',
+                name: 'Knox College',
                 description: <>Bachelor's of Arts in Business & Management.</>,
             }
         ]
