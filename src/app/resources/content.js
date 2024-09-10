@@ -14,7 +14,11 @@ const person = {
 
 const newsletter = {
     display: true,
-    title: <>Subscribe to {person.firstName}'s Newsletter</>,
+    title: <><SparkleFx
+    speed="medium"
+    count={50}
+    trigger="instant"
+  >Subscribe to {person.firstName}'s Newsletter</SparkleFx></>,
     description: <>I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.</>
 }
 
