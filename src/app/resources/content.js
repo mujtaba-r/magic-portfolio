@@ -6,7 +6,7 @@ const person = {
     get name() {
         return `${this.firstName} ${this.lastName}`;
     },
-    role:      'Software Engineer',
+    role:      'Digital Strategy Director',
     avatar:    '/images/avatar.jpeg',
     location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
     languages: ['English', 'Urdu', 'Hindi']  // optional: Leave the array empty if you don't want to display languages
@@ -47,8 +47,8 @@ const home = {
     label: 'Home',
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Software engineer and builder</>,
-    subline: <>I'm Mujtaba, a software engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
+    headline: <>Freelance Digital Strategy Director</>,
+    subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <InlineCode>4+ years</InlineCode> of experience in overseeing website development,<br/> enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
 }
 
 const about = {
@@ -64,12 +64,12 @@ const about = {
     },
     calendar: {
         display: true,
-        link: 'https://cal.com'
+        link: 'https://calendly.com/mujtabahassanrizvi/book-a-meeting'
     },
     intro: {
         display: true,
         title: 'Introduction',
-        description: <>Mujtaba is a Canada-based software engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
+        description: <>Mujtaba is a Canada-based Freelance Digital Strategy Director & Web Developer with 4+ years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
     },
     work: {
         display: true, // set to false to hide this section
@@ -110,11 +110,11 @@ const about = {
         institutions: [
             {
                 name: 'Knox College',
-                description: <>Studied software engineering.</>,
+                description: <>Bachelor's of Science in Computer Science.</>,
             },
             {
                 name: 'Build the Future',
-                description: <>Studied online marketing and personal branding.</>,
+                description: <>Bachelor's of Arts in Business & Management.</>,
             }
         ]
     },
