@@ -53,14 +53,15 @@ const home = {
     label: 'Home',
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <span
+    headline: <>Freelance Digital Strategy Director</>,
+    subline: <span
     style={{
-      fontFamily: 'var(--font-secondary)'
+      fontFamily: 'var(--font-primary)'
     }}
   >
     <LetterFx
       speed="medium"
-      trigger="hover"
+      trigger="instant"
       charset={[
         'X',
         '@',
@@ -78,8 +79,7 @@ const home = {
         '1',
         '+'
       ]}
-    >Freelance Digital Strategy Director</LetterFx></span>,
-    subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <br/><InlineCode>4+</InlineCode> years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
+    >Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <br/><InlineCode>4+</InlineCode> years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</LetterFx></span>
 }
 
 const about = {
