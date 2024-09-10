@@ -1,5 +1,7 @@
 import { InlineCode } from "@/once-ui/components";
-
+import Link from 'next/link'
+import { SparkleFx } from "@/once-ui/components";
+import { LetterFx } from "@/once-ui/components";
 const person = {
     firstName: 'Mujtaba',
     lastName:  'Rizvi',
