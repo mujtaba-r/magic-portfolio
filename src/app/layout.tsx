@@ -14,6 +14,7 @@ import { Sora } from 'next/font/google';
 
 import { Metadata } from "next";
 import ThemeProvider from '@/app/components/ThemeProvider';
+import CustomCursor from '@/app/components/CustomCursor';
 
 export const metadata: Metadata = {
 	metadataBase: new URL('https://' + baseURL),
@@ -117,6 +118,7 @@ export default function RootLayout({ children } : RootLayoutProps) {
 						</Flex>
 					</Flex>
 					<Footer/>
+					<CustomCursor />
 				</Flex>
 			</Flex>
 		</ThemeProvider>

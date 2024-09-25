@@ -80,3 +80,33 @@ a {
         background: var(--neutral-alpha-strong);
     }
 }
+body {
+    cursor: none;
+  }
+  
+  a, button, [role="button"] {
+    cursor: none;
+    
+    &:hover ~ #custom-cursor,
+    &:hover ~ #custom-cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+  }
+
+/* At the end of the file */
+body {
+    cursor: none !important;
+}
+
+a, button, [role="button"] {
+    cursor: none !important;
+}
+
+#custom-cursor,
+#custom-cursor-follower {
+    pointer-events: none;
+    position: fixed;
+    z-index: 9999;
+}
+
+/* Remove any other cursor-related styles that might be conflicting */
