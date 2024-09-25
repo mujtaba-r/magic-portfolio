@@ -13,6 +13,7 @@ import { Raleway } from 'next/font/google';
 import { Sora } from 'next/font/google';
 
 import { Metadata } from "next";
+import { useEffect } from 'react';
 
 export const metadata: Metadata = {
 	metadataBase: new URL('https://' + baseURL),
@@ -74,6 +75,11 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children } : RootLayoutProps) {
+	useEffect(() => {
+		const savedTheme = localStorage.getItem('theme') || 'dark';
+		document.documentElement.setAttribute('data-theme', savedTheme);
+	}, []);
+
 	return (
 		<Flex
 			as="html" lang="en"

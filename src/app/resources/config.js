@@ -21,7 +21,7 @@ const effects = {
 }
 
 const style = {
-    theme:       'dark',         // dark | light
+    theme:       typeof window !== 'undefined' ? localStorage.getItem('theme') || 'dark' : 'dark',         // dark | light
     neutral:     'slate',         // sand | gray | slate
     brand:       'indigo',         // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
     accent:      'violet',       // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan

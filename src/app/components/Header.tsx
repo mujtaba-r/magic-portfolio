@@ -9,6 +9,8 @@ import styles from '@/app/components/Header.module.scss'
 import { routes, display } from '@/app/resources'
 import { person, home, about, blog, work, gallery } from '@/app/resources'
 
+import ThemeToggle from './ThemeToggle';
+
 type TimeDisplayProps = {
     timeZone: string;
     locale?: string;  // Optionally allow locale, defaulting to 'en-GB'
@@ -113,6 +115,7 @@ export const Header = () => {
                         </ToggleButton>
                     )}
                 </Flex>
+                <ThemeToggle />
             </Flex>
             <Flex
                 hide="s"
