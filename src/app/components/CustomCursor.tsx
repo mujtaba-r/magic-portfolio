@@ -1,58 +1,54 @@
 "use client";
 
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import styles from './CustomCursor.module.scss';
 
-export default function CustomCursor() {
+const CustomCursor: React.FC = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isPointer, setIsPointer] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
+
   useEffect(() => {
-    const cursor = document.getElementById('custom-cursor');
-    const follower = document.getElementById('custom-cursor-follower');
+    // Check if it's a touch device
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(isTouch);
 
-    const moveCursor = (e: MouseEvent) => {
-      if (cursor && follower) {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-        follower.style.left = `${e.clientX}px`;
-        follower.style.top = `${e.clientY}px`;
-      }
-    };
+    if (!isTouch) {
+      const moveCursor = (e: MouseEvent) => {
+        setPosition({ x: e.clientX, y: e.clientY });
+      };
 
-    document.addEventListener('mousemove', moveCursor);
+      const checkPointer = () => {
+        const target = document.elementFromPoint(position.x, position.y);
+        setIsPointer(window.getComputedStyle(target as Element).cursor === 'pointer');
+      };
 
-    return () => {
-      document.removeEventListener('mousemove', moveCursor);
-    };
-  }, []);
+      window.addEventListener('mousemove', moveCursor);
+      window.addEventListener('mouseover', checkPointer);
+
+      return () => {
+        window.removeEventListener('mousemove', moveCursor);
+        window.removeEventListener('mouseover', checkPointer);
+      };
+    }
+  }, [position.x, position.y]);
+
+  if (isTouchDevice) {
+    return null; // Don't render anything on touch devices
+  }
 
   return (
     <>
       <div 
-        id="custom-cursor"
-        style={{
-          position: 'fixed',
-          width: '8px',
-          height: '8px',
-          backgroundColor: 'var(--brand-on-background-strong)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 9999,
-          transition: 'width 0.2s, height 0.2s, background-color 0.2s',
-          transform: 'translate(-50%, -50%)',
-        }}
+        className={`${styles.cursor} ${isPointer ? styles.pointer : ''}`}
+        style={{ left: `${position.x}px`, top: `${position.y}px` }}
       />
       <div 
-        id="custom-cursor-follower"
-        style={{
-          position: 'fixed',
-          width: '24px',
-          height: '24px',
-          border: '2px solid var(--brand-on-background-medium)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 9998,
-          transition: '0.1s',
-          transform: 'translate(-50%, -50%)',
-        }}
+        className={`${styles.cursorFollower} ${isPointer ? styles.pointer : ''}`}
+        style={{ left: `${position.x}px`, top: `${position.y}px` }}
       />
     </>
   );
-}
+};
+
+export default CustomCursor;
