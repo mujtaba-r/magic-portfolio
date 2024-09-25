@@ -15,7 +15,6 @@ import { Sora } from 'next/font/google';
 import { Metadata } from "next";
 import ThemeProvider from '@/app/components/ThemeProvider';
 
-
 export const metadata: Metadata = {
 	metadataBase: new URL('https://' + baseURL),
 	title: home.title,
