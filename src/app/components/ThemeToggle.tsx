@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ToggleButton, Flex } from '@/once-ui/components';
+import { ToggleButton } from '@/once-ui/components';
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState('dark');
@@ -22,12 +22,10 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       selected={false}
       size="s"
-      // Remove or rename 'variant' prop
       prefixIcon={theme === 'dark' ? 'sun' : 'moon'}
+      weight="default"
     >
-      <Flex paddingX="2" textVariant="body-default-s">
-        {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-      </Flex>
+      {theme === 'dark' ? 'Light mode' : 'Dark mode'}
     </ToggleButton>
   );
 };

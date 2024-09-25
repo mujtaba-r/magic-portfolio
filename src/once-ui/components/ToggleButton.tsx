@@ -25,6 +25,12 @@ interface CommonProps {
 type ButtonProps = CommonProps & ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = CommonProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 
+interface ToggleButtonProps extends ButtonProps {
+    iconOnly?: boolean;
+    href?: AnchorProps['href'];
+    // Add other AnchorProps properties you need
+}
+
 const isExternalLink = (url: string) => /^https?:\/\//.test(url);
 
 const ToggleButton = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps | AnchorProps>(({
@@ -53,12 +59,11 @@ const ToggleButton = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
                         name={prefixIcon}
                         size={iconSize}/>
                 )}
-                {label && (
-                    <div className={`font-s font-label ${styles.label} ${weight === 'strong' ? 'font-strong' : 'font-default'} ${truncate ? styles.truncate : ''}`}>
-                        {label}
+                {(label || children) && (
+                    <div className={`font-s font-primary ${styles.label} ${styles.hideOnMobile} ${weight === 'strong' ? 'font-strong' : 'font-default'} ${truncate ? styles.truncate : ''}`}>
+                        {label || children}
                     </div>
                 )}
-                {children}
             </div>
             {suffixIcon && (
                 <Icon

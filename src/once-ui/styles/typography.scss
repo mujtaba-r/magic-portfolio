@@ -170,3 +170,20 @@ h1, h2, h3, h4, h5, h6, p {
 .font-code {
     font-family: var(--font-family-code);
 }
+
+.font-primary {
+    font-family: var(--font-primary);
+
+    &.font-strong, & > .font-strong {
+        font-weight: var(--font-weight-30);
+    }
+
+    &.font-default, & > .font-default {
+        font-weight: var(--font-weight-20);
+    }
+
+    &.font-s, & > .font-s {
+        font-size:   calc(var(--font-size-body-s) * var(--font-size-body-multiplier));
+        line-height: calc(var(--line-height-body-s) * var(--line-height-body-multiplier));
+    }
+}

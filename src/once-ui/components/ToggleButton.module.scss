@@ -43,6 +43,9 @@
 
 .label {
     padding: var(--static-space-4) var(--static-space-4);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: normal;
 }
 
 .s {
@@ -78,4 +81,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.hideOnMobile {
+    @media (max-width: 768px) {
+        display: none;
+    }
 }

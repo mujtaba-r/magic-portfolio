@@ -79,7 +79,7 @@ export const Header = () => {
                             prefixIcon="home"
                             href="/"
                             selected={pathname === "/"}>
-                            <Flex paddingX="2" hide="s">{home.label}</Flex>
+                            {home.label}
                         </ToggleButton>
                     )}
                     { routes['/about'] && (
@@ -87,7 +87,7 @@ export const Header = () => {
                             prefixIcon="person"
                             href="/about"
                             selected={pathname === "/about"}>
-                            <Flex paddingX="2" hide="s">{about.label}</Flex>
+                            {about.label}
                         </ToggleButton>
                     )}
                     { routes['/work'] && (
@@ -95,7 +95,7 @@ export const Header = () => {
                             prefixIcon="grid"
                             href="/work"
                             selected={pathname.startsWith('/work')}>
-                            <Flex paddingX="2" hide="s">{work.label}</Flex>
+                            {work.label}
                         </ToggleButton>
                     )}
                     { routes['/blog'] && (
@@ -103,7 +103,7 @@ export const Header = () => {
                             prefixIcon="book"
                             href="/blog"
                             selected={pathname.startsWith('/blog')}>
-                            <Flex paddingX="2" hide="s">{blog.label}</Flex>
+                            {blog.label}
                         </ToggleButton>
                     )}
                     { routes['/gallery'] && (
@@ -111,11 +111,11 @@ export const Header = () => {
                             prefixIcon="gallery"
                             href="/gallery"
                             selected={pathname.startsWith('/gallery')}>
-                            <Flex paddingX="2" hide="s">{gallery.label}</Flex>
+                            {gallery.label}
                         </ToggleButton>
                     )}
+                    <ThemeToggle />
                 </Flex>
-                <ThemeToggle />
             </Flex>
             <Flex
                 hide="s"
