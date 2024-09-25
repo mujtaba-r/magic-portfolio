@@ -81,17 +81,20 @@ a {
         background: var(--neutral-alpha-strong);
     }
 }
-body, * {
-    cursor: none !important;
-}
 
-a, button, [role="button"], .clickable, .control, [tabindex="0"], img.clickable {
+@media (hover: hover) and (pointer: fine) {
+  body, * {
+    cursor: none !important;
+  }
+
+  a, button, [role="button"], .clickable, .control, [tabindex="0"], img.clickable {
     cursor: none !important;
     
     &:hover ~ #custom-cursor,
     &:hover ~ #custom-cursor-follower {
-        transform: translate(-50%, -50%) scale(1.5);
+      transform: translate(-50%, -50%) scale(1.5);
     }
+  }
 }
 
 #custom-cursor,

@@ -6,13 +6,18 @@ import styles from './CustomCursor.module.scss';
 const CustomCursor: React.FC = () => {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Start with true to prevent flash on mobile
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const checkMobile = () => {
+      setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    };
 
-    if (!isTouchDevice) {
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    if (!isMobile) {
       let cursorRingPosition = { x: 0, y: 0 };
       let cursorDotPosition = { x: 0, y: 0 };
 
@@ -33,7 +38,7 @@ const CustomCursor: React.FC = () => {
       };
 
       const animateCursorRing = () => {
-        const easingFactor = 8; // Adjust this value to change the follow speed (lower = slower)
+        const easingFactor = 8;
         
         cursorRingPosition.x += (cursorDotPosition.x - cursorRingPosition.x) / easingFactor;
         cursorRingPosition.y += (cursorDotPosition.y - cursorRingPosition.y) / easingFactor;
@@ -53,11 +58,12 @@ const CustomCursor: React.FC = () => {
       return () => {
         document.removeEventListener('mousemove', moveCursor);
         document.removeEventListener('mouseover', handleMouseOver);
+        window.removeEventListener('resize', checkMobile);
       };
     }
-  }, [isTouchDevice]);
+  }, [isMobile]);
 
-  if (isTouchDevice) {
+  if (isMobile) {
     return null;
   }
 
