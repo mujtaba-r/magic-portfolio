@@ -38,6 +38,7 @@ blockquote {
 }
 
 img {
+    pointer-events: none;
     user-select: none;
 }
 
@@ -80,33 +81,24 @@ a {
         background: var(--neutral-alpha-strong);
     }
 }
-body {
-    cursor: none;
-  }
-  
-  a, button, [role="button"] {
-    cursor: none;
-    
-    &:hover ~ #custom-cursor,
-    &:hover ~ #custom-cursor-follower {
-      transform: translate(-50%, -50%) scale(1.5);
-    }
-  }
-
-/* At the end of the file */
-body {
+body, * {
     cursor: none !important;
 }
 
-a, button, [role="button"] {
+a, button, [role="button"], .clickable, .control, [tabindex="0"], img.clickable {
     cursor: none !important;
+    
+    &:hover ~ #custom-cursor,
+    &:hover ~ #custom-cursor-follower {
+        transform: translate(-50%, -50%) scale(1.5);
+    }
 }
 
 #custom-cursor,
 #custom-cursor-follower {
     pointer-events: none;
     position: fixed;
-    z-index: 9999;
+    z-index: 10000;
 }
 
 /* Remove any other cursor-related styles that might be conflicting */

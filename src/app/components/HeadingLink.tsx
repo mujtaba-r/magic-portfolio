@@ -59,23 +59,24 @@ export const HeadingLink: React.FC<HeadingLinkProps> = ({
     const asTag = `h${level}` as keyof JSX.IntrinsicElements;
 
     return (
-        <Flex>
+        <Flex className={`${styles.control} clickable`} direction="row" gap="s" alignItems="center">
             <Toaster toasts={toasts} removeToast={removeToast}/>
             <Flex
+                direction="row"
                 style={style}
                 onClick={() => copyURL(id)}
-                className={styles.control}
+                className="clickable"
                 alignItems="center"
                 gap="4">
                 <Heading
-                    className={styles.text}
+                    className={`${styles.text} clickable`}
                     id={id}
                     variant={variant}
                     as={asTag}>
                     {children}
                 </Heading>
                 <IconButton
-                    className={styles.visibility}
+                    className={`${styles.visibility} clickable`}
                     size="s"
                     icon="openLink"
                     variant="ghost"

@@ -53,9 +53,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     alt={title}
                     aspectRatio="16 / 9"
                     src={images[activeIndex]}
+                    className={images.length > 1 ? 'clickable' : ''}
                     style={{
                         ...(images.length > 1 && {
-                            cursor: 'pointer',
+                            cursor: 'none',
                             border: '1px solid var(--neutral-alpha-weak)',
                             opacity: isTransitioning ? 0.2 : 1,
                             transition: 'opacity 0.2s ease',
