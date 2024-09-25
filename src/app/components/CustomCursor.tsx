@@ -1,52 +1,43 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from './CustomCursor.module.scss';
 
 const CustomCursor: React.FC = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isPointer, setIsPointer] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorRingRef = useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Check if it's a touch device
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsTouchDevice(isTouch);
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
-    if (!isTouch) {
+    if (!isTouchDevice) {
       const moveCursor = (e: MouseEvent) => {
-        setPosition({ x: e.clientX, y: e.clientY });
+        const { clientX, clientY } = e;
+        if (cursorRef.current && cursorRingRef.current) {
+          cursorRef.current.style.left = `${clientX}px`;
+          cursorRef.current.style.top = `${clientY}px`;
+          cursorRingRef.current.style.left = `${clientX}px`;
+          cursorRingRef.current.style.top = `${clientY}px`;
+        }
       };
 
-      const checkPointer = () => {
-        const target = document.elementFromPoint(position.x, position.y);
-        setIsPointer(window.getComputedStyle(target as Element).cursor === 'pointer');
-      };
-
-      window.addEventListener('mousemove', moveCursor);
-      window.addEventListener('mouseover', checkPointer);
+      document.addEventListener('mousemove', moveCursor);
 
       return () => {
-        window.removeEventListener('mousemove', moveCursor);
-        window.removeEventListener('mouseover', checkPointer);
+        document.removeEventListener('mousemove', moveCursor);
       };
     }
-  }, [position.x, position.y]);
+  }, [isTouchDevice]);
 
   if (isTouchDevice) {
-    return null; // Don't render anything on touch devices
+    return null;
   }
 
   return (
     <>
-      <div 
-        className={`${styles.cursor} ${isPointer ? styles.pointer : ''}`}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
-      <div 
-        className={`${styles.cursorFollower} ${isPointer ? styles.pointer : ''}`}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
+      <div ref={cursorRef} className={styles.cursor} />
+      <div ref={cursorRingRef} className={styles.cursorRing} />
     </>
   );
 };

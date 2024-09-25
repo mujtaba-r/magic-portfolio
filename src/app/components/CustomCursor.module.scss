@@ -5,34 +5,17 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    z-index: 10000;
     transform: translate(-50%, -50%);
-  }
-  
-  .cursorFollower {
+}
+
+.cursorRing {
     width: 24px;
     height: 24px;
     border: 2px solid var(--brand-on-background-medium);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9998;
-    transition: 0.1s;
+    z-index: 9999;
     transform: translate(-50%, -50%);
-  }
-  
-  .pointer {
-    &.cursor {
-      width: 16px;
-      height: 16px;
-      background-color: var(--brand-on-background-medium);
-    }
-  
-    &.cursorFollower {
-      width: 32px;
-      height: 32px;
-      background-color: var(--brand-alpha-weak);
-      border: none;
-    }
-  }
+}
