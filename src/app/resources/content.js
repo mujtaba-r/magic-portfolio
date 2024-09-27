@@ -8,7 +8,7 @@ const person = {
     get name() {
         return `${this.firstName} ${this.lastName}`;
     },
-    role:      'Digital Strategy Director',
+    role:      'Multidisciplinary Technologist',
     avatar:    '/images/avatar.jpeg',
     location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
     languages: ['English', 'Urdu', 'Hindi']  // optional: Leave the array empty if you don't want to display languages
@@ -20,8 +20,8 @@ const newsletter = {
     speed="medium"
     count={50}
     trigger="instant"
-  >Subscribe to {person.firstName}'s Newsletter</SparkleFx></>,
-    description: <>I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.</>
+  >Subscribe to My Newsletter</SparkleFx></>,
+    description: <>Exploring the intersection of technology, creativity, and human possibility, I share reflections on innovation, entrepreneurship, and the transformative power of challenging the impossible.</>
 }
 
 const social = [
@@ -78,8 +78,8 @@ const home = {
         '1',
         '+'
       ]}
-    >Freelance Digital Strategy Director</LetterFx></span>,
-    subline: <>Dedicated and diligent Freelance Digital Strategy Director & Web Developer with <br/><InlineCode>4+</InlineCode> years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
+    >Multidisciplinary Technologist</LetterFx></span>,
+    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Multidsciplinary Technologist</InlineCode> exploring the dynamic intersections of technology, creativity, and human potential. With a passion for continuous learning, I delve into design, development, and innovation to create solutions that inspire and empower. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
 }
 
 const about = {
@@ -100,7 +100,10 @@ const about = {
     intro: {
         display: true,
         title: 'Introduction',
-        description: <>Mujtaba is a Canada-based Freelance Digital Strategy Director & Web Developer with 4+ years of experience in overseeing website development, enhancing user support, and utilizing tools & programming languages including Blender & Python. Proficient in implementing engineering principles, creating software solutions, analyzing business & user requirements, and drafting technical documentation.</>
+        description: 
+        <>
+        <p>Fueled by insatiable curiosity and a commitment to lifelong learning, I thrive at the crossroads of technology and creativity. From software and web development to project management and business analytics, I immerse myself in diverse fields to craft <Link href = '/work'>innovative solutions.</Link> By blending engineering principles with creative insight, I aim to make a meaningful impact and inspire others to explore, learn, and innovate alongside me.</p>
+        </>
     },
     work: {
         display: true, // set to false to hide this section
