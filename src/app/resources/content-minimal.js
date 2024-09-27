@@ -79,7 +79,7 @@ const home = {
         '+'
       ]}
     >Multidisciplinary Technologist</LetterFx></span>,
-    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Multidsciplinary Technologist</InlineCode> exploring the dynamic intersections of technology, creativity, and human potential. With a passion for continuous learning, I delve into design, development, and innovation to create solutions that inspire and empower. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
+    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Multidisciplinary Technologist</InlineCode> exploring the dynamic intersections of technology, creativity, and human potential. With a passion for continuous learning, I delve into design, development, and innovation to create solutions that inspire and empower. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
 }
 
 const about = {
