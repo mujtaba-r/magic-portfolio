@@ -1,4 +1,5 @@
-import { formatDate, getPosts } from '@/app/utils';
+import { formatDate } from '@/app/utils';
+import { getPosts } from '@/app/lib/server';
 import { Flex, Grid, Heading, SmartLink, Text } from '@/once-ui/components';
 import styles from '@/app/blog/components/Posts.module.scss';
 
@@ -7,11 +8,11 @@ interface PostsProps {
     columns?: '1' | '2' | '3';
 }
 
-export function Posts({
+export async function Posts({
     range,
     columns = '1'
 }: PostsProps) {
-    let allBlogs = getPosts(['src', 'app', 'blog', 'posts']);
+    let allBlogs = await getPosts(['src', 'app', 'blog', 'posts']);
 
     const sortedBlogs = allBlogs.sort((a, b) => {
         return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();

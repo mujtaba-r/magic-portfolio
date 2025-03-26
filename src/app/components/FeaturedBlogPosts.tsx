@@ -70,6 +70,7 @@ export function FeaturedBlogPosts() {
                     style={{
                         transform: `translateY(${scrollY * 0.3}px)`,
                     }}>
+                    {/* @ts-expect-error Async Server Component */}
                     <Posts range={[1, 3]} columns="3" />
                 </div>
             </RevealFx>
