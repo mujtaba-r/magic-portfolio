@@ -1,6 +1,7 @@
 import { getPosts } from '@/app/lib/server';
 import { Flex } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
+import styles from '@/app/blog/blog.module.scss';
 
 export default async function BlogPage() {
 	const posts = await getPosts('blog');
@@ -18,22 +19,12 @@ export default async function BlogPage() {
 			}}>
 			<Flex
 				direction="column"
-				fillWidth maxWidth="s" gap="m">
-				<h1
-					style={{
-						color: 'var(--accent)',
-						fontWeight: 'bold',
-						fontSize: '2.5rem',
-						lineHeight: '1.2',
-					}}>
+				fillWidth maxWidth="s" gap="m"
+				className={styles.blogContainer}>
+				<h1 className={styles.title}>
 					Blog
 				</h1>
-				<p
-					style={{
-						color: 'var(--neutral-weak)',
-						fontSize: '1.25rem',
-						lineHeight: '1.5',
-					}}>
+				<p className={styles.description}>
 					Insights on technology, entrepreneurship, and the future of AI.
 				</p>
 			</Flex>

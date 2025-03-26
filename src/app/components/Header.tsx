@@ -22,14 +22,13 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            const options: Intl.DateTimeFormatOptions = {
+            const timeOptions: Intl.DateTimeFormatOptions = {
                 timeZone,
-                hour: '2-digit',
+                hour: 'numeric',
                 minute: '2-digit',
-                second: '2-digit',
-                hour12: false,
+                hour12: true,
             };
-            const timeString = new Intl.DateTimeFormat(locale, options).format(now);
+            const timeString = new Intl.DateTimeFormat(locale, timeOptions).format(now);
             setCurrentTime(timeString);
         };
 
@@ -40,9 +39,13 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
     }, [timeZone, locale]);
 
     return (
-        <>
+        <span style={{ 
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+            letterSpacing: '0.5px'
+        }}>
             {currentTime}
-        </>
+        </span>
     );
 };
 
@@ -59,7 +62,6 @@ export const Header = () => {
             fillWidth padding="8"
             justifyContent="center">
             <Flex
-                hide="s"
                 paddingLeft="12" fillWidth
                 alignItems="center"
                 textVariant="body-default-s">
@@ -118,7 +120,6 @@ export const Header = () => {
                 </Flex>
             </Flex>
             <Flex
-                hide="s"
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
                 textVariant="body-default-s">

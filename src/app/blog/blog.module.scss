@@ -1,0 +1,28 @@
+.blogContainer {
+    padding: 0 1rem;
+
+    @media (max-width: 768px) {
+        padding: 0 0.5rem;
+    }
+}
+
+.title {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+}
+
+.description {
+    color: var(--neutral-weak);
+    font-size: 1.25rem;
+    line-height: 1.5;
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+    }
+} 

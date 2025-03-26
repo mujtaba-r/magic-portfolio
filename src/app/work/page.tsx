@@ -53,18 +53,20 @@ export default async function WorkPage() {
 					style={{
 						color: 'var(--accent)',
 						fontWeight: 'bold',
-						fontSize: '2.5rem',
+						fontSize: '3rem',
 						lineHeight: '1.2',
+						marginBottom: '1rem',
 					}}>
-					Projects
+					My Work & Projects
 				</h1>
 				<p
 					style={{
 						color: 'var(--neutral-weak)',
-						fontSize: '1.25rem',
+						fontSize: '1.5rem',
 						lineHeight: '1.5',
+						marginBottom: '2rem',
 					}}>
-					Check out some of my latest projects showcasing AI-powered solutions and modern development practices.
+					Explore my portfolio of innovative projects, from AI-powered applications to full-stack web solutions.
 				</p>
 			</Flex>
 			<div className="projects-grid">

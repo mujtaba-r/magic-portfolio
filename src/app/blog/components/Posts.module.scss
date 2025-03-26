@@ -1,5 +1,7 @@
 .hover {
     transition: var(--transition-property) var(--transition-duration-micro-medium) var(--transition-timing-function);
+    display: block;
+    width: 100%;
 
     &:hover {
         transform: translateX(var(--static-space-8));
@@ -8,10 +10,34 @@
             transform: rotate(0);
         }
     }
+
+    @media (max-width: 768px) {
+        &:hover {
+            transform: none;
+        }
+    }
 }
 
 .indicator {
     transform: rotate(-90deg);
     left: -2rem;
     transition: var(--transition-property) var(--transition-duration-micro-medium) var(--transition-timing-function);
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    padding: 0 1rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
 }
