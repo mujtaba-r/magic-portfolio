@@ -42,7 +42,10 @@ export function FeaturedProjects() {
             }}>
             <div 
                 className={styles.scrollProgress}
-                style={{ '--scroll': `${scrollProgress}%` } as React.CSSProperties}
+                style={{ 
+                    '--scroll': `${scrollProgress}%`,
+                    width: `${scrollProgress}%`
+                } as React.CSSProperties}
             />
             <Flex
                 direction="column"

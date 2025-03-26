@@ -42,12 +42,17 @@ export function FeaturedBlogPosts() {
             <div 
                 className={styles.parallaxBackground}
                 style={{
-                    transform: `translateY(${scrollY * 0.5}px) translateZ(-1px) scale(2)`,
+                    transform: `translate3d(0, ${scrollY * 0.5}px, 0)`,
+                    willChange: 'transform'
                 }}
             />
             <Flex
                 direction="column"
-                fillWidth maxWidth="s" gap="m">
+                fillWidth maxWidth="s" gap="m"
+                style={{
+                    position: 'relative',
+                    zIndex: 1
+                }}>
                 <RevealFx translateY="4" speed="medium">
                     <Heading
                         wrap="balance"
@@ -56,7 +61,8 @@ export function FeaturedBlogPosts() {
                         style={{
                             color: 'var(--accent)',
                             fontWeight: 'bold',
-                            transform: `translateY(${scrollY * 0.2}px)`,
+                            transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
+                            willChange: 'transform'
                         }}>
                         Latest Thoughts
                     </Heading>
@@ -68,7 +74,8 @@ export function FeaturedBlogPosts() {
                         variant="body-default-l"
                         className={styles.sectionDescription}
                         style={{
-                            transform: `translateY(${scrollY * 0.1}px)`,
+                            transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
+                            willChange: 'transform'
                         }}>
                         Insights on technology, entrepreneurship, and the future of AI.
                     </Text>

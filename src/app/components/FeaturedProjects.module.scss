@@ -1,7 +1,4 @@
 .projectsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
     width: 100%;
     padding: 2rem;
     background: rgba(var(--background-rgb), 0.5);
@@ -11,6 +8,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 
     &::before {
         content: '';
@@ -34,12 +32,16 @@
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.2;
     margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .sectionDescription {
     font-size: clamp(1.1rem, 2vw, 1.25rem);
     line-height: 1.6;
     opacity: 0.9;
+    position: relative;
+    z-index: 2;
 }
 
 .scrollProgress {

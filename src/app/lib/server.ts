@@ -85,12 +85,19 @@ function getMDXData(dir: string) {
         .filter((data): data is NonNullable<typeof data> => data !== null);
 }
 
-export async function getPosts(customPath = ['', '', '', '']) {
-    const postsDir = path.join(process.cwd(), ...customPath);
+export async function getPosts(customPath: string[]) {
     try {
-        return getMDXData(postsDir);
+        // Filter out empty strings from the path
+        const filteredPath = customPath.filter(Boolean);
+        const postsDir = path.join(process.cwd(), ...filteredPath);
+        
+        console.log('Reading posts from:', postsDir);
+        const data = getMDXData(postsDir);
+        console.log('Found posts:', data.length);
+        
+        return data;
     } catch (error) {
-        console.error(`Error reading posts from ${postsDir}:`, error);
+        console.error(`Error reading posts from ${customPath.join('/')}:`, error);
         return [];
     }
 } 
