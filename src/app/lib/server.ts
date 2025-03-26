@@ -28,7 +28,9 @@ function getMDXFiles(dir: string) {
             return [];
         }
 
-        return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+        const files = fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+        console.log(`Found ${files.length} MDX files in ${dir}`);
+        return files;
     } catch (error) {
         console.error(`Error reading directory ${dir}:`, error);
         return [];
@@ -61,6 +63,7 @@ function readMDXFile(filePath: string) {
             tags: data.tags || [],
         };
 
+        console.log(`Successfully read file ${filePath} with title: ${metadata.title}`);
         return { metadata, content };
     } catch (error) {
         console.error(`Error reading file ${filePath}:`, error);
@@ -69,10 +72,14 @@ function readMDXFile(filePath: string) {
 }
 
 function getMDXData(dir: string) {
+    console.log(`Getting MDX data from directory: ${dir}`);
     const mdxFiles = getMDXFiles(dir);
-    return mdxFiles
+    
+    const data = mdxFiles
         .map((file) => {
-            const fileData = readMDXFile(path.join(dir, file));
+            const filePath = path.join(dir, file);
+            console.log(`Processing file: ${filePath}`);
+            const fileData = readMDXFile(filePath);
             if (!fileData) return null;
             
             const slug = path.basename(file, path.extname(file));
@@ -83,21 +90,29 @@ function getMDXData(dir: string) {
             };
         })
         .filter((data): data is NonNullable<typeof data> => data !== null);
+
+    console.log(`Processed ${data.length} files successfully`);
+    return data;
 }
 
 export async function getPosts(customPath: string[]) {
     try {
-        // Filter out empty strings from the path
+        console.log('getPosts called with path:', customPath);
+        
+        // Filter out empty strings and normalize path
         const filteredPath = customPath.filter(Boolean);
         const postsDir = path.join(process.cwd(), ...filteredPath);
         
-        console.log('Reading posts from:', postsDir);
+        console.log('Resolved directory path:', postsDir);
+        console.log('Directory exists:', fs.existsSync(postsDir));
+        
         const data = getMDXData(postsDir);
-        console.log('Found posts:', data.length);
+        console.log(`Found ${data.length} posts in ${postsDir}`);
         
         return data;
     } catch (error) {
-        console.error(`Error reading posts from ${customPath.join('/')}:`, error);
+        console.error(`Error in getPosts:`, error);
+        console.error(`Failed path: ${customPath.join('/')}`);
         return [];
     }
 } 

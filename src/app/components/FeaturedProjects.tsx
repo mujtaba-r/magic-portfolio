@@ -19,13 +19,21 @@ export function FeaturedProjects() {
     const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (window.scrollY / scrollHeight) * 100;
-            setScrollProgress(progress);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = Math.min(100, Math.max(0, (window.scrollY / scrollHeight) * 100));
+                    setScrollProgress(progress);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -39,13 +47,11 @@ export function FeaturedProjects() {
                 position: 'relative',
                 background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
                 overflow: 'hidden',
+                minHeight: '100vh',
             }}>
             <div 
                 className={styles.scrollProgress}
-                style={{ 
-                    '--scroll': `${scrollProgress}%`,
-                    width: `${scrollProgress}%`
-                } as React.CSSProperties}
+                style={{ width: `${scrollProgress}%` }}
             />
             <Flex
                 direction="column"
@@ -92,6 +98,8 @@ export function FeaturedProjects() {
                     filter: 'blur(100px)',
                     opacity: 0.3,
                     pointerEvents: 'none',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden'
                 }}
             />
             <Flex
@@ -106,6 +114,8 @@ export function FeaturedProjects() {
                     filter: 'blur(100px)',
                     opacity: 0.2,
                     pointerEvents: 'none',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden'
                 }}
             />
         </Flex>

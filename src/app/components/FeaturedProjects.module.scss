@@ -9,6 +9,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
+    min-height: 200px;
 
     &::before {
         content: '';
@@ -50,7 +51,7 @@
     left: 0;
     height: 2px;
     background: var(--accent);
-    width: var(--scroll);
+    transition: width 0.1s ease;
     z-index: 100;
 }
 

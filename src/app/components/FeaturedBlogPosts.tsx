@@ -19,11 +19,19 @@ export function FeaturedBlogPosts() {
     const [scrollY, setScrollY] = useState(0);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            setScrollY(window.scrollY);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setScrollY(window.scrollY);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -38,12 +46,14 @@ export function FeaturedBlogPosts() {
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
                 overflow: 'hidden',
                 perspective: '1000px',
+                minHeight: '100vh',
             }}>
             <div 
                 className={styles.parallaxBackground}
                 style={{
                     transform: `translate3d(0, ${scrollY * 0.5}px, 0)`,
-                    willChange: 'transform'
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden'
                 }}
             />
             <Flex
@@ -62,7 +72,8 @@ export function FeaturedBlogPosts() {
                             color: 'var(--accent)',
                             fontWeight: 'bold',
                             transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
-                            willChange: 'transform'
+                            willChange: 'transform',
+                            backfaceVisibility: 'hidden'
                         }}>
                         Latest Thoughts
                     </Heading>
@@ -75,7 +86,8 @@ export function FeaturedBlogPosts() {
                         className={styles.sectionDescription}
                         style={{
                             transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
-                            willChange: 'transform'
+                            willChange: 'transform',
+                            backfaceVisibility: 'hidden'
                         }}>
                         Insights on technology, entrepreneurship, and the future of AI.
                     </Text>
@@ -85,7 +97,9 @@ export function FeaturedBlogPosts() {
                 <div 
                     className={styles.postsGrid}
                     style={{
-                        transform: `translateY(${scrollY * 0.3}px)`,
+                        transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
+                        willChange: 'transform',
+                        backfaceVisibility: 'hidden'
                     }}>
                     <Suspense fallback={<LoadingPosts />}>
                         {/* @ts-ignore */}
@@ -105,7 +119,9 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.3,
                     pointerEvents: 'none',
-                    transform: `translateY(${scrollY * 0.4}px)`,
+                    transform: `translate3d(0, ${scrollY * 0.4}px, 0)`,
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden'
                 }}
             />
             <Flex
@@ -120,7 +136,9 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.2,
                     pointerEvents: 'none',
-                    transform: `translateY(${scrollY * 0.2}px)`,
+                    transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden'
                 }}
             />
         </Flex>
