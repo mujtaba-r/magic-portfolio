@@ -6,59 +6,6 @@
     }
 }
 
-@media (--s) {
-    .textAlign {
-        text-align: center;
-    }
-
-    .blockAlign {
-        align-self: center;
-    }
-}
-
-.blockAlign {
-    @media (min-width: 769px) {
-        margin-left: 200px; // Add space for the table of contents
-    }
-}
-
-.textAlign {
-    @media (min-width: 769px) {
-        margin-left: 200px;
-    }
-}
-
-.tableOfContents {
-    position: fixed;
-    left: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    max-height: 80vh;
-    overflow-y: auto;
-    padding-right: 16px;
-    width: 180px;
-    
-    @media (max-width: 768px) {
-        display: none;
-    }
-
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.mainContent {
-    @media (min-width: 769px) {
-        margin-left: 220px;
-        max-width: calc(100% - 220px);
-    }
-}
-
 @media (max-width: 768px) {
     .textAlign {
         text-align: center;
