@@ -61,6 +61,7 @@ export function FeaturedProjects() {
             </Flex>
             <RevealFx translateY="16" delay={0.4} speed="medium">
                 <div className={styles.projectsGrid}>
+                    {/* @ts-expect-error Async Server Component */}
                     <Projects range={[1, 3]} />
                 </div>
             </RevealFx>
