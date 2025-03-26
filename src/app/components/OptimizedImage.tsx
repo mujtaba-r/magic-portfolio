@@ -8,9 +8,9 @@ const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <linearGradient id="g">
-      <stop stop-color="#333" offset="20%" />
-      <stop stop-color="#222" offset="50%" />
-      <stop stop-color="#333" offset="70%" />
+      <stop stop-color="#444" offset="20%" />
+      <stop stop-color="#333" offset="50%" />
+      <stop stop-color="#444" offset="70%" />
     </linearGradient>
   </defs>
   <rect width="${w}" height="${h}" fill="#333" />
@@ -33,6 +33,7 @@ interface OptimizedImageProps {
     style?: React.CSSProperties;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
     sizes?: string;
+    aspectRatio?: string;
 }
 
 export function OptimizedImage({
@@ -44,7 +45,8 @@ export function OptimizedImage({
     className = '',
     style,
     objectFit = 'cover',
-    sizes = '100vw'
+    sizes = '100vw',
+    aspectRatio
 }: OptimizedImageProps) {
     const [isLoading, setLoading] = useState(true);
 
@@ -54,6 +56,7 @@ export function OptimizedImage({
             style={{
                 position: 'relative',
                 overflow: 'hidden',
+                aspectRatio: aspectRatio || (width && height ? `${width}/${height}` : '16/9'),
                 ...style
             }}>
             <Image
@@ -68,7 +71,11 @@ export function OptimizedImage({
                 className={`transition-opacity duration-300 ${
                     isLoading ? 'opacity-0' : 'opacity-100'
                 }`}
-                style={{ objectFit }}
+                style={{ 
+                    objectFit,
+                    width: '100%',
+                    height: '100%'
+                }}
                 onLoadingComplete={() => setLoading(false)}
             />
         </Flex>

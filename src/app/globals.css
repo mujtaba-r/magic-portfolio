@@ -3,6 +3,8 @@
     width: 100%;
     background-color: var(--color-neutral-medium);
     transition: background-color 0.3s ease;
+    border-radius: var(--radius-m);
+    overflow: hidden;
 }
 
 .image-container.is-loading {
@@ -28,4 +30,19 @@
 
 .opacity-100 {
     opacity: 1;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .image-container {
+        border-radius: var(--radius-s);
+    }
+
+    .responsive-padding {
+        padding: var(--static-space-m) !important;
+    }
+
+    .mobileBodyPadding {
+        padding-bottom: 5rem;
+    }
 } 

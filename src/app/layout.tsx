@@ -131,11 +131,17 @@ export default function RootLayout({ children } : RootLayoutProps) {
 					<Header/>
 					<Flex
 						zIndex={0}
-						fillWidth paddingY="l" paddingX="l"
-						justifyContent="center" flex={1}>
+						fillWidth 
+						paddingY="l"
+						paddingX="l"
+						justifyContent="center" 
+						flex={1}
+						className="responsive-padding mobileBodyPadding">
 						<Flex
 							justifyContent="center"
-							fillWidth minHeight="0">
+							fillWidth 
+							minHeight="0"
+							maxWidth="xl">
 							<RouteGuard>
 								<PageTransition>
 									{children}
