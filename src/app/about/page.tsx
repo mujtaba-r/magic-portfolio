@@ -85,10 +85,9 @@ export default function About() {
             />
             { about.tableOfContent.display && (
                 <Flex
-                    style={{ left: '0', top: '50%', transform: 'translateY(-50%)' }}
-                    position="fixed"
-                    paddingLeft="24" gap="32"
-                    direction="column" hide="s">
+                    className={styles.tableOfContents}
+                    gap="32"
+                    direction="column">
                     <TableOfContents
                         structure={structure}
                         about={about} />

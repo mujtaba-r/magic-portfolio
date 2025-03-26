@@ -54,13 +54,6 @@ export default TimeDisplay;
 export const Header = () => {
     const pathname = usePathname() ?? '';
 
-    useEffect(() => {
-        document.body.classList.add(styles.mobileBodyPadding);
-        return () => {
-            document.body.classList.remove(styles.mobileBodyPadding);
-        };
-    }, []);
-
     return (
         <Flex style={{height: 'fit-content'}}
             className={styles.position}

@@ -79,7 +79,7 @@ const home = {
         '+'
       ]}
     >Software Developer, Digital Strategist & Project Manager</LetterFx></span>,
-    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Software Developer, Digital Strategist & Project Manager</InlineCode> with over 4 years of experience bridging the gap between technology and business. I specialize in transforming complex business challenges into scalable, user-centric solutions by leveraging a versatile tech stack and modern digital tools. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
+    subline: <>I'm a software developer and digital strategist specializing in building scalable solutions that bridge technology and business needs. With expertise in full-stack development and project management, I help organizations leverage technology to achieve their strategic goals.</>
 }
 
 const about = {
@@ -102,8 +102,8 @@ const about = {
         title: 'Introduction',
         description: 
         <>
-        <p>I'm a results-driven Digital Strategist, Software Developer, Project Manager, and Business Analyst with over 4 years of experience bridging the gap between technology and business. I specialize in transforming complex business challenges into scalable, user-centric solutions by leveraging a versatile tech stack—including Python, Java, C#, HTML, CSS, JavaScript, and PHP—and modern digital tools.</p>
-        <p>Working across Canada and the USA, I've honed my ability to manage projects end-to-end using agile methodologies, ensuring that every solution aligns with strategic business objectives while meeting rigorous technical standards. I excel at collaborating with cross-functional teams to gather requirements, define technical specifications, and deliver high-impact projects on time and within budget.</p>
+        <p>As a software developer and digital strategist, I combine technical expertise with business acumen to deliver impactful solutions. My experience spans full-stack development, project management, and digital transformation initiatives across Canada and the USA.</p>
+        <p>I specialize in developing scalable applications using modern technologies including Python, Java, JavaScript, and cloud platforms. My approach focuses on creating efficient, user-centric solutions while ensuring alignment with business objectives through agile methodologies and effective stakeholder collaboration.</p>
         </>
     },
     work: {
