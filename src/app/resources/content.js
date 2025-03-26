@@ -46,11 +46,6 @@ const social = [
         name: 'Email',
         icon: 'email',
         link: 'mailto:mujtabahassanrizvi@outlook.com',
-    },
-    {
-        name: 'Phone',
-        icon: 'phone',
-        link: 'tel:+16472263527',
     }
 ]
 

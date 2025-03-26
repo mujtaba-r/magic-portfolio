@@ -29,9 +29,8 @@ export function Hero({ title, subtitle }: HeroProps) {
                         wrap="balance"
                         variant="display-strong-xl"
                         style={{
-                            background: 'linear-gradient(45deg, var(--accent), var(--accent-strong))',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
+                            color: 'var(--accent)',
+                            fontWeight: 'bold',
                         }}>
                         {title}
                     </Heading>

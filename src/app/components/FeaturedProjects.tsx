@@ -22,9 +22,8 @@ export function FeaturedProjects() {
                         wrap="balance"
                         variant="display-strong-l"
                         style={{
-                            background: 'linear-gradient(45deg, var(--accent), var(--accent-strong))',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
+                            color: 'var(--accent)',
+                            fontWeight: 'bold',
                         }}>
                         Featured Projects
                     </Heading>
