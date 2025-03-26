@@ -1,4 +1,4 @@
-import { getPosts } from '@/app/utils';
+import { getPosts } from '@/app/lib/server';
 import { Flex } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import { baseURL, person, work } from '../resources';
@@ -32,39 +32,72 @@ export function generateMetadata() {
 	};
 }
 
-export default function Work() {
-    let allProjects = getPosts(['src', 'app', 'work', 'projects']);
+export default async function WorkPage() {
+	const posts = await getPosts(['src', 'app', 'work', 'projects']);
 
-    return (
-        <Flex
-			fillWidth maxWidth="m"
-			direction="column">
-            <script
-                type="application/ld+json"
-                suppressHydrationWarning
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'CollectionPage',
-                        headline: work.title,
-                        description: work.description,
-                        url: `https://${baseURL}/projects`,
-                        image: `${baseURL}/og?title=Design%20Projects`,
-                        author: {
-                            '@type': 'Person',
-                            name: person.name,
-                        },
-                        hasPart: allProjects.map(project => ({
-                            '@type': 'CreativeWork',
-                            headline: project.metadata.title,
-                            description: project.metadata.summary,
-                            url: `https://${baseURL}/projects/${project.slug}`,
-                            image: `${baseURL}/${project.metadata.image}`,
-                        })),
-                    }),
-                }}
-            />
-            <Projects/>
-        </Flex>
-    );
+	return (
+		<Flex
+			fillWidth
+			direction="column"
+			paddingY="xl"
+			gap="l"
+			style={{
+				position: 'relative',
+				background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
+				overflow: 'hidden',
+			}}>
+			<Flex
+				direction="column"
+				fillWidth maxWidth="s" gap="m">
+				<h1
+					style={{
+						color: 'var(--accent)',
+						fontWeight: 'bold',
+						fontSize: '2.5rem',
+						lineHeight: '1.2',
+					}}>
+					Projects
+				</h1>
+				<p
+					style={{
+						color: 'var(--neutral-weak)',
+						fontSize: '1.25rem',
+						lineHeight: '1.5',
+					}}>
+					Check out some of my latest projects showcasing AI-powered solutions and modern development practices.
+				</p>
+			</Flex>
+			<div className="projects-grid">
+				<Projects />
+			</div>
+			<Flex
+				style={{
+					position: 'absolute',
+					top: '50%',
+					left: '10%',
+					width: '400px',
+					height: '400px',
+					background: 'var(--accent-weak)',
+					borderRadius: '50%',
+					filter: 'blur(100px)',
+					opacity: 0.3,
+					pointerEvents: 'none',
+				}}
+			/>
+			<Flex
+				style={{
+					position: 'absolute',
+					bottom: '20%',
+					right: '10%',
+					width: '300px',
+					height: '300px',
+					background: 'var(--accent-weak)',
+					borderRadius: '50%',
+					filter: 'blur(100px)',
+					opacity: 0.2,
+					pointerEvents: 'none',
+				}}
+			/>
+		</Flex>
+	);
 }

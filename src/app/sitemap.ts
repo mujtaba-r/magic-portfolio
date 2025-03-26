@@ -1,21 +1,44 @@
-import { getPosts } from '@/app/utils'
+import { getPosts } from '@/app/lib/server'
 import { baseURL } from '@/app/resources'
 
 export default async function sitemap() {
-    let blogs = getPosts(['src', 'app', 'blog', 'posts']).map((post) => ({
-        url: `${baseURL}/blog/${post.slug}`,
-        lastModified: post.metadata.publishedAt,
+    const blogPosts = await getPosts(['src', 'app', 'blog', 'posts'])
+    const workPosts = await getPosts(['src', 'app', 'work', 'projects'])
+
+    const blogUrls = blogPosts.map((post) => ({
+        url: `https://${baseURL}/blog/${post.slug}`,
+        lastModified: new Date(post.metadata.publishedAt),
+        changeFrequency: 'weekly',
+        priority: 0.7,
     }))
 
-    let works = getPosts(['src', 'app', 'work', 'projects']).map((post) => ({
-        url: `${baseURL}/work/${post.slug}`,
-        lastModified: post.metadata.publishedAt,
+    const workUrls = workPosts.map((post) => ({
+        url: `https://${baseURL}/work/${post.slug}`,
+        lastModified: new Date(post.metadata.publishedAt),
+        changeFrequency: 'weekly',
+        priority: 0.7,
     }))
 
-    let routes = ['', '/blog', '/work'].map((route) => ({
-        url: `${baseURL}${route}`,
-        lastModified: new Date().toISOString().split('T')[0],
-    }))
-
-    return [...routes, ...blogs, ...works]
+    return [
+        {
+            url: `https://${baseURL}`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 1,
+        },
+        {
+            url: `https://${baseURL}/blog`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
+            url: `https://${baseURL}/work`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        ...blogUrls,
+        ...workUrls,
+    ]
 }

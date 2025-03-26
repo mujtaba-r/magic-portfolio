@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/app/components/mdx'
-import { formatDate, getPosts } from '@/app/utils'
-import { Button, Flex } from '@/once-ui/components'
+import { formatDate } from '@/app/utils';
+import { getPosts } from '@/app/lib/server';
+import { Avatar, Button, Flex, Heading, Text } from '@/once-ui/components'
 import { baseURL, person } from '@/app/resources';
 import { ProjectMetadata } from '@/app/components/ProjectMetadata';
 import { ProjectImages } from '@/app/components/ProjectImages';
 
-interface WorkParams {
+interface WorkPostProps {
     params: {
         slug: string;
     };
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
 	}))
 }
 
-export function generateMetadata({ params }: WorkParams) {
+export function generateMetadata({ params }: WorkPostProps) {
 	let post = getPosts(['src', 'app', 'work', 'projects']).find((post) => post.slug === params.slug)
 	
 	if (!post?.metadata) {
@@ -72,65 +73,77 @@ export function generateMetadata({ params }: WorkParams) {
 	}
 }
 
-export default function Project({ params }: WorkParams) {
-	let post = getPosts(['src', 'app', 'work', 'projects']).find((post) => post.slug === params.slug)
+export default async function WorkPost({ params }: WorkPostProps) {
+	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const post = posts.find((post) => post.slug === params.slug);
 
-	if (!post?.metadata) {
-		notFound()
+	if (!post) {
+		notFound();
 	}
 
-	// Ensure all required fields are present
-	const metadata = {
-		...post.metadata,
-		tags: post.metadata.tags || [],
-	};
-
 	return (
-		<Flex as="section"
-			fillWidth maxWidth="m"
-			direction="column" alignItems="center"
-			gap="l">
-			<script
-				type="application/ld+json"
-				suppressHydrationWarning
-				dangerouslySetInnerHTML={{
-					__html: JSON.stringify({
-						'@context': 'https://schema.org',
-						'@type': 'BlogPosting',
-						headline: metadata.title || '',
-						datePublished: metadata.publishedAt || '',
-						dateModified: metadata.publishedAt || '',
-						description: metadata.summary || '',
-						image: metadata.image
-							? `https://${baseURL}${metadata.image}`
-							: `https://${baseURL}/og?title=${encodeURIComponent(metadata.title || '')}`,
-						url: `https://${baseURL}/work/${post.slug}`,
-						author: {
-							'@type': 'Person',
-							name: person.name,
-						},
-					}),
+		<Flex
+			fillWidth
+			direction="column"
+			paddingY="xl"
+			gap="l"
+			style={{
+				position: 'relative',
+				background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
+				overflow: 'hidden',
+			}}>
+			<Flex
+				direction="column"
+				fillWidth maxWidth="s" gap="m">
+				<Heading
+					wrap="balance"
+					variant="display-strong-l"
+					style={{
+						color: 'var(--accent)',
+						fontWeight: 'bold',
+					}}>
+					{post.metadata.title}
+				</Heading>
+				<Text
+					wrap="balance"
+					onBackground="neutral-weak"
+					variant="body-default-l">
+					{formatDate(post.metadata.publishedAt, true)}
+				</Text>
+			</Flex>
+			<Flex
+				direction="column"
+				fillWidth maxWidth="s" gap="l">
+				<CustomMDX source={post.content} />
+			</Flex>
+			<Flex
+				style={{
+					position: 'absolute',
+					bottom: '20%',
+					right: '10%',
+					width: '400px',
+					height: '400px',
+					background: 'var(--accent-weak)',
+					borderRadius: '50%',
+					filter: 'blur(100px)',
+					opacity: 0.3,
+					pointerEvents: 'none',
 				}}
 			/>
 			<Flex
-				fillWidth maxWidth="xs" gap="16"
-				direction="column">
-				<Button
-					href="/work"
-					variant="tertiary"
-					size="s"
-					prefixIcon="chevronLeft">
-					Projects
-				</Button>
-				<ProjectMetadata metadata={metadata} />
-			</Flex>
-			<ProjectImages metadata={metadata} />
-			<Flex style={{margin: 'auto'}}
-				as="article"
-				maxWidth="xs" fillWidth
-				direction="column">
-				<CustomMDX source={post.content} />
-			</Flex>
+				style={{
+					position: 'absolute',
+					top: '20%',
+					left: '10%',
+					width: '300px',
+					height: '300px',
+					background: 'var(--accent-weak)',
+					borderRadius: '50%',
+					filter: 'blur(100px)',
+					opacity: 0.2,
+					pointerEvents: 'none',
+				}}
+			/>
 		</Flex>
-	)
+	);
 }
