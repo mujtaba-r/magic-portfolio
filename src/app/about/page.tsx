@@ -268,7 +268,12 @@ export default function About() {
 															radius="m"
 															sizes={image.width.toString()}
 															alt={image.alt}
-															src={image.src}/>
+															src={image.src}
+															loading="lazy"
+															onError={(e) => {
+																console.error(`Failed to load image: ${image.src}`);
+																e.currentTarget.style.display = 'none';
+															}}/>
 													</Flex>
 												))}
 											</Flex>
@@ -347,7 +352,12 @@ export default function About() {
 															radius="m"
 															sizes={image.width.toString()}
 															alt={image.alt}
-															src={image.src}/>
+															src={image.src}
+															loading="lazy"
+															onError={(e) => {
+																console.error(`Failed to load image: ${image.src}`);
+																e.currentTarget.style.display = 'none';
+															}}/>
 													</Flex>
 												))}
 											</Flex>

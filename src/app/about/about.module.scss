@@ -15,6 +15,43 @@
     }
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--neutral-medium) 25%,
+        var(--neutral-weak) 37%,
+        var(--neutral-medium) 63%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+    
+    &.text {
+        height: 1em;
+        margin-bottom: 0.5em;
+    }
+    
+    &.image {
+        aspect-ratio: 16/9;
+        width: 100%;
+    }
+    
+    &.avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+}
+
 @media (max-width: 768px) {
     .textAlign {
         text-align: center;
