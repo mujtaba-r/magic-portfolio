@@ -14,7 +14,7 @@ export async function Posts({
 }: PostsProps) {
     try {
         console.log('Posts component: Fetching blog posts...');
-        let allBlogs = await getPosts(['src', 'app', 'blog', 'posts']);
+        let allBlogs = await getPosts('blog');
         console.log(`Posts component: Found ${allBlogs.length} blog posts`);
 
         if (allBlogs.length === 0) {

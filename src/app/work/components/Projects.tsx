@@ -9,7 +9,7 @@ interface ProjectsProps {
 export async function Projects({ range }: ProjectsProps) {
     try {
         console.log('Projects component: Fetching projects...');
-        let allProjects = await getPosts(['src', 'app', 'work', 'projects']);
+        let allProjects = await getPosts('work');
         console.log(`Projects component: Found ${allProjects.length} projects`);
 
         if (allProjects.length === 0) {

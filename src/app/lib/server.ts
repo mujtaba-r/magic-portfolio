@@ -21,6 +21,12 @@ type Metadata = {
     tags: string[];
 };
 
+type ContentType = 'blog' | 'work';
+
+function getContentDirectory(type: ContentType) {
+    return path.join(process.cwd(), 'src', 'app', '_content', type);
+}
+
 function getMDXFiles(dir: string) {
     try {
         if (!fs.existsSync(dir)) {
@@ -95,24 +101,21 @@ function getMDXData(dir: string) {
     return data;
 }
 
-export async function getPosts(customPath: string[]) {
+export async function getPosts(type: ContentType) {
     try {
-        console.log('getPosts called with path:', customPath);
+        console.log('getPosts called with type:', type);
         
-        // Filter out empty strings and normalize path
-        const filteredPath = customPath.filter(Boolean);
-        const postsDir = path.join(process.cwd(), ...filteredPath);
+        const contentDir = getContentDirectory(type);
+        console.log('Content directory:', contentDir);
+        console.log('Directory exists:', fs.existsSync(contentDir));
         
-        console.log('Resolved directory path:', postsDir);
-        console.log('Directory exists:', fs.existsSync(postsDir));
-        
-        const data = getMDXData(postsDir);
-        console.log(`Found ${data.length} posts in ${postsDir}`);
+        const data = getMDXData(contentDir);
+        console.log(`Found ${data.length} posts in ${contentDir}`);
         
         return data;
     } catch (error) {
         console.error(`Error in getPosts:`, error);
-        console.error(`Failed path: ${customPath.join('/')}`);
+        console.error(`Failed type: ${type}`);
         return [];
     }
 } 
