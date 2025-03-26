@@ -94,12 +94,13 @@ export default function About() {
                 </Flex>
             )}
             <Flex
+                className={styles.mainContent}
                 fillWidth
                 mobileDirection="column" justifyContent="center">
                 { about.avatar.display && (
                     <Flex
                         minWidth="160" paddingX="l" paddingBottom="xl" gap="m"
-                        flex={3} direction="column" alignItems="center">
+                        direction="column" alignItems="center">
                         <Avatar
                             src={person.avatar}
                             size="xl"/>
@@ -127,8 +128,7 @@ export default function About() {
                     </Flex>
                 )}
                 <Flex
-                    className={styles.blockAlign}
-                    fillWidth flex={9} maxWidth={40} direction="column">
+                    fillWidth direction="column">
                     <Flex
                         id={about.intro.title}
                         fillWidth minHeight="160"
