@@ -105,12 +105,6 @@ export default async function WorkPost({ params }: WorkPostProps) {
 					}}>
 					{post.metadata.title}
 				</Heading>
-				<Text
-					wrap="balance"
-					onBackground="neutral-weak"
-					variant="body-default-l">
-					{formatDate(post.metadata.publishedAt, true)}
-				</Text>
 			</Flex>
 			<Flex
 				direction="column"
