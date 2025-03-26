@@ -66,8 +66,7 @@ export function Header() {
                 <Flex
                     className={styles.navContainer}
                     background="surface"
-                    radius="l"
-                    padding="xs">
+                    radius="l">
                     <nav aria-label="Main navigation">
                         <Flex
                             as="ul"
