@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Flex, Heading, Text, Button, Avatar, RevealFx } from '@/once-ui/components';
 import { about, person } from '@/app/resources';

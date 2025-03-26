@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
