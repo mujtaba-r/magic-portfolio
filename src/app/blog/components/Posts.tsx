@@ -12,57 +12,72 @@ export async function Posts({
     range,
     columns = '1'
 }: PostsProps) {
-    let allBlogs = await getPosts(['src', 'app', 'blog', 'posts']);
+    try {
+        let allBlogs = await getPosts(['src', 'app', 'blog', 'posts']);
 
-    const sortedBlogs = allBlogs.sort((a, b) => {
-        return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
-    });
+        const sortedBlogs = allBlogs.sort((a, b) => {
+            try {
+                const dateA = new Date(a.metadata.publishedAt);
+                const dateB = new Date(b.metadata.publishedAt);
+                if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+                    return 0;
+                }
+                return dateB.getTime() - dateA.getTime();
+            } catch (error) {
+                console.warn('Error sorting dates:', error);
+                return 0;
+            }
+        });
 
-    const displayedBlogs = range
-        ? sortedBlogs.slice(
-              range[0] - 1,
-              range.length === 2 ? range[1] : sortedBlogs.length 
-          )
-        : sortedBlogs;
+        const displayedBlogs = range
+            ? sortedBlogs.slice(
+                  range[0] - 1,
+                  range.length === 2 ? range[1] : sortedBlogs.length 
+              )
+            : sortedBlogs;
 
-    return (
-        <>
-            { displayedBlogs.length > 0 && (
-                <Grid
-                    columns={`repeat(${columns}, 1fr)`} mobileColumns="1col"
-                    fillWidth marginBottom="40" gap="m" paddingX="l">
-                    {displayedBlogs.map((post) => (
-                        <SmartLink
-                            style={{
-                                textDecoration: 'none',
-                                margin: '0',
-                                height: 'fit-content',
-                            }}
-                            className={styles.hover}
-                            key={post.slug}
-                            href={`/blog/${post.slug}`}>
-                            <Flex
-                                position="relative"
-                                paddingX="16" paddingY="12" gap="8"
-                                direction="column" justifyContent="center">
+        return (
+            <>
+                { displayedBlogs.length > 0 && (
+                    <Grid
+                        columns={`repeat(${columns}, 1fr)`} mobileColumns="1col"
+                        fillWidth marginBottom="40" gap="m" paddingX="l">
+                        {displayedBlogs.map((post) => (
+                            <SmartLink
+                                style={{
+                                    textDecoration: 'none',
+                                    margin: '0',
+                                    height: 'fit-content',
+                                }}
+                                className={styles.hover}
+                                key={post.slug}
+                                href={`/blog/${post.slug}`}>
                                 <Flex
-                                    position="absolute"
-                                    className={styles.indicator}
-                                    width="20" height="2"
-                                    background="neutral-strong"/>
-                                <Heading as="h2" wrap="balance">
-                                    {post.metadata.title}
-                                </Heading>
-                                <Text
-                                    variant="body-default-s"
-                                    onBackground="neutral-weak">
-                                    {formatDate(post.metadata.publishedAt, false)}
-                                </Text>
-                            </Flex>
-                        </SmartLink>
-                    ))}
-                </Grid>
-            )}
-        </>
-    );
+                                    position="relative"
+                                    paddingX="16" paddingY="12" gap="8"
+                                    direction="column" justifyContent="center">
+                                    <Flex
+                                        position="absolute"
+                                        className={styles.indicator}
+                                        width="20" height="2"
+                                        background="neutral-strong"/>
+                                    <Heading as="h2" wrap="balance">
+                                        {post.metadata.title}
+                                    </Heading>
+                                    <Text
+                                        variant="body-default-s"
+                                        onBackground="neutral-weak">
+                                        {formatDate(post.metadata.publishedAt, false)}
+                                    </Text>
+                                </Flex>
+                            </SmartLink>
+                        ))}
+                    </Grid>
+                )}
+            </>
+        );
+    } catch (error) {
+        console.error('Error in Posts component:', error);
+        return null;
+    }
 }

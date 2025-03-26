@@ -2,12 +2,25 @@ export function formatDate(date: string | undefined, includeRelative = false) {
     if (!date) return '';
 
     const currentDate = new Date();
+    let targetDate: Date;
 
-    if (!date.includes('T')) {
-        date = `${date}T00:00:00`;
+    try {
+        // If the date doesn't include time, add it
+        if (!date.includes('T')) {
+            date = `${date}T00:00:00Z`;
+        }
+        
+        // Parse the date and ensure it's in UTC
+        targetDate = new Date(date);
+        if (isNaN(targetDate.getTime())) {
+            console.warn(`Invalid date: ${date}`);
+            return 'Invalid date';
+        }
+    } catch (error) {
+        console.warn(`Error parsing date: ${date}`, error);
+        return 'Invalid date';
     }
 
-    const targetDate = new Date(date);
     const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
     const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
     const daysAgo = currentDate.getDate() - targetDate.getDate();
@@ -28,6 +41,9 @@ export function formatDate(date: string | undefined, includeRelative = false) {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short'
     });
 
     if (!includeRelative) {
