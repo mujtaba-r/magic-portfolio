@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button, Flex, Text } from '@/once-ui/components';
 import styles from '@/app/components/Header.module.scss'
 import { person } from '@/app/resources'
+import ThemeToggle from './ThemeToggle';
 
 interface Route {
     name: string;
@@ -56,42 +57,54 @@ export function Header() {
                 paddingX="m"
                 alignItems="center"
                 justifyContent="space-between">
-                <nav aria-label="Main navigation">
-                    <Flex
-                        as="ul"
-                        role="menubar"
-                        aria-label="Main menu"
-                        gap="s">
-                        {navigationRoutes.map((route) => {
-                            const isActive = pathname === route.href;
-                            return (
-                                <li key={route.name} role="none">
-                                    <Link
-                                        href={route.href}
-                                        passHref
-                                        legacyBehavior>
-                                        <Button
-                                            href={route.href}
-                                            role="menuitem"
-                                            aria-current={isActive ? 'page' : undefined}
-                                            variant={isActive ? 'secondary' : 'tertiary'}
-                                            label={route.name}
-                                            prefixIcon={route.icon}
-                                        />
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </Flex>
-                </nav>
+                <Text 
+                    variant="body-default-s" 
+                    className={styles.location}>
+                    {person.location}
+                </Text>
+                
                 <Flex
-                    as="div"
-                    role="complementary"
-                    aria-label="Current time"
-                    className={styles.time}>
-                    <Text variant="body-default-s">
+                    className={styles.navContainer}
+                    background="surface"
+                    radius="l"
+                    padding="xs">
+                    <nav aria-label="Main navigation">
+                        <Flex
+                            as="ul"
+                            role="menubar"
+                            aria-label="Main menu"
+                            gap="s">
+                            {navigationRoutes.map((route) => {
+                                const isActive = pathname === route.href;
+                                return (
+                                    <li key={route.name} role="none">
+                                        <Link
+                                            href={route.href}
+                                            passHref
+                                            legacyBehavior>
+                                            <Button
+                                                href={route.href}
+                                                role="menuitem"
+                                                aria-current={isActive ? 'page' : undefined}
+                                                variant={isActive ? 'secondary' : 'tertiary'}
+                                                label={route.name}
+                                                prefixIcon={route.icon}
+                                            />
+                                        </Link>
+                                    </li>
+                                );
+                            })}
+                        </Flex>
+                    </nav>
+                </Flex>
+
+                <Flex gap="m" alignItems="center">
+                    <Text 
+                        variant="body-default-s" 
+                        className={styles.time}>
                         {currentTime}
                     </Text>
+                    <ThemeToggle />
                 </Flex>
             </Flex>
         </header>
