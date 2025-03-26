@@ -1,8 +1,9 @@
 'use server';
 
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
+import { cache } from 'react';
 
 type Team = {
     name: string;
@@ -27,30 +28,26 @@ function getContentDirectory(type: ContentType) {
     return path.join(process.cwd(), 'src', 'app', '_content', type);
 }
 
-function getMDXFiles(dir: string) {
+async function getMDXFiles(dir: string) {
     try {
-        if (!fs.existsSync(dir)) {
+        await fs.access(dir);
+        const files = await fs.readdir(dir);
+        const mdxFiles = files.filter((file) => path.extname(file) === '.mdx');
+        console.log(`Found ${mdxFiles.length} MDX files in ${dir}`);
+        return mdxFiles;
+    } catch (error: any) {
+        if (error.code === 'ENOENT') {
             console.warn(`Directory not found: ${dir}`);
-            return [];
+        } else {
+            console.error(`Error reading directory ${dir}:`, error);
         }
-
-        const files = fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
-        console.log(`Found ${files.length} MDX files in ${dir}`);
-        return files;
-    } catch (error) {
-        console.error(`Error reading directory ${dir}:`, error);
         return [];
     }
 }
 
-function readMDXFile(filePath: string) {
+async function readMDXFile(filePath: string) {
     try {
-        if (!fs.existsSync(filePath)) {
-            console.warn(`File not found: ${filePath}`);
-            return null;
-        }
-
-        const rawContent = fs.readFileSync(filePath, 'utf-8');
+        const rawContent = await fs.readFile(filePath, 'utf-8');
         const { data, content } = matter(rawContent);
 
         // Handle both date and publishedAt fields
@@ -71,45 +68,48 @@ function readMDXFile(filePath: string) {
 
         console.log(`Successfully read file ${filePath} with title: ${metadata.title}`);
         return { metadata, content };
-    } catch (error) {
-        console.error(`Error reading file ${filePath}:`, error);
+    } catch (error: any) {
+        if (error.code === 'ENOENT') {
+            console.warn(`File not found: ${filePath}`);
+        } else {
+            console.error(`Error reading file ${filePath}:`, error);
+        }
         return null;
     }
 }
 
-function getMDXData(dir: string) {
+async function getMDXData(dir: string) {
     console.log(`Getting MDX data from directory: ${dir}`);
-    const mdxFiles = getMDXFiles(dir);
+    const mdxFiles = await getMDXFiles(dir);
     
-    const data = mdxFiles
-        .map((file) => {
-            const filePath = path.join(dir, file);
-            console.log(`Processing file: ${filePath}`);
-            const fileData = readMDXFile(filePath);
-            if (!fileData) return null;
-            
-            const slug = path.basename(file, path.extname(file));
-            return {
-                metadata: fileData.metadata,
-                slug,
-                content: fileData.content,
-            };
-        })
-        .filter((data): data is NonNullable<typeof data> => data !== null);
+    const dataPromises = mdxFiles.map(async (file) => {
+        const filePath = path.join(dir, file);
+        console.log(`Processing file: ${filePath}`);
+        const fileData = await readMDXFile(filePath);
+        if (!fileData) return null;
+        
+        const slug = path.basename(file, path.extname(file));
+        return {
+            metadata: fileData.metadata,
+            slug,
+            content: fileData.content,
+        };
+    });
 
+    const results = await Promise.all(dataPromises);
+    const data = results.filter((item): item is NonNullable<typeof item> => item !== null);
     console.log(`Processed ${data.length} files successfully`);
     return data;
 }
 
-export async function getPosts(type: ContentType) {
+export const getPosts = cache(async (type: ContentType) => {
     try {
         console.log('getPosts called with type:', type);
         
         const contentDir = getContentDirectory(type);
         console.log('Content directory:', contentDir);
-        console.log('Directory exists:', fs.existsSync(contentDir));
         
-        const data = getMDXData(contentDir);
+        const data = await getMDXData(contentDir);
         console.log(`Found ${data.length} posts in ${contentDir}`);
         
         return data;
@@ -118,4 +118,4 @@ export async function getPosts(type: ContentType) {
         console.error(`Failed type: ${type}`);
         return [];
     }
-} 
+}); 
