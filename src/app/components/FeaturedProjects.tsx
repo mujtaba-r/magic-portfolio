@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import styles from './FeaturedProjects.module.scss';
@@ -16,27 +16,6 @@ function LoadingProjects() {
 }
 
 export function FeaturedProjects() {
-    const [scrollProgress, setScrollProgress] = useState(0);
-
-    useEffect(() => {
-        let ticking = false;
-
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const progress = Math.min(100, Math.max(0, (window.scrollY / scrollHeight) * 100));
-                    setScrollProgress(progress);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <Flex
             fillWidth
@@ -49,10 +28,6 @@ export function FeaturedProjects() {
                 overflow: 'hidden',
                 minHeight: 'auto',
             }}>
-            <div 
-                className={styles.scrollProgress}
-                style={{ width: `${scrollProgress}%` }}
-            />
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m">
