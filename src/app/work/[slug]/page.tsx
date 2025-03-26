@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/app/components/mdx'
 import { formatDate, getPosts } from '@/app/utils'
-import { AvatarGroup, Button, Flex, Heading, SmartImage, Text } from '@/once-ui/components'
+import { Button, Flex } from '@/once-ui/components'
 import { baseURL, person } from '@/app/resources';
+import { ProjectMetadata } from '@/app/components/ProjectMetadata';
+import { ProjectImages } from '@/app/components/ProjectImages';
 
 interface WorkParams {
     params: {
@@ -35,6 +37,7 @@ export function generateMetadata({ params }: WorkParams) {
 		images = [],
 		image,
 		team = [],
+		tags = [],
 	} = post.metadata
 
 	let ogImage = image
@@ -46,6 +49,7 @@ export function generateMetadata({ params }: WorkParams) {
 		description,
 		images,
 		team,
+		tags,
 		openGraph: {
 			title,
 			description,
@@ -75,9 +79,11 @@ export default function Project({ params }: WorkParams) {
 		notFound()
 	}
 
-	const avatars = post.metadata.team?.map((person) => ({
-        src: person.avatar,
-    })) || [];
+	// Ensure all required fields are present
+	const metadata = {
+		...post.metadata,
+		tags: post.metadata.tags || [],
+	};
 
 	return (
 		<Flex as="section"
@@ -91,13 +97,13 @@ export default function Project({ params }: WorkParams) {
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',
 						'@type': 'BlogPosting',
-						headline: post.metadata.title || '',
-						datePublished: post.metadata.publishedAt || '',
-						dateModified: post.metadata.publishedAt || '',
-						description: post.metadata.summary || '',
-						image: post.metadata.image
-							? `https://${baseURL}${post.metadata.image}`
-							: `https://${baseURL}/og?title=${encodeURIComponent(post.metadata.title || '')}`,
+						headline: metadata.title || '',
+						datePublished: metadata.publishedAt || '',
+						dateModified: metadata.publishedAt || '',
+						description: metadata.summary || '',
+						image: metadata.image
+							? `https://${baseURL}${metadata.image}`
+							: `https://${baseURL}/og?title=${encodeURIComponent(metadata.title || '')}`,
 						url: `https://${baseURL}/work/${post.slug}`,
 						author: {
 							'@type': 'Person',
@@ -116,37 +122,13 @@ export default function Project({ params }: WorkParams) {
 					prefixIcon="chevronLeft">
 					Projects
 				</Button>
-				<Heading
-					variant="display-strong-s">
-					{post.metadata.title || ''}
-				</Heading>
+				<ProjectMetadata metadata={metadata} />
 			</Flex>
-			{post.metadata.images?.length > 0 && (
-				<SmartImage
-					aspectRatio="16 / 9"
-					radius="m"
-					alt={post.metadata.title || 'Project image'}
-					src={post.metadata.images[0]}/>
-			)}
+			<ProjectImages metadata={metadata} />
 			<Flex style={{margin: 'auto'}}
 				as="article"
 				maxWidth="xs" fillWidth
 				direction="column">
-				<Flex
-					gap="12" marginBottom="24"
-					alignItems="center">
-					{ post.metadata.team && (
-						<AvatarGroup
-							reverseOrder
-							avatars={avatars}
-							size="m"/>
-					)}
-					<Text
-						variant="body-default-s"
-						onBackground="neutral-weak">
-						{formatDate(post.metadata.publishedAt)}
-					</Text>
-				</Flex>
 				<CustomMDX source={post.content} />
 			</Flex>
 		</Flex>
