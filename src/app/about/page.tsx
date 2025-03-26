@@ -130,7 +130,7 @@ export default function About() {
 						marginBottom="32">
 						{about.calendar.display && (
 							<Flex
-								className={styles.blockAlign}
+								className={`${styles.blockAlign} ${styles.scheduleButton}`}
 								style={{
 									backdropFilter: 'blur(var(--static-space-1))',
 									border: '1px solid var(--brand-alpha-medium)',
