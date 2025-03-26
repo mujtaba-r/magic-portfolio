@@ -46,7 +46,7 @@ export function FeaturedBlogPosts() {
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
                 overflow: 'hidden',
                 perspective: '1000px',
-                minHeight: '100vh',
+                minHeight: 'auto',
             }}>
             <div 
                 className={styles.parallaxBackground}
@@ -71,9 +71,6 @@ export function FeaturedBlogPosts() {
                         style={{
                             color: 'var(--accent)',
                             fontWeight: 'bold',
-                            transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
-                            willChange: 'transform',
-                            backfaceVisibility: 'hidden'
                         }}>
                         Latest Thoughts
                     </Heading>
@@ -83,24 +80,13 @@ export function FeaturedBlogPosts() {
                         wrap="balance"
                         onBackground="neutral-weak"
                         variant="body-default-l"
-                        className={styles.sectionDescription}
-                        style={{
-                            transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
-                            willChange: 'transform',
-                            backfaceVisibility: 'hidden'
-                        }}>
+                        className={styles.sectionDescription}>
                         Insights on technology, entrepreneurship, and the future of AI.
                     </Text>
                 </RevealFx>
             </Flex>
             <RevealFx translateY="16" delay={0.4} speed="medium">
-                <div 
-                    className={styles.postsGrid}
-                    style={{
-                        transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
-                        willChange: 'transform',
-                        backfaceVisibility: 'hidden'
-                    }}>
+                <div className={styles.postsGrid}>
                     <Suspense fallback={<LoadingPosts />}>
                         {/* @ts-ignore */}
                         <Posts range={[1, 3]} columns="3" />
@@ -119,7 +105,6 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.3,
                     pointerEvents: 'none',
-                    transform: `translate3d(0, ${scrollY * 0.4}px, 0)`,
                     willChange: 'transform',
                     backfaceVisibility: 'hidden'
                 }}
@@ -136,7 +121,6 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.2,
                     pointerEvents: 'none',
-                    transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
                     willChange: 'transform',
                     backfaceVisibility: 'hidden'
                 }}

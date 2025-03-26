@@ -47,7 +47,7 @@ export function FeaturedProjects() {
                 position: 'relative',
                 background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
                 overflow: 'hidden',
-                minHeight: '100vh',
+                minHeight: 'auto',
             }}>
             <div 
                 className={styles.scrollProgress}

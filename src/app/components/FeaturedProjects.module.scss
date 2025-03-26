@@ -53,6 +53,7 @@
     background: var(--accent);
     transition: width 0.1s ease;
     z-index: 100;
+    pointer-events: none;
 }
 
 .skeleton {
