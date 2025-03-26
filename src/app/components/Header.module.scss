@@ -36,8 +36,7 @@
     }
 }
 
-// Add padding to the bottom of the page to prevent footer overlap on mobile
-:global(body) {
+.mobileBodyPadding {
     @media (max-width: 768px) {
         padding-bottom: 5rem;
     }
