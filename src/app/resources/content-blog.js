@@ -10,9 +10,17 @@ const person = {
         return `${this.firstName} ${this.lastName}`;
     },
     role:      'Multidisciplinary Technologist',
+    bio:       'Multidisciplinary Technologist with a passion for innovation and problem-solving.',
     avatar:    '/images/avatar.jpeg',
     location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English', 'Urdu', 'Hindi']  // optional: Leave the array empty if you don't want to display languages
+    languages: ['English', 'Urdu', 'Hindi'],
+    skills:    ['Software Development', 'Digital Strategy', 'Project Management'],
+    twitter:   '@mujtabarizvii',
+    social: {
+        twitter: 'https://x.com/mujtabarizvii',
+        github: 'https://github.com/mujtaba-r',
+        linkedin: 'https://www.linkedin.com/in/mujtabahassanrizvi/'
+    }
 }
 
 const newsletter = {

@@ -9,9 +9,17 @@ const person = {
         return `${this.firstName} ${this.lastName}`;
     },
     role:      'Software Developer, Digital Strategist & Project Manager',
+    bio:       'Software Developer, Digital Strategist & Project Manager with expertise in building innovative solutions and leading digital transformation initiatives.',
     avatar:    '/images/avatar.jpeg',
     location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English (Full Professional)', 'Urdu (Native)', 'Punjabi (Native)', 'French (Limited)', 'Arabic (Limited)']  // optional: Leave the array empty if you don't want to display languages
+    languages: ['English (Full Professional)', 'Urdu (Native)', 'Punjabi (Native)', 'French (Limited)', 'Arabic (Limited)'],
+    skills:    ['Software Development', 'Digital Strategy', 'Project Management', 'Business Analysis', 'Agile Methodologies', 'CI/CD'],
+    twitter:   '@mujtabarizvii',
+    social: {
+        twitter: 'https://x.com/mujtabarizvii',
+        github: 'https://github.com/mujtaba-r',
+        linkedin: 'https://www.linkedin.com/in/mujtabahassanrizvi/'
+    }
 }
 
 const newsletter = {
