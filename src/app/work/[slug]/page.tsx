@@ -21,22 +21,25 @@ export async function generateStaticParams() {
 export function generateMetadata({ params }: WorkParams) {
 	let post = getPosts(['src', 'app', 'work', 'projects']).find((post) => post.slug === params.slug)
 	
-	if (!post) {
-		return {}
+	if (!post?.metadata) {
+		return {
+			title: 'Project Not Found',
+			description: 'The requested project could not be found.',
+		}
 	}
 
 	let {
-		title,
-		publishedAt: publishedTime,
-		summary: description,
+		title = '',
+		publishedAt: publishedTime = '',
+		summary: description = '',
 		images = [],
 		image,
 		team = [],
-	} = post.metadata || {}
+	} = post.metadata
 
 	let ogImage = image
 		? `https://${baseURL}${image}`
-		: `https://${baseURL}/og?title=${title}`;
+		: `https://${baseURL}/og?title=${encodeURIComponent(title)}`;
 
 	return {
 		title,
@@ -52,6 +55,7 @@ export function generateMetadata({ params }: WorkParams) {
 			images: [
 				{
 					url: ogImage,
+					alt: title,
 				},
 			],
 		},
@@ -67,11 +71,11 @@ export function generateMetadata({ params }: WorkParams) {
 export default function Project({ params }: WorkParams) {
 	let post = getPosts(['src', 'app', 'work', 'projects']).find((post) => post.slug === params.slug)
 
-	if (!post) {
+	if (!post?.metadata) {
 		notFound()
 	}
 
-	const avatars = post.metadata?.team?.map((person) => ({
+	const avatars = post.metadata.team?.map((person) => ({
         src: person.avatar,
     })) || [];
 
@@ -87,13 +91,13 @@ export default function Project({ params }: WorkParams) {
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',
 						'@type': 'BlogPosting',
-						headline: post.metadata?.title || '',
-						datePublished: post.metadata?.publishedAt || '',
-						dateModified: post.metadata?.publishedAt || '',
-						description: post.metadata?.summary || '',
-						image: post.metadata?.image
+						headline: post.metadata.title || '',
+						datePublished: post.metadata.publishedAt || '',
+						dateModified: post.metadata.publishedAt || '',
+						description: post.metadata.summary || '',
+						image: post.metadata.image
 							? `https://${baseURL}${post.metadata.image}`
-							: `https://${baseURL}/og?title=${post.metadata?.title || ''}`,
+							: `https://${baseURL}/og?title=${encodeURIComponent(post.metadata.title || '')}`,
 						url: `https://${baseURL}/work/${post.slug}`,
 						author: {
 							'@type': 'Person',
@@ -114,14 +118,14 @@ export default function Project({ params }: WorkParams) {
 				</Button>
 				<Heading
 					variant="display-strong-s">
-					{post.metadata?.title || ''}
+					{post.metadata.title || ''}
 				</Heading>
 			</Flex>
-			{post.metadata?.images?.length > 0 && (
+			{post.metadata.images?.length > 0 && (
 				<SmartImage
 					aspectRatio="16 / 9"
 					radius="m"
-					alt="image"
+					alt={post.metadata.title || 'Project image'}
 					src={post.metadata.images[0]}/>
 			)}
 			<Flex style={{margin: 'auto'}}
@@ -131,7 +135,7 @@ export default function Project({ params }: WorkParams) {
 				<Flex
 					gap="12" marginBottom="24"
 					alignItems="center">
-					{ post.metadata?.team && (
+					{ post.metadata.team && (
 						<AvatarGroup
 							reverseOrder
 							avatars={avatars}
@@ -140,7 +144,7 @@ export default function Project({ params }: WorkParams) {
 					<Text
 						variant="body-default-s"
 						onBackground="neutral-weak">
-						{formatDate(post.metadata?.publishedAt)}
+						{formatDate(post.metadata.publishedAt)}
 					</Text>
 				</Flex>
 				<CustomMDX source={post.content} />

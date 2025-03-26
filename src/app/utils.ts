@@ -34,11 +34,18 @@ function readMDXFile(filePath: string) {
     const rawContent = fs.readFileSync(filePath, 'utf-8');
     const { data, content } = matter(rawContent);
 
+    // Handle both date and publishedAt fields
+    const publishedAt = data.publishedAt || data.date;
+    if (!publishedAt) {
+        console.warn(`Warning: No date found in ${filePath}`);
+    }
+
     const metadata: Metadata = {
         title: data.title || '',
-        publishedAt: data.publishedAt,
-        summary: data.summary || '',
-        images: data.images || [],
+        publishedAt: publishedAt || new Date().toISOString(),
+        summary: data.summary || data.description || '',
+        image: data.image,
+        images: data.images || (data.image ? [data.image] : []),
         team: data.team || [],
     };
 
