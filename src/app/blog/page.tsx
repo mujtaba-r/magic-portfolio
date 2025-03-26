@@ -3,7 +3,7 @@ import { Flex } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
 
 export default async function BlogPage() {
-	const posts = await getPosts(['src', 'app', 'blog', 'posts']);
+	const posts = await getPosts('blog');
 
 	return (
 		<Flex

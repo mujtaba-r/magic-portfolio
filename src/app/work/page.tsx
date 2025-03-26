@@ -33,7 +33,7 @@ export function generateMetadata() {
 }
 
 export default async function WorkPage() {
-	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const posts = await getPosts('work');
 
 	return (
 		<Flex
