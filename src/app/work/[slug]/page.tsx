@@ -14,7 +14,7 @@ interface WorkPostProps {
 }
 
 export async function generateStaticParams() {
-	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const posts = await getPosts('work');
 
 	return posts.map((post) => ({
 		slug: post.slug,
@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: WorkPostProps) {
-	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const posts = await getPosts('work');
 	const post = posts.find((post) => post.slug === params.slug)
 	
 	if (!post?.metadata) {
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: WorkPostProps) {
 }
 
 export default async function WorkPost({ params }: WorkPostProps) {
-	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const posts = await getPosts('work');
 	const post = posts.find((post) => post.slug === params.slug);
 
 	if (!post) {
