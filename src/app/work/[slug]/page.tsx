@@ -14,15 +14,16 @@ interface WorkPostProps {
 }
 
 export async function generateStaticParams() {
-	let posts = getPosts(['src', 'app', 'work', 'projects']);
+	const posts = await getPosts(['src', 'app', 'work', 'projects']);
 
 	return posts.map((post) => ({
 		slug: post.slug,
 	}))
 }
 
-export function generateMetadata({ params }: WorkPostProps) {
-	let post = getPosts(['src', 'app', 'work', 'projects']).find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }: WorkPostProps) {
+	const posts = await getPosts(['src', 'app', 'work', 'projects']);
+	const post = posts.find((post) => post.slug === params.slug)
 	
 	if (!post?.metadata) {
 		return {

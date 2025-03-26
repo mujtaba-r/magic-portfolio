@@ -13,15 +13,16 @@ interface BlogParams {
 }
 
 export async function generateStaticParams() {
-	let posts = getPosts(['src', 'app', 'blog', 'posts'])
+	const posts = await getPosts(['src', 'app', 'blog', 'posts'])
 
 	return posts.map((post) => ({
 		slug: post.slug,
 	}))
 }
 
-export function generateMetadata({ params }: BlogParams) {
-	let post = getPosts(['src', 'app', 'blog', 'posts']).find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }: BlogParams) {
+	const posts = await getPosts(['src', 'app', 'blog', 'posts'])
+	const post = posts.find((post) => post.slug === params.slug)
 
 	if (!post) {
 		return
@@ -61,8 +62,9 @@ export function generateMetadata({ params }: BlogParams) {
 	}
 }
 
-export default function Blog({ params }: BlogParams) {
-	let post = getPosts(['src', 'app', 'blog', 'posts']).find((post) => post.slug === params.slug)
+export default async function Blog({ params }: BlogParams) {
+	const posts = await getPosts(['src', 'app', 'blog', 'posts'])
+	const post = posts.find((post) => post.slug === params.slug)
 
 	if (!post) {
 		notFound()
