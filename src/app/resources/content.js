@@ -208,14 +208,17 @@ const about = {
             {
                 title: 'Technical Skills',
                 description: <>Python, Java, C#, HTML, CSS, JavaScript, PHP, WordPress, Agile Methodologies, CI/CD, Business Analysis</>,
+                images: []
             },
             {
                 title: 'Certifications',
                 description: <>AI Agents Fundamentals, ISC2 Candidate</>,
+                images: []
             },
             {
                 title: 'Honors & Awards',
                 description: <>Dean's List, Andreas Prize (Est. 2016), Porter Prize (Est. 1978)</>,
+                images: []
             }
         ]
     }
