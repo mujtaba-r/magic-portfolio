@@ -2,6 +2,7 @@ import { Avatar, Button, Flex, Heading, Icon, IconButton, SmartImage, Tag, Text 
 import { person, about, social, baseURL } from '@/app/resources'
 import TableOfContents from '@/app/about/components/TableOfContents';
 import { ErrorBoundary } from '@/app/components/ErrorBoundary';
+import { ClientSmartImage } from '@/app/components/ClientSmartImage';
 import styles from '@/app/about/about.module.scss'
 import { Experience, Image, Institution, Skill } from '@/app/types'
 
@@ -263,17 +264,13 @@ export default function About() {
 														borderStyle="solid-1"
 														radius="m"
 														minWidth={image.width} height={image.height}>
-														<SmartImage
+														<ClientSmartImage
 															enlarge
 															radius="m"
 															sizes={image.width.toString()}
 															alt={image.alt}
 															src={image.src}
-															loading="lazy"
-															onError={(e) => {
-																console.error(`Failed to load image: ${image.src}`);
-																e.currentTarget.style.display = 'none';
-															}}/>
+														/>
 													</Flex>
 												))}
 											</Flex>
@@ -347,17 +344,13 @@ export default function About() {
 														borderStyle="solid-1"
 														radius="m"
 														minWidth={image.width} height={image.height}>
-														<SmartImage
+														<ClientSmartImage
 															enlarge
 															radius="m"
 															sizes={image.width.toString()}
 															alt={image.alt}
 															src={image.src}
-															loading="lazy"
-															onError={(e) => {
-																console.error(`Failed to load image: ${image.src}`);
-																e.currentTarget.style.display = 'none';
-															}}/>
+														/>
 													</Flex>
 												))}
 											</Flex>
