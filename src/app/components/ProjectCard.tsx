@@ -48,6 +48,10 @@ export function ProjectCard({ metadata, slug }: ProjectCardProps) {
                         radius="m"
                         alt={metadata.title}
                         src={metadata.images[0]}
+                        loading="lazy"
+                        onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                        }}
                     />
                 )}
                 <Flex

@@ -6,7 +6,7 @@ import { Experience, Image, Institution, Skill } from '@/app/types'
 
 export function generateMetadata() {
 	const title = about.title;
-	const description = about.description;
+	const description = `Learn more about ${person.name}, ${person.role}. View my experience, education, and technical skills.`;
 	const ogImage = `https://${baseURL}/og?title=${encodeURIComponent(title)}`;
 
 	return {
@@ -16,7 +16,7 @@ export function generateMetadata() {
 			title,
 			description,
 			type: 'website',
-			url: `https://${baseURL}/blog`,
+			url: `https://${baseURL}/about`,
 			images: [
 				{
 					url: ogImage,
@@ -109,11 +109,14 @@ export default function About() {
 						{ person.languages.length > 0 && (
 							<Flex
 								wrap
-								gap="8">
+								gap="8"
+								role="list"
+								aria-label="Languages spoken">
 								{person.languages.map((language, index) => (
 									<Tag
 										key={index}
-										size="l">
+										size="l"
+										role="listitem">
 										{language}
 									</Tag>
 								))}
@@ -138,11 +141,13 @@ export default function About() {
 								}}
 								alpha="brand-weak" radius="full"
 								fillWidth padding="4" gap="8" marginBottom="m"
-								alignItems="center">
+								alignItems="center"
+								role="button">
 								<Flex paddingLeft="12">
 									<Icon
 										name="calendar"
-										onBackground="brand-weak"/>
+										onBackground="brand-weak"
+										aria-hidden="true"/>
 								</Flex>
 								<Flex
 									paddingX="8">
@@ -152,7 +157,8 @@ export default function About() {
 									href={about.calendar.link}
 									data-border="rounded"
 									variant="tertiary"
-									icon="chevronRight"/>
+									icon="chevronRight"
+									aria-label="Schedule a call"/>
 							</Flex>
 						)}
 						<Heading
