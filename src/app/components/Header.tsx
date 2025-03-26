@@ -2,14 +2,25 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import { Flex, ToggleButton } from "@/once-ui/components"
+import Link from 'next/link';
+import { Button, Flex, Text } from '@/once-ui/components';
 import styles from '@/app/components/Header.module.scss'
-
-import { routes, display } from '@/app/resources'
-import { person, home, about, blog, work, gallery } from '@/app/resources'
-
+import { display, person } from '@/app/resources'
 import ThemeToggle from './ThemeToggle';
+
+interface Route {
+    name: string;
+    href: string;
+    icon?: string;
+}
+
+const navigationRoutes: Route[] = [
+    { name: 'Home', href: '/', icon: 'home' },
+    { name: 'About', href: '/about', icon: 'person' },
+    { name: 'Work', href: '/work', icon: 'grid' },
+    { name: 'Blog', href: '/blog', icon: 'book' },
+    { name: 'Gallery', href: '/gallery', icon: 'gallery' }
+];
 
 type TimeDisplayProps = {
     timeZone: string;
@@ -51,84 +62,57 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
 
 export default TimeDisplay;
 
-export const Header = () => {
-    const pathname = usePathname() ?? '';
+export function Header() {
+    const [mounted, setMounted] = useState(false);
+    const pathname = usePathname();
+    
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
 
     return (
-        <Flex style={{height: 'fit-content'}}
-            className={styles.position}
-            as="header"
-            zIndex={9}
-            fillWidth padding="8"
-            justifyContent="center">
-            <Flex
-                hide="s"
-                paddingLeft="12" fillWidth
-                alignItems="center"
-                textVariant="body-default-s">
-                { display.location && (
-                    <>{person.location}</>
-                )}
-            </Flex>
-            <Flex
-                background="surface" border="neutral-medium" borderStyle="solid-1" radius="m-4" shadow="l"
-                padding="4"
-                justifyContent="center">
+        <header className={styles.header} role="banner">
+            <nav aria-label="Main navigation">
                 <Flex
-                    gap="4"
-                    textVariant="body-default-s">
-                    { routes['/'] && (
-                        <ToggleButton
-                            prefixIcon="home"
-                            href="/"
-                            selected={pathname === "/"}>
-                            {home.label}
-                        </ToggleButton>
-                    )}
-                    { routes['/about'] && (
-                        <ToggleButton
-                            prefixIcon="person"
-                            href="/about"
-                            selected={pathname === "/about"}>
-                            {about.label}
-                        </ToggleButton>
-                    )}
-                    { routes['/work'] && (
-                        <ToggleButton
-                            prefixIcon="grid"
-                            href="/work"
-                            selected={pathname.startsWith('/work')}>
-                            {work.label}
-                        </ToggleButton>
-                    )}
-                    { routes['/blog'] && (
-                        <ToggleButton
-                            prefixIcon="book"
-                            href="/blog"
-                            selected={pathname.startsWith('/blog')}>
-                            {blog.label}
-                        </ToggleButton>
-                    )}
-                    { routes['/gallery'] && (
-                        <ToggleButton
-                            prefixIcon="gallery"
-                            href="/gallery"
-                            selected={pathname.startsWith('/gallery')}>
-                            {gallery.label}
-                        </ToggleButton>
-                    )}
-                    <ThemeToggle />
+                    as="ul"
+                    role="menubar"
+                    aria-label="Main menu"
+                    fillWidth
+                    alignItems="center"
+                    gap="s">
+                    {navigationRoutes.map((route) => {
+                        const isActive = pathname === route.href;
+                        return (
+                            <li key={route.name} role="none">
+                                <Link
+                                    href={route.href}
+                                    passHref
+                                    legacyBehavior>
+                                    <Button
+                                        href={route.href}
+                                        role="menuitem"
+                                        aria-current={isActive ? 'page' : undefined}
+                                        variant={isActive ? 'secondary' : 'tertiary'}
+                                        label={route.name}
+                                        prefixIcon={route.icon}
+                                    />
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </Flex>
-            </Flex>
+            </nav>
             <Flex
-                hide="s"
-                paddingRight="12" fillWidth
-                justifyContent="flex-end" alignItems="center"
-                textVariant="body-default-s">
-                { display.time && (
-                    <TimeDisplay timeZone={person.location}/>
-                )}
+                as="div"
+                role="complementary"
+                aria-label="Current time"
+                className={styles.time}>
+                <Text variant="body-default-s">
+                    {new Date().toLocaleTimeString()}
+                </Text>
             </Flex>
-        </Flex>
-    )
+        </header>
+    );
 }

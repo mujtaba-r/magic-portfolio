@@ -15,18 +15,35 @@ import { Sora } from 'next/font/google';
 import { Metadata } from "next";
 import ThemeProvider from '@/app/components/ThemeProvider';
 import CustomCursor from '@/app/components/CustomCursor';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { PageTransition } from '@/app/components/PageTransition';
 
 export const metadata: Metadata = {
-	metadataBase: new URL('https://' + baseURL),
-	title: home.title,
-	description: home.description,
+	metadataBase: new URL(`https://${baseURL}`),
+	title: {
+		default: `${person.name} - ${person.role}`,
+		template: `%s | ${person.name}`
+	},
+	description: person.bio,
+	keywords: ['portfolio', 'developer', 'software engineer', ...person.skills],
+	authors: [{ name: person.name }],
+	creator: person.name,
 	openGraph: {
-		title: `${person.firstName}'s Portfolio`,
-		description: 'Portfolio website showcasing my work.',
-		url: baseURL,
-		siteName: `${person.firstName}'s Portfolio`,
-		locale: 'en_US',
 		type: 'website',
+		locale: 'en_US',
+		url: `https://${baseURL}`,
+		siteName: `${person.name}'s Portfolio`,
+		images: [{
+			url: `https://${baseURL}/og`,
+			width: 1200,
+			height: 630,
+			alt: `${person.name}'s Portfolio`
+		}]
+	},
+	twitter: {
+		card: 'summary_large_image',
+		creator: person.twitter
 	},
 	robots: {
 		index: true,
@@ -38,6 +55,9 @@ export const metadata: Metadata = {
 			'max-image-preview': 'large',
 			'max-snippet': -1,
 		},
+	},
+	verification: {
+		google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
 	},
 }
 
@@ -92,6 +112,10 @@ export default function RootLayout({ children } : RootLayoutProps) {
 					secondary ? secondary.variable : '',
 					tertiary ? tertiary.variable : '',
 					code.variable)}>
+				<head>
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<link rel="icon" href="/favicon.ico" />
+				</head>
 				<Flex style={{minHeight: '100vh'}}
 					as="body"
 					fillWidth margin="0" padding="0"
@@ -113,13 +137,17 @@ export default function RootLayout({ children } : RootLayoutProps) {
 							justifyContent="center"
 							fillWidth minHeight="0">
 							<RouteGuard>
-								{children}
+								<PageTransition>
+									{children}
+								</PageTransition>
 							</RouteGuard>
 						</Flex>
 					</Flex>
 					<Footer/>
 					<CustomCursor />
 				</Flex>
+				<Analytics />
+				<SpeedInsights />
 			</Flex>
 		</ThemeProvider>
 	);

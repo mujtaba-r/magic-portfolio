@@ -1,52 +1,61 @@
 'use client';
 
-import React from 'react';
-import { Flex, Text, Button } from '@/once-ui/components';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import { Button, Flex, Heading, Text } from '@/once-ui/components';
 
 interface Props {
-    children: React.ReactNode;
+    children: ReactNode;
+    fallback?: ReactNode;
 }
 
 interface State {
     hasError: boolean;
+    error?: Error;
+    errorInfo?: ErrorInfo;
 }
 
-export class ErrorBoundary extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { hasError: false };
+export class ErrorBoundary extends Component<Props, State> {
+    public state: State = {
+        hasError: false
+    };
+
+    public static getDerivedStateFromError(error: Error): State {
+        return { hasError: true, error };
     }
 
-    static getDerivedStateFromError(_: Error): State {
-        return { hasError: true };
+    public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+        console.error('Uncaught error:', error, errorInfo);
+        
+        // Log to your error reporting service
+        if (process.env.NODE_ENV === 'production') {
+            // TODO: Add your error reporting service here
+            // Example: Sentry.captureException(error);
+        }
     }
 
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-        console.error('ErrorBoundary caught an error:', error, errorInfo);
-    }
+    private handleReset = () => {
+        this.setState({ hasError: false, error: undefined, errorInfo: undefined });
+    };
 
-    render() {
+    public render() {
         if (this.state.hasError) {
-            return (
+            return this.props.fallback || (
                 <Flex
                     direction="column"
-                    gap="l"
                     alignItems="center"
                     justifyContent="center"
+                    gap="l"
                     padding="xl">
-                    <Text variant="heading-strong-l">
+                    <Heading variant="display-strong-l">
                         Something went wrong
-                    </Text>
-                    <Text variant="body-default-m" onBackground="neutral-weak">
-                        An error occurred while loading this content.
+                    </Heading>
+                    <Text variant="body-default-m">
+                        {this.state.error?.message || 'An unexpected error occurred'}
                     </Text>
                     <Button
                         variant="primary"
                         label="Try again"
-                        onClick={() => {
-                            this.setState({ hasError: false });
-                            window.location.reload();
-                        }}
+                        onClick={this.handleReset}
                     />
                 </Flex>
             );

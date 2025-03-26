@@ -1,7 +1,7 @@
 "use client";
 
 import Masonry from 'react-masonry-css';
-import { SmartImage } from "@/once-ui/components";
+import { OptimizedImage } from "@/app/components/OptimizedImage";
 import { gallery } from "@/app/resources";
 import styles from "@/app/gallery/Gallery.module.scss";
 
@@ -19,13 +19,14 @@ export default function MasonryGrid() {
             className={styles.masonryGrid}
             columnClassName={styles.masonryGridColumn}>
             {gallery.images.map((image, index) => (
-                <SmartImage
+                <OptimizedImage
                     key={index}
-                    radius="m"
-                    aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "9 / 16"}
                     src={image.src}
                     alt={image.alt}
+                    width={image.orientation === "horizontal" ? 1200 : 675}
+                    height={image.orientation === "horizontal" ? 675 : 1200}
                     className={styles.gridItem}
+                    objectFit="cover"
                 />
             ))}
         </Masonry>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ProjectMetadata } from '@/app/types';
 import Link from 'next/link';
 import styles from './ProjectCard.module.scss';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ProjectCardProps {
     metadata: ProjectMetadata;
@@ -43,15 +44,13 @@ export function ProjectCard({ metadata, slug }: ProjectCardProps) {
                 gap="m"
                 className={styles.card}>
                 {metadata.images?.length > 0 && (
-                    <SmartImage
-                        aspectRatio="16 / 9"
-                        radius="m"
+                    <OptimizedImage
+                        src={metadata.images[activeIndex]}
                         alt={metadata.title}
-                        src={metadata.images[0]}
-                        loading="lazy"
-                        onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                        }}
+                        width={1200}
+                        height={675}
+                        className={`${styles.image} ${isTransitioning ? styles.transitioning : ''}`}
+                        objectFit="cover"
                     />
                 )}
                 <Flex
