@@ -25,7 +25,16 @@ type Metadata = {
 type ContentType = 'blog' | 'work';
 
 function getContentDirectory(type: ContentType) {
-    return path.join(process.cwd(), 'src', 'app', '_content', type);
+    const baseDir = path.join(process.cwd(), 'src', 'app', '_content', type);
+    // For blog posts, look in the posts subdirectory
+    if (type === 'blog') {
+        return path.join(baseDir, 'posts');
+    }
+    // For work projects, look in the projects subdirectory
+    if (type === 'work') {
+        return path.join(baseDir, 'projects');
+    }
+    return baseDir;
 }
 
 async function getMDXFiles(dir: string) {
