@@ -16,6 +16,15 @@
         border-top: 1px solid var(--neutral-medium);
         margin-bottom: 0;
         padding: 0.5rem;
+
+        & > div {
+            padding: 0.25rem !important;
+        }
+
+        button {
+            padding: 0.5rem !important;
+            font-size: 0.9rem;
+        }
     }
 }
 
@@ -24,5 +33,12 @@
         top: auto;
         position: fixed;
         bottom: var(--static-space-24);
+    }
+}
+
+// Add padding to the bottom of the page to prevent footer overlap on mobile
+:global(body) {
+    @media (max-width: 768px) {
+        padding-bottom: 5rem;
     }
 }

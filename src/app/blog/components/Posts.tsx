@@ -79,7 +79,8 @@ export async function Posts({
                             </Heading>
                             <Text
                                 variant="body-default-s"
-                                onBackground="neutral-weak">
+                                onBackground="neutral-weak"
+                                style={{ opacity: 0.7, fontWeight: 'normal', fontSize: '0.9rem' }}>
                                 {formatDate(post.metadata.publishedAt, false)}
                             </Text>
                         </Flex>

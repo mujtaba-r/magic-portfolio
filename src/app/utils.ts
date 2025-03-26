@@ -21,34 +21,30 @@ export function formatDate(date: string | undefined, includeRelative = false) {
         return 'Invalid date';
     }
 
-    const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-    const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-    const daysAgo = currentDate.getDate() - targetDate.getDate();
-
-    let formattedDate = '';
-
-    if (yearsAgo > 0) {
-        formattedDate = `${yearsAgo}y ago`;
-    } else if (monthsAgo > 0) {
-        formattedDate = `${monthsAgo}mo ago`;
-    } else if (daysAgo > 0) {
-        formattedDate = `${daysAgo}d ago`;
-    } else {
-        formattedDate = 'Today';
-    }
-
     const fullDate = targetDate.toLocaleString('en-us', {
         month: 'long',
         day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZoneName: 'short'
+        year: 'numeric'
     });
 
     if (!includeRelative) {
         return fullDate;
     }
 
-    return `${fullDate} (${formattedDate})`;
+    const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
+    const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
+    const daysAgo = currentDate.getDate() - targetDate.getDate();
+
+    let relativeDate = '';
+    if (yearsAgo > 0) {
+        relativeDate = `${yearsAgo}y ago`;
+    } else if (monthsAgo > 0) {
+        relativeDate = `${monthsAgo}mo ago`;
+    } else if (daysAgo > 0) {
+        relativeDate = `${daysAgo}d ago`;
+    } else {
+        relativeDate = 'Today';
+    }
+
+    return `${fullDate} (${relativeDate})`;
 } 
