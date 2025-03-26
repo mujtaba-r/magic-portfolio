@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Flex, Grid, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
 import styles from './FeaturedBlogPosts.module.scss';
@@ -16,25 +16,6 @@ function LoadingPosts() {
 }
 
 export function FeaturedBlogPosts() {
-    const [scrollY, setScrollY] = useState(0);
-
-    useEffect(() => {
-        let ticking = false;
-
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    setScrollY(window.scrollY);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <Flex
             fillWidth
@@ -44,18 +25,8 @@ export function FeaturedBlogPosts() {
             style={{
                 position: 'relative',
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
-                overflow: 'hidden',
-                perspective: '1000px',
-                minHeight: 'auto',
+                overflow: 'visible',
             }}>
-            <div 
-                className={styles.parallaxBackground}
-                style={{
-                    transform: `translate3d(0, ${scrollY * 0.5}px, 0)`,
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden'
-                }}
-            />
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m"
@@ -105,10 +76,8 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.3,
                     pointerEvents: 'none',
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden'
-                }}
-            />
+                }}>
+            </Flex>
             <Flex
                 style={{
                     position: 'absolute',
@@ -121,10 +90,8 @@ export function FeaturedBlogPosts() {
                     filter: 'blur(100px)',
                     opacity: 0.2,
                     pointerEvents: 'none',
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden'
-                }}
-            />
+                }}>
+            </Flex>
         </Flex>
     );
 } 
