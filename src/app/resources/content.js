@@ -8,10 +8,10 @@ const person = {
     get name() {
         return `${this.firstName} ${this.lastName}`;
     },
-    role:      'Multidisciplinary Technologist',
+    role:      'Software Developer, Digital Strategist & Project Manager',
     avatar:    '/images/avatar.jpeg',
     location:  'America/Toronto',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English', 'Urdu', 'Hindi']  // optional: Leave the array empty if you don't want to display languages
+    languages: ['English (Full Professional)', 'Urdu (Native)', 'Punjabi (Native)', 'French (Limited)', 'Arabic (Limited)']  // optional: Leave the array empty if you don't want to display languages
 }
 
 const newsletter = {
@@ -21,7 +21,7 @@ const newsletter = {
     count={50}
     trigger="instant"
   >Subscribe to My Newsletter</SparkleFx></>,
-    description: <>Exploring the intersection of technology, creativity, and human possibility, I share reflections on innovation, entrepreneurship, and the transformative power of challenging the impossible.</>
+    description: <>Exploring the intersection of technology, business, and digital transformation. I share insights on software development, digital strategy, and project management.</>
 }
 
 const social = [
@@ -47,6 +47,11 @@ const social = [
         icon: 'email',
         link: 'mailto:mujtabahassanrizvi@outlook.com',
     },
+    {
+        name: 'Phone',
+        icon: 'phone',
+        link: 'tel:+16472263527',
+    }
 ]
 
 const home = {
@@ -78,8 +83,8 @@ const home = {
         '1',
         '+'
       ]}
-    >Multidisciplinary Technologist</LetterFx></span>,
-    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Multidisciplinary Technologist</InlineCode> exploring the dynamic intersections of technology, creativity, and human potential. With a passion for continuous learning, I delve into design, development, and innovation to create solutions that inspire and empower. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
+    >Software Developer, Digital Strategist & Project Manager</LetterFx></span>,
+    subline: <>Welcome! I'm Mujtaba Rizvi, a <InlineCode>Software Developer, Digital Strategist & Project Manager</InlineCode> with over 4 years of experience bridging the gap between technology and business. I specialize in transforming complex business challenges into scalable, user-centric solutions by leveraging a versatile tech stack and modern digital tools. Join me on this journey as we push the boundaries of what's possible and shape the future together.</>
 }
 
 const about = {
@@ -102,7 +107,8 @@ const about = {
         title: 'Introduction',
         description: 
         <>
-        <p>Fueled by insatiable curiosity and a commitment to lifelong learning, I thrive at the crossroads of technology and creativity. From software and web development to project management and business analytics, I immerse myself in diverse fields to craft <Link href = '/work'>innovative solutions.</Link> By blending engineering principles with creative insight, I aim to make a meaningful impact and inspire others to explore, learn, and innovate alongside me.</p>
+        <p>I'm a results-driven Digital Strategist, Software Developer, Project Manager, and Business Analyst with over 4 years of experience bridging the gap between technology and business. I specialize in transforming complex business challenges into scalable, user-centric solutions by leveraging a versatile tech stack—including Python, Java, C#, HTML, CSS, JavaScript, and PHP—and modern digital tools.</p>
+        <p>Working across Canada and the USA, I've honed my ability to manage projects end-to-end using agile methodologies, ensuring that every solution aligns with strategic business objectives while meeting rigorous technical standards. I excel at collaborating with cross-functional teams to gather requirements, define technical specifications, and deliver high-impact projects on time and within budget.</p>
         </>
     },
     work: {
@@ -110,81 +116,81 @@ const about = {
         title: 'Work Experience',
         experiences: [
             {
-                company: 'FLY',
-                timeframe: '2022 - Present',
-                role: 'Senior Design Engineer',
+                company: 'Value Hunt',
+                timeframe: 'February 2025 - Present',
+                role: 'Retail Sales Manager & Technical Lead',
+                location: 'Mississauga, Ontario, Canada',
                 achievements: [
-                    <>Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement and 30% faster load times.</>,
-                    <>Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster.</>
-                ],
-                images: [ // optional: leave the array empty if you don't want to display images
-                    {
-                        src: '/images/projects/project-01/cover-01.jpg',
-                        alt: 'Once UI Project',
-                        width: 16,
-                        height: 9
-                    }
+                    <>Managing sales, digital marketing, web development, and Inventory Management System development efforts for a liquidation center in the GTA.</>
                 ]
             },
             {
-                company: 'Creativ3',
-                timeframe: '2018 - 2022',
-                role: 'Lead Designer',
+                company: 'Self-employed',
+                timeframe: 'October 2023 - Present',
+                role: 'Freelance Digital Strategist & Web Developer',
+                location: 'Canada',
                 achievements: [
-                    <>Developed a design system that unified the brand across multiple platforms, improving design consistency by 40%.</>,
-                    <>Led a cross-functional team to launch a new product line, contributing to a 15% increase in overall company revenue.</>
-                ],
-                images: [ ]
+                    <>Developed websites, onboarding systems, and LMS solutions, increasing student engagement by 25% and course completion by 30%.</>,
+                    <>Led SEO, AI chatbot integration, and social media strategies, boosting traffic, user support, and engagement.</>,
+                    <>Enhanced site functionality with custom WordPress plugins, reducing bounce rates by 15% and increasing session duration by 30%.</>,
+                    <>Managed full lifecycle software development, utilizing agile methodologies, CI/CD pipelines, and business analysis.</>
+                ]
+            },
+            {
+                company: 'Inqilaab',
+                timeframe: 'June 2022 - Present',
+                role: 'Founder & Chief Executive',
+                location: 'Lahore, Punjab, Pakistan',
+                achievements: [
+                    <>Worked on a Music Metaverse concept, collaborated with artists & tech firms of Pakistan to bring MVP to life.</>
+                ]
+            },
+            {
+                company: 'Render\'s Inc.',
+                timeframe: 'June 2023 - October 2023',
+                role: 'Business Development Executive',
+                location: 'United States',
+                achievements: [
+                    <>Managed 100+ global clients, aligning technical solutions with business needs, driving a 20% revenue increase.</>,
+                    <>Developed strategic sales initiatives, leveraging LinkedIn Sales Navigator and CRM tools to boost lead generation by 30%.</>,
+                    <>Created customized sales plans, increasing deal size by 25% and shortening the sales cycle by two weeks.</>
+                ]
             }
         ]
     },
     studies: {
         display: true, // set to false to hide this section
-        title: 'Studies',
+        title: 'Education',
         institutions: [
             {
                 name: 'Knox College',
-                description: <>Bachelor's of Science in Computer Science.</>,
+                description: <>Bachelor of Arts - BA, Business Administration and Management, General (September 2018 - June 2023)</>,
             },
             {
                 name: 'Knox College',
-                description: <>Bachelor's of Arts in Business & Management.</>,
+                description: <>Bachelor of Science - BS, Computer Science (September 2018 - August 2022)</>,
+            },
+            {
+                name: 'Aitchison College',
+                description: <>Advanced Level CIE (2016 - 2018)</>,
             }
         ]
     },
     technical: {
         display: true, // set to false to hide this section
-        title: 'Technical skills',
+        title: 'Skills & Certifications',
         skills: [
             {
-                title: 'Figma',
-                description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-02.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                    {
-                        src: '/images/projects/project-01/cover-03.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
+                title: 'Technical Skills',
+                description: <>Python, Java, C#, HTML, CSS, JavaScript, PHP, WordPress, Agile Methodologies, CI/CD, Business Analysis</>,
             },
             {
-                title: 'Next.js',
-                description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-04.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
+                title: 'Certifications',
+                description: <>AI Agents Fundamentals, ISC2 Candidate</>,
+            },
+            {
+                title: 'Honors & Awards',
+                description: <>Dean's List, Andreas Prize (Est. 2016), Porter Prize (Est. 1978)</>,
             }
         ]
     }

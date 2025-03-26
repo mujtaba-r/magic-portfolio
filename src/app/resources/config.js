@@ -1,17 +1,17 @@
-const baseURL = 'www.mujtabahassanrizvi.com'
+const baseURL = 'mujtabahassanrizvi.com'
 
 const routes = {
     '/':        true,
     '/about':   true,
     '/work':    true,
     '/blog':    true,
-    '/gallery': true,
+    '/gallery': false,  // Disabled gallery as it's not currently used
 }
 
 // Enable password protection on selected routes
 // Set password in pages/api/authenticate.ts
 const protectedRoutes = {
-    '/work/automate-design-handovers-with-a-figma-to-code-pipeline': true
+    '/work/value-hunt-retail-management-system': true  // Protect sensitive project details
 }
 
 const effects = {
@@ -38,7 +38,7 @@ const display = {
 }
 
 const mailchimp = {
-    action: 'https://url/subscribe/post?parameters',
+    action: 'https://mujtabahassanrizvi.com/api/subscribe',  // Update with your actual newsletter subscription endpoint
     effects: {
         gradient: true,
         dots:     false,
