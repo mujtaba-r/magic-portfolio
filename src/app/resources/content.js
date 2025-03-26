@@ -112,7 +112,7 @@ const about = {
         </>
     },
     work: {
-        display: true, // set to false to hide this section
+        display: true,
         title: 'Work Experience',
         experiences: [
             {
@@ -122,7 +122,8 @@ const about = {
                 location: 'Mississauga, Ontario, Canada',
                 achievements: [
                     <>Managing sales, digital marketing, web development, and Inventory Management System development efforts for a liquidation center in the GTA.</>
-                ]
+                ],
+                images: []
             },
             {
                 company: 'Self-employed',
@@ -134,7 +135,8 @@ const about = {
                     <>Led SEO, AI chatbot integration, and social media strategies, boosting traffic, user support, and engagement.</>,
                     <>Enhanced site functionality with custom WordPress plugins, reducing bounce rates by 15% and increasing session duration by 30%.</>,
                     <>Managed full lifecycle software development, utilizing agile methodologies, CI/CD pipelines, and business analysis.</>
-                ]
+                ],
+                images: []
             },
             {
                 company: 'Inqilaab',
@@ -143,7 +145,8 @@ const about = {
                 location: 'Lahore, Punjab, Pakistan',
                 achievements: [
                     <>Worked on a Music Metaverse concept, collaborated with artists & tech firms of Pakistan to bring MVP to life.</>
-                ]
+                ],
+                images: []
             },
             {
                 company: 'Render\'s Inc.',
@@ -154,7 +157,8 @@ const about = {
                     <>Managed 100+ global clients, aligning technical solutions with business needs, driving a 20% revenue increase.</>,
                     <>Developed strategic sales initiatives, leveraging LinkedIn Sales Navigator and CRM tools to boost lead generation by 30%.</>,
                     <>Created customized sales plans, increasing deal size by 25% and shortening the sales cycle by two weeks.</>
-                ]
+                ],
+                images: []
             }
         ]
     },
