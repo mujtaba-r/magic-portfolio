@@ -72,5 +72,10 @@ function getMDXData(dir: string) {
 
 export async function getPosts(customPath = ['', '', '', '']) {
     const postsDir = path.join(process.cwd(), ...customPath);
-    return getMDXData(postsDir);
+    try {
+        return getMDXData(postsDir);
+    } catch (error) {
+        console.error(`Error reading posts from ${postsDir}:`, error);
+        return [];
+    }
 } 
