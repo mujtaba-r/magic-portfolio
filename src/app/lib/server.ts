@@ -22,52 +22,67 @@ type Metadata = {
 };
 
 function getMDXFiles(dir: string) {
-    if (!fs.existsSync(dir)) {
-        throw new Error(`Directory not found: ${dir}`);
-    }
+    try {
+        if (!fs.existsSync(dir)) {
+            console.warn(`Directory not found: ${dir}`);
+            return [];
+        }
 
-    return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+        return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+    } catch (error) {
+        console.error(`Error reading directory ${dir}:`, error);
+        return [];
+    }
 }
 
 function readMDXFile(filePath: string) {
-    if (!fs.existsSync(filePath)) {
-        throw new Error(`File not found: ${filePath}`);
+    try {
+        if (!fs.existsSync(filePath)) {
+            console.warn(`File not found: ${filePath}`);
+            return null;
+        }
+
+        const rawContent = fs.readFileSync(filePath, 'utf-8');
+        const { data, content } = matter(rawContent);
+
+        // Handle both date and publishedAt fields
+        const publishedAt = data.publishedAt || data.date;
+        if (!publishedAt) {
+            console.warn(`Warning: No date found in ${filePath}`);
+        }
+
+        const metadata: Metadata = {
+            title: data.title || '',
+            publishedAt: publishedAt || new Date().toISOString(),
+            summary: data.summary || data.description || '',
+            image: data.image,
+            images: data.images || (data.image ? [data.image] : []),
+            team: data.team || [],
+            tags: data.tags || [],
+        };
+
+        return { metadata, content };
+    } catch (error) {
+        console.error(`Error reading file ${filePath}:`, error);
+        return null;
     }
-
-    const rawContent = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(rawContent);
-
-    // Handle both date and publishedAt fields
-    const publishedAt = data.publishedAt || data.date;
-    if (!publishedAt) {
-        console.warn(`Warning: No date found in ${filePath}`);
-    }
-
-    const metadata: Metadata = {
-        title: data.title || '',
-        publishedAt: publishedAt || new Date().toISOString(),
-        summary: data.summary || data.description || '',
-        image: data.image,
-        images: data.images || (data.image ? [data.image] : []),
-        team: data.team || [],
-        tags: data.tags || [],
-    };
-
-    return { metadata, content };
 }
 
 function getMDXData(dir: string) {
     const mdxFiles = getMDXFiles(dir);
-    return mdxFiles.map((file) => {
-        const { metadata, content } = readMDXFile(path.join(dir, file));
-        const slug = path.basename(file, path.extname(file));
-
-        return {
-            metadata,
-            slug,
-            content,
-        };
-    });
+    return mdxFiles
+        .map((file) => {
+            const fileData = readMDXFile(path.join(dir, file));
+            if (!fileData) return null;
+            
+            const slug = path.basename(file, path.extname(file));
+            return {
+                metadata: fileData.metadata,
+                slug,
+                content: fileData.content,
+            };
+        })
+        .filter((data): data is NonNullable<typeof data> => data !== null);
 }
 
 export async function getPosts(customPath = ['', '', '', '']) {
