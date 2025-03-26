@@ -1,6 +1,7 @@
 import React from 'react';
 import { Flex, Heading, Text, Button, Avatar, RevealFx } from '@/once-ui/components';
 import { about, person } from '@/app/resources';
+import styles from './Hero.module.scss';
 
 interface HeroProps {
     title: React.ReactNode;
@@ -15,9 +16,10 @@ export function Hero({ title, subtitle }: HeroProps) {
             paddingY="xl"
             gap="l"
             style={{
-                minHeight: '80vh',
+                minHeight: '90vh',
                 position: 'relative',
                 overflow: 'hidden',
+                background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
             }}>
             <Flex
                 direction="column"
@@ -25,7 +27,12 @@ export function Hero({ title, subtitle }: HeroProps) {
                 <RevealFx translateY="4" speed="medium">
                     <Heading
                         wrap="balance"
-                        variant="display-strong-xl">
+                        variant="display-strong-xl"
+                        style={{
+                            background: 'linear-gradient(45deg, var(--accent), var(--accent-strong))',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                        }}>
                         {title}
                     </Heading>
                 </RevealFx>
@@ -44,7 +51,12 @@ export function Hero({ title, subtitle }: HeroProps) {
                             href="/about"
                             variant="tertiary"
                             suffixIcon="chevronRight"
-                            size="m">
+                            size="m"
+                            className={styles.button}
+                            style={{
+                                background: 'var(--accent)',
+                                color: 'var(--background)',
+                            }}>
                             <Flex
                                 gap="8"
                                 alignItems="center">
@@ -62,7 +74,11 @@ export function Hero({ title, subtitle }: HeroProps) {
                             href="/work"
                             variant="secondary"
                             suffixIcon="chevronRight"
-                            size="m">
+                            size="m"
+                            className={styles.button}
+                            style={{
+                                border: '2px solid var(--accent)',
+                            }}>
                             View Projects
                         </Button>
                     </Flex>
@@ -81,6 +97,20 @@ export function Hero({ title, subtitle }: HeroProps) {
                     }}
                 />
             </RevealFx>
+            <Flex
+                style={{
+                    position: 'absolute',
+                    top: '20%',
+                    right: '10%',
+                    width: '300px',
+                    height: '300px',
+                    background: 'var(--accent-weak)',
+                    borderRadius: '50%',
+                    filter: 'blur(100px)',
+                    opacity: 0.3,
+                    pointerEvents: 'none',
+                }}
+            />
         </Flex>
     );
 } 

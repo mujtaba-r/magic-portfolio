@@ -1,20 +1,31 @@
 import React from 'react';
 import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
+import styles from './FeaturedProjects.module.scss';
 
 export function FeaturedProjects() {
     return (
         <Flex
             fillWidth
             direction="column"
-            paddingY="l" gap="m">
+            paddingY="xl"
+            gap="l"
+            style={{
+                position: 'relative',
+                background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
+            }}>
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m">
                 <RevealFx translateY="4" speed="medium">
                     <Heading
                         wrap="balance"
-                        variant="display-strong-l">
+                        variant="display-strong-l"
+                        style={{
+                            background: 'linear-gradient(45deg, var(--accent), var(--accent-strong))',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                        }}>
                         Featured Projects
                     </Heading>
                 </RevealFx>
@@ -28,8 +39,24 @@ export function FeaturedProjects() {
                 </RevealFx>
             </Flex>
             <RevealFx translateY="16" delay={0.4} speed="medium">
-                <Projects range={[1, 3]} />
+                <div className={styles.projectsGrid}>
+                    <Projects range={[1, 3]} />
+                </div>
             </RevealFx>
+            <Flex
+                style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '10%',
+                    width: '300px',
+                    height: '300px',
+                    background: 'var(--accent-weak)',
+                    borderRadius: '50%',
+                    filter: 'blur(100px)',
+                    opacity: 0.3,
+                    pointerEvents: 'none',
+                }}
+            />
         </Flex>
     );
 } 
