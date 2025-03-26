@@ -1,11 +1,10 @@
 import React from 'react';
-
-import { Heading, Flex, Text, Button,  Avatar, RevealFx } from '@/once-ui/components';
-import { Projects } from '@/app/work/components/Projects';
-
-import { about, baseURL, home, newsletter, person, routes } from '@/app/resources'
+import { Flex } from '@/once-ui/components';
+import { baseURL, home, person } from '@/app/resources';
+import { Hero } from '@/app/components/Hero';
+import { FeaturedProjects } from '@/app/components/FeaturedProjects';
+import { FeaturedBlogPosts } from '@/app/components/FeaturedBlogPosts';
 import { Mailchimp } from '@/app/components';
-import { Posts } from '@/app/blog/components/Posts';
 
 export function generateMetadata() {
 	const title = home.title;
@@ -39,7 +38,7 @@ export function generateMetadata() {
 export default function Home() {
 	return (
 		<Flex
-			maxWidth="m" fillWidth gap="xl"
+			maxWidth="m" fillWidth
 			direction="column" alignItems="center">
 			<script
 				type="application/ld+json"
@@ -63,64 +62,10 @@ export default function Home() {
 					}),
 				}}
 			/>
-			<Flex
-				fillWidth
-				direction="column"
-				paddingY="l" gap="m">
-				
-					<Flex
-						direction="column"
-						fillWidth maxWidth="s" gap="m">
-						<RevealFx translateY="4">
-							<Heading
-								wrap="balance"
-								variant="display-strong-l">
-								{home.headline}
-							</Heading>
-						</RevealFx>
-						<RevealFx translateY="8" delay={0.2}>
-							<Text
-								wrap="balance"
-								onBackground="neutral-weak"
-								variant="body-default-l">
-								{home.subline}
-							</Text>
-						</RevealFx>
-						<RevealFx translateY="12" delay={0.4}>
-							<Button
-								data-border="rounded"
-								href="/about"
-								variant="tertiary"
-								suffixIcon="chevronRight"
-								size="m">
-								<Flex
-									gap="8"
-									alignItems="center">
-									{about.avatar.display && (
-										<Avatar
-											style={{marginLeft: '-0.75rem', marginRight: '0.25rem'}}
-											src={person.avatar}
-											size="m"/>
-										)}
-										About me
-								</Flex>
-							</Button>
-						</RevealFx>
-					</Flex>
-				
-			</Flex>
-			<RevealFx translateY="16" delay={0.6}>
-				<Projects range={[1,1]}/>
-			</RevealFx>
-			{routes['/blog'] && (
-				<Flex fillWidth paddingX="20">
-					<Posts range={[1,2]} columns="2"/>
-				</Flex>
-			)}
-			<Projects range={[2]}/>
-			{ newsletter.display &&
-				<Mailchimp/>
-			}
+			<Hero title={home.headline} subtitle={home.subline} />
+			<FeaturedProjects />
+			<FeaturedBlogPosts />
+			<Mailchimp />
 		</Flex>
 	);
 }
