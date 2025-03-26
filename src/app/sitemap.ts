@@ -2,8 +2,8 @@ import { getPosts } from '@/app/lib/server'
 import { baseURL } from '@/app/resources'
 
 export default async function sitemap() {
-    const blogPosts = await getPosts(['src', 'app', 'blog', 'posts'])
-    const workPosts = await getPosts(['src', 'app', 'work', 'projects'])
+    const blogPosts = await getPosts('blog')
+    const workPosts = await getPosts('work')
 
     const blogUrls = blogPosts.map((post) => ({
         url: `https://${baseURL}/blog/${post.slug}`,
