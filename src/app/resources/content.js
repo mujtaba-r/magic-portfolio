@@ -123,7 +123,14 @@ const about = {
                 achievements: [
                     <>Managing sales, digital marketing, web development, and Inventory Management System development efforts for a liquidation center in the GTA.</>
                 ],
-                images: []
+                images: [
+                    {
+                        src: '/images/projects/value-hunt/cover.png',
+                        alt: 'Value Hunt Project',
+                        width: 16,
+                        height: 9
+                    }
+                ]
             },
             {
                 company: 'Self-employed',
@@ -136,7 +143,14 @@ const about = {
                     <>Enhanced site functionality with custom WordPress plugins, reducing bounce rates by 15% and increasing session duration by 30%.</>,
                     <>Managed full lifecycle software development, utilizing agile methodologies, CI/CD pipelines, and business analysis.</>
                 ],
-                images: []
+                images: [
+                    {
+                        src: '/images/projects/freelance/cover.png',
+                        alt: 'Freelance Projects',
+                        width: 16,
+                        height: 9
+                    }
+                ]
             },
             {
                 company: 'Inqilaab',
@@ -146,7 +160,14 @@ const about = {
                 achievements: [
                     <>Worked on a Music Metaverse concept, collaborated with artists & tech firms of Pakistan to bring MVP to life.</>
                 ],
-                images: []
+                images: [
+                    {
+                        src: '/images/projects/music-metaverse/cover.jpg',
+                        alt: 'Music Metaverse Project',
+                        width: 16,
+                        height: 9
+                    }
+                ]
             },
             {
                 company: 'Render\'s Inc.',
