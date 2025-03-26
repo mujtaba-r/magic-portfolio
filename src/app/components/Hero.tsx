@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Heading, Text, Button, Avatar, RevealFx } from '@/once-ui/components';
 import { about, person } from '@/app/resources';
 import styles from './Hero.module.scss';
@@ -9,18 +9,47 @@ interface HeroProps {
 }
 
 export function Hero({ title, subtitle }: HeroProps) {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            setMousePosition({ x: e.clientX, y: e.clientY });
+            setCursorPosition(prev => ({
+                x: prev.x + (e.clientX - prev.x) * 0.1,
+                y: prev.y + (e.clientY - prev.y) * 0.1
+            }));
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
     return (
         <Flex
             fillWidth
             direction="column"
             paddingY="xl"
             gap="l"
+            className={styles.interactive}
             style={{
                 minHeight: '100vh',
                 position: 'relative',
                 overflow: 'hidden',
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
             }}>
+            <div 
+                className={styles.cursor}
+                style={{
+                    transform: `translate(${mousePosition.x - 10}px, ${mousePosition.y - 10}px)`
+                }}
+            />
+            <div 
+                className={styles.cursorFollower}
+                style={{
+                    transform: `translate(${cursorPosition.x - 20}px, ${cursorPosition.y - 20}px)`
+                }}
+            />
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m">

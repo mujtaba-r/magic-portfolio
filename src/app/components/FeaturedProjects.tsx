@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import styles from './FeaturedProjects.module.scss';
 
 export function FeaturedProjects() {
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / scrollHeight) * 100;
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <Flex
             fillWidth
@@ -15,6 +28,10 @@ export function FeaturedProjects() {
                 background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
                 overflow: 'hidden',
             }}>
+            <div 
+                className={styles.scrollProgress}
+                style={{ '--scroll': `${scrollProgress}%` } as React.CSSProperties}
+            />
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m">

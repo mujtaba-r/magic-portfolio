@@ -11,6 +11,8 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 
     &::before {
         content: '';
@@ -34,10 +36,25 @@
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.2;
     margin-bottom: 1rem;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .sectionDescription {
     font-size: clamp(1.1rem, 2vw, 1.25rem);
     line-height: 1.6;
     opacity: 0.9;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.parallaxBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    transform: translateZ(-1px) scale(2);
+    will-change: transform;
 } 
