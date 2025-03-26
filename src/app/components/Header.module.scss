@@ -24,11 +24,12 @@
     border: 1px solid var(--neutral-medium);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    background: var(--surface) !important;
 
     nav {
         ul {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.25rem;
             padding: 0;
             margin: 0;
             list-style: none;
@@ -41,17 +42,25 @@
         left: 50%;
         transform: translateX(-50%);
         width: auto;
+        padding: 0.25rem !important;
         
         nav {
             ul {
                 justify-content: center;
-                
-                button {
-                    padding: 0.5rem !important;
-                    font-size: 0.9rem;
-                    min-width: auto;
-                }
             }
+        }
+    }
+}
+
+.navButton {
+    min-width: auto !important;
+    padding: 0.5rem 0.75rem !important;
+
+    @media (max-width: 768px) {
+        padding: 0.5rem !important;
+
+        :global(.font-label) {
+            display: none;
         }
     }
 }

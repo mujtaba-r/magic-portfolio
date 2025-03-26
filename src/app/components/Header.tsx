@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from 'next/link';
-import { Button, Flex, Text } from '@/once-ui/components';
+import { Button, Flex, Text, SegmentedControl } from '@/once-ui/components';
 import styles from '@/app/components/Header.module.scss'
 import { person } from '@/app/resources'
 import ThemeToggle from './ThemeToggle';
@@ -60,7 +60,7 @@ export function Header() {
                 <Text 
                     variant="body-default-s" 
                     className={styles.location}>
-                    {person.location}
+                    {person.location.replace('_', '/')}
                 </Text>
                 
                 <Flex
@@ -73,7 +73,7 @@ export function Header() {
                             as="ul"
                             role="menubar"
                             aria-label="Main menu"
-                            gap="s">
+                            gap="2">
                             {navigationRoutes.map((route) => {
                                 const isActive = pathname === route.href;
                                 return (
@@ -87,25 +87,27 @@ export function Header() {
                                                 role="menuitem"
                                                 aria-current={isActive ? 'page' : undefined}
                                                 variant={isActive ? 'secondary' : 'tertiary'}
-                                                label={route.name}
+                                                size="s"
                                                 prefixIcon={route.icon}
+                                                label={route.name}
+                                                className={styles.navButton}
                                             />
                                         </Link>
                                     </li>
                                 );
                             })}
+                            <li role="none">
+                                <ThemeToggle />
+                            </li>
                         </Flex>
                     </nav>
                 </Flex>
 
-                <Flex gap="m" alignItems="center">
-                    <Text 
-                        variant="body-default-s" 
-                        className={styles.time}>
-                        {currentTime}
-                    </Text>
-                    <ThemeToggle />
-                </Flex>
+                <Text 
+                    variant="body-default-s" 
+                    className={styles.time}>
+                    {currentTime.toLowerCase()}
+                </Text>
             </Flex>
         </header>
     );
