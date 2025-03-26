@@ -13,6 +13,7 @@ export function FeaturedBlogPosts() {
             style={{
                 position: 'relative',
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
+                overflow: 'hidden',
             }}>
             <Flex
                 direction="column"
@@ -21,6 +22,7 @@ export function FeaturedBlogPosts() {
                     <Heading
                         wrap="balance"
                         variant="display-strong-l"
+                        className={styles.sectionTitle}
                         style={{
                             color: 'var(--accent)',
                             fontWeight: 'bold',
@@ -32,7 +34,8 @@ export function FeaturedBlogPosts() {
                     <Text
                         wrap="balance"
                         onBackground="neutral-weak"
-                        variant="body-default-l">
+                        variant="body-default-l"
+                        className={styles.sectionDescription}>
                         Insights on technology, entrepreneurship, and the future of AI.
                     </Text>
                 </RevealFx>
@@ -47,12 +50,26 @@ export function FeaturedBlogPosts() {
                     position: 'absolute',
                     bottom: '20%',
                     right: '10%',
+                    width: '400px',
+                    height: '400px',
+                    background: 'var(--accent-weak)',
+                    borderRadius: '50%',
+                    filter: 'blur(100px)',
+                    opacity: 0.3,
+                    pointerEvents: 'none',
+                }}
+            />
+            <Flex
+                style={{
+                    position: 'absolute',
+                    top: '20%',
+                    left: '10%',
                     width: '300px',
                     height: '300px',
                     background: 'var(--accent-weak)',
                     borderRadius: '50%',
                     filter: 'blur(100px)',
-                    opacity: 0.3,
+                    opacity: 0.2,
                     pointerEvents: 'none',
                 }}
             />

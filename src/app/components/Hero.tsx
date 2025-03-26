@@ -16,7 +16,7 @@ export function Hero({ title, subtitle }: HeroProps) {
             paddingY="xl"
             gap="l"
             style={{
-                minHeight: '90vh',
+                minHeight: '100vh',
                 position: 'relative',
                 overflow: 'hidden',
                 background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
@@ -31,6 +31,8 @@ export function Hero({ title, subtitle }: HeroProps) {
                         style={{
                             color: 'var(--accent)',
                             fontWeight: 'bold',
+                            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                            lineHeight: '1.2',
                         }}>
                         {title}
                     </Heading>
@@ -39,7 +41,11 @@ export function Hero({ title, subtitle }: HeroProps) {
                     <Text
                         wrap="balance"
                         onBackground="neutral-weak"
-                        variant="body-default-l">
+                        variant="body-default-l"
+                        style={{
+                            fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
+                            lineHeight: '1.6',
+                        }}>
                         {subtitle}
                     </Text>
                 </RevealFx>
@@ -55,6 +61,8 @@ export function Hero({ title, subtitle }: HeroProps) {
                             style={{
                                 background: 'var(--accent)',
                                 color: 'var(--background)',
+                                padding: '0.75rem 1.5rem',
+                                fontSize: '1.1rem',
                             }}>
                             <Flex
                                 gap="8"
@@ -77,6 +85,8 @@ export function Hero({ title, subtitle }: HeroProps) {
                             className={styles.button}
                             style={{
                                 border: '2px solid var(--accent)',
+                                padding: '0.75rem 1.5rem',
+                                fontSize: '1.1rem',
                             }}>
                             View Projects
                         </Button>
@@ -101,12 +111,26 @@ export function Hero({ title, subtitle }: HeroProps) {
                     position: 'absolute',
                     top: '20%',
                     right: '10%',
+                    width: '400px',
+                    height: '400px',
+                    background: 'var(--accent-weak)',
+                    borderRadius: '50%',
+                    filter: 'blur(100px)',
+                    opacity: 0.3,
+                    pointerEvents: 'none',
+                }}
+            />
+            <Flex
+                style={{
+                    position: 'absolute',
+                    bottom: '20%',
+                    left: '10%',
                     width: '300px',
                     height: '300px',
                     background: 'var(--accent-weak)',
                     borderRadius: '50%',
                     filter: 'blur(100px)',
-                    opacity: 0.3,
+                    opacity: 0.2,
                     pointerEvents: 'none',
                 }}
             />
