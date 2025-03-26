@@ -1,9 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
+import React, { useEffect, useState, Suspense } from 'react';
+import { Flex, Grid, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
 import styles from './FeaturedBlogPosts.module.scss';
+
+function LoadingPosts() {
+    return (
+        <Grid columns="repeat(3, 1fr)" mobileColumns="1col" fillWidth marginBottom="40" gap="m" paddingX="l">
+            <div className={styles.skeleton} />
+            <div className={styles.skeleton} />
+            <div className={styles.skeleton} />
+        </Grid>
+    );
+}
 
 export function FeaturedBlogPosts() {
     const [scrollY, setScrollY] = useState(0);
@@ -70,8 +80,10 @@ export function FeaturedBlogPosts() {
                     style={{
                         transform: `translateY(${scrollY * 0.3}px)`,
                     }}>
-                    {/* @ts-ignore */}
-                    <Posts range={[1, 3]} columns="3" />
+                    <Suspense fallback={<LoadingPosts />}>
+                        {/* @ts-ignore */}
+                        <Posts range={[1, 3]} columns="3" />
+                    </Suspense>
                 </div>
             </RevealFx>
             <Flex

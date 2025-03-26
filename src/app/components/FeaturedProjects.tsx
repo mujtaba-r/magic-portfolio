@@ -1,9 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { Flex, Heading, Text, RevealFx } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import styles from './FeaturedProjects.module.scss';
+
+function LoadingProjects() {
+    return (
+        <Flex fillWidth gap="l" marginBottom="40" paddingX="l" direction="column">
+            <div className={styles.skeleton} />
+            <div className={styles.skeleton} />
+            <div className={styles.skeleton} />
+        </Flex>
+    );
+}
 
 export function FeaturedProjects() {
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -61,8 +71,10 @@ export function FeaturedProjects() {
             </Flex>
             <RevealFx translateY="16" delay={0.4} speed="medium">
                 <div className={styles.projectsGrid}>
-                    {/* @ts-ignore */}
-                    <Projects range={[1, 3]} />
+                    <Suspense fallback={<LoadingProjects />}>
+                        {/* @ts-ignore */}
+                        <Projects range={[1, 3]} />
+                    </Suspense>
                 </div>
             </RevealFx>
             <Flex
