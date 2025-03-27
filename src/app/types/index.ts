@@ -20,6 +20,7 @@ export interface ProjectMetadata {
     images: string[];
     team: Team[];
     tags: string[];
+    description: string;
 }
 
 export interface Project {
