@@ -8,7 +8,7 @@ import styles from './Header.module.scss';
 
 const navigationItems = [
     { label: 'Home', value: '/', prefixIcon: 'home' },
-    { label: 'About', value: '/about', prefixIcon: 'user' },
+    { label: 'About', value: '/about', prefixIcon: 'person' },
     { label: 'Work', value: '/work', prefixIcon: 'grid' },
     { label: 'Blog', value: '/blog', prefixIcon: 'book' },
     { label: 'Dark mode', value: 'theme', prefixIcon: 'moon' }
@@ -24,7 +24,7 @@ export function Header() {
     useEffect(() => setMounted(true), []);
 
     const getSelectedValue = () => {
-        // Don't highlight theme toggle button
+        // Return the current path for navigation items
         if (pathname === '/') return '/';
         if (pathname === '/about') return '/about';
         if (pathname === '/work') return '/work';
@@ -40,6 +40,7 @@ export function Header() {
         router.push(value);
     };
 
+    // Initial render with SSR values
     if (!mounted) {
         return (
             <header className={styles.header}>
@@ -60,6 +61,7 @@ export function Header() {
         );
     }
 
+    // Update navigation items with current theme
     const updatedNavigationItems = navigationItems.map(item => {
         if (item.value === 'theme') {
             return {
