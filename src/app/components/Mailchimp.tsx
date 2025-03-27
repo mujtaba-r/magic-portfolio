@@ -76,7 +76,7 @@ export const Mailchimp = () => {
         <Flex
             style={{overflow: 'hidden'}}
             position="relative"
-            fillWidth padding="l"  radius="l" marginBottom="m"
+            fillWidth padding="l" radius="l" marginBottom="m"
             direction="column" alignItems="center" align="center"
             background="surface" border="neutral-medium" borderStyle="solid-1">
             <Background
@@ -103,56 +103,55 @@ export const Mailchimp = () => {
                 style={{
                     width: '100%',
                     display: 'flex',
-                    justifyContent: 'center'
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 'var(--static-space-16)'
                 }}
                 onSubmit={handleSubmit}>
                 <Flex
-                    fillWidth maxWidth={24} gap="8"
-                    direction="column">
-                    <Flex gap="8">
-                        <Input
-                            formNoValidate
-                            labelAsPlaceholder
-                            id="mce-EMAIL"
-                            name="EMAIL"
-                            type="email"
-                            label="Email"
-                            required
-                            value={email}
-                            onChange={handleChange}
-                            error={error}/>
-                        <div className="clear">
-                            <Flex
-                                height="48" alignItems="center">
-                                <Button
-                                    type="submit"
-                                    size="m"
-                                    fillWidth
-                                    disabled={isSubmitting || !validateEmail(email)}>
-                                    {isSubmitting ? 'Subscribing...' : 'Sign up'}
-                                </Button>
-                            </Flex>
-                        </div>
-                    </Flex>
-                    {submitStatus === 'success' && (
-                        <Text
-                            style={{
-                                color: 'var(--accent)',
-                                textAlign: 'center'
-                            }}>
-                            Successfully subscribed! Thank you for joining.
-                        </Text>
-                    )}
-                    {submitStatus === 'error' && error && (
-                        <Text
-                            style={{
-                                color: 'var(--danger)',
-                                textAlign: 'center'
-                            }}>
-                            {error}
-                        </Text>
-                    )}
+                    fillWidth maxWidth={24} gap="8">
+                    <Input
+                        formNoValidate
+                        labelAsPlaceholder
+                        id="mce-EMAIL"
+                        name="EMAIL"
+                        type="email"
+                        label="Email"
+                        required
+                        value={email}
+                        onChange={handleChange}
+                        error={error}/>
+                    <div className="clear">
+                        <Flex
+                            height="48" alignItems="center">
+                            <Button
+                                type="submit"
+                                size="m"
+                                fillWidth
+                                disabled={isSubmitting || !validateEmail(email)}>
+                                {isSubmitting ? 'Subscribing...' : 'Sign up'}
+                            </Button>
+                        </Flex>
+                    </div>
                 </Flex>
+                {submitStatus === 'success' && (
+                    <Text
+                        style={{
+                            color: 'var(--accent)',
+                            textAlign: 'center'
+                        }}>
+                        Successfully subscribed! Thank you for joining.
+                    </Text>
+                )}
+                {submitStatus === 'error' && error && (
+                    <Text
+                        style={{
+                            color: 'var(--danger)',
+                            textAlign: 'center'
+                        }}>
+                        {error}
+                    </Text>
+                )}
             </form>
         </Flex>
     )
