@@ -43,7 +43,7 @@ export async function Posts({ range, columns = '2' }: PostsProps) {
                     <SmartLink
                         key={blog.slug}
                         href={`/blog/${blog.slug}`}
-                        className={styles.post}>
+                        className={styles.hover}>
                         <Flex
                             fillWidth
                             direction="column"
@@ -56,10 +56,7 @@ export async function Posts({ range, columns = '2' }: PostsProps) {
                                 onBackground="neutral-weak">
                                 {formatDate(blog.metadata.publishedAt)}
                             </Text>
-                            <Text
-                                variant="body-default-m">
-                                {blog.metadata.summary}
-                            </Text>
+                            <div className={styles.indicator}>→</div>
                         </Flex>
                     </SmartLink>
                 ))}
