@@ -141,7 +141,7 @@ export const Mailchimp = () => {
                         Successfully subscribed! Thank you for joining.
                     </Text>
                 )}
-                {submitStatus === 'error' && error && (
+                {submitStatus === 'error' && (
                     <Text
                         onBackground="neutral-medium"
                         align="center">
