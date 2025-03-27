@@ -8,80 +8,57 @@ interface PostsProps {
     columns?: '1' | '2' | '3';
 }
 
-export async function Posts({
-    range,
-    columns = '1'
-}: PostsProps) {
+export async function Posts({ range, columns = '2' }: PostsProps) {
+    console.log('Posts component: Rendering with range:', range, 'columns:', columns);
+
     try {
         console.log('Posts component: Fetching blog posts...');
-        let allBlogs = await getPosts('blog');
+        let allBlogs = await getPosts();
         console.log(`Posts component: Found ${allBlogs.length} blog posts`);
 
         if (allBlogs.length === 0) {
-            console.warn('Posts component: No blog posts found');
-            return null;
+            return (
+                <Flex
+                    fillWidth
+                    direction="column"
+                    alignItems="center"
+                    gap="m">
+                    <Heading variant="display-strong-s">
+                        No posts found
+                    </Heading>
+                    <Text>Check back later for new content!</Text>
+                </Flex>
+            );
         }
 
-        const sortedBlogs = allBlogs.sort((a, b) => {
-            try {
-                const dateA = new Date(a.metadata.publishedAt);
-                const dateB = new Date(b.metadata.publishedAt);
-                if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
-                    console.warn('Posts component: Invalid date found', { a: a.metadata.publishedAt, b: b.metadata.publishedAt });
-                    return 0;
-                }
-                return dateB.getTime() - dateA.getTime();
-            } catch (error) {
-                console.warn('Posts component: Error sorting dates:', error);
-                return 0;
-            }
-        });
-
-        const displayedBlogs = range
-            ? sortedBlogs.slice(
-                  range[0] - 1,
-                  range.length === 2 ? range[1] : sortedBlogs.length 
-              )
-            : sortedBlogs;
-
-        console.log(`Posts component: Displaying ${displayedBlogs.length} blog posts`);
-
-        if (displayedBlogs.length === 0) {
-            console.warn('Posts component: No blog posts to display after filtering');
-            return null;
+        // If range is provided, slice the array
+        if (range) {
+            const [start, end] = range;
+            allBlogs = allBlogs.slice(start, end || undefined);
         }
 
         return (
-            <Grid
-                columns={`repeat(${columns}, 1fr)`} mobileColumns="1col"
-                fillWidth marginBottom="40" gap="m" paddingX="l">
-                {displayedBlogs.map((post) => (
+            <Grid columns={columns} gap="l">
+                {allBlogs.map((blog) => (
                     <SmartLink
-                        style={{
-                            textDecoration: 'none',
-                            margin: '0',
-                            height: 'fit-content',
-                        }}
-                        className={styles.hover}
-                        key={post.slug}
-                        href={`/blog/${post.slug}`}>
+                        key={blog.slug}
+                        href={`/blog/${blog.slug}`}
+                        className={styles.post}>
                         <Flex
-                            position="relative"
-                            paddingX="16" paddingY="12" gap="8"
-                            direction="column" justifyContent="center">
-                            <Flex
-                                position="absolute"
-                                className={styles.indicator}
-                                width="20" height="2"
-                                background="neutral-strong"/>
-                            <Heading as="h2" wrap="balance">
-                                {post.metadata.title}
-                            </Heading>
+                            fillWidth
+                            direction="column"
+                            gap="s">
+                            <Text variant="heading-strong-s">
+                                {blog.metadata.title}
+                            </Text>
                             <Text
                                 variant="body-default-s"
-                                onBackground="neutral-weak"
-                                style={{ opacity: 0.7, fontWeight: 'normal', fontSize: '0.9rem' }}>
-                                {formatDate(post.metadata.publishedAt, false)}
+                                onBackground="neutral-weak">
+                                {formatDate(blog.metadata.publishedAt)}
+                            </Text>
+                            <Text
+                                variant="body-default-m">
+                                {blog.metadata.summary}
                             </Text>
                         </Flex>
                     </SmartLink>
@@ -90,6 +67,17 @@ export async function Posts({
         );
     } catch (error) {
         console.error('Error in Posts component:', error);
-        return null;
+        return (
+            <Flex
+                fillWidth
+                direction="column"
+                alignItems="center"
+                gap="m">
+                <Heading variant="display-strong-s">
+                    Error loading posts
+                </Heading>
+                <Text>Please try again later.</Text>
+            </Flex>
+        );
     }
 }
