@@ -6,7 +6,6 @@ import { Button, Flex, Heading, Input, Text } from '@/once-ui/components';
 import { Background } from '@/once-ui/components/Background';
 import { useState } from 'react';
 
-
 function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T {
     let timeout: ReturnType<typeof setTimeout>;
     return ((...args: Parameters<T>) => {
@@ -19,6 +18,8 @@ export const Mailchimp = () => {
     const [email, setEmail] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [touched, setTouched] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     const validateEmail = (email: string): boolean => {
         if (email === '') {
@@ -32,6 +33,7 @@ export const Mailchimp = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setEmail(value);
+        setSubmitStatus('idle');
 
         if (!validateEmail(value)) {
             setError('Please enter a valid email address.');
@@ -46,6 +48,42 @@ export const Mailchimp = () => {
         setTouched(true);
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.');
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validateEmail(email)) {
+            setError('Please enter a valid email address.');
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to subscribe');
+            }
+
+            setSubmitStatus('success');
+            setEmail('');
+            setError('');
+        } catch (err) {
+            setSubmitStatus('error');
+            setError(err instanceof Error ? err.message : 'Failed to subscribe');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -82,11 +120,8 @@ export const Mailchimp = () => {
                     display: 'flex',
                     justifyContent: 'center'
                 }}
-                action={mailchimp.action}
-                method="post"
-                id="mc-embedded-subscribe-form"
-                name="mc-embedded-subscribe-form">
-                <Flex id="mc_embed_signup_scroll"
+                onSubmit={handleSubmit}>
+                <Flex
                     fillWidth maxWidth={24} gap="8">
                     <Input
                         formNoValidate
@@ -96,6 +131,7 @@ export const Mailchimp = () => {
                         type="email"
                         label="Email"
                         required
+                        value={email}
                         onChange={(e) => {
                             if (error) {
                                 handleChange(e);
@@ -105,29 +141,29 @@ export const Mailchimp = () => {
                         }}
                         onBlur={handleBlur}
                         error={error}/>
-                    <div style={{display: 'none'}}>
-                        <input type="checkbox" readOnly name="group[3492][1]" id="mce-group[3492]-3492-0" value="" checked/>
-                    </div>
-                    <div id="mce-responses" className="clearfalse">
-                        <div className="response" id="mce-error-response" style={{display: 'none'}}></div>
-                        <div className="response" id="mce-success-response" style={{display: 'none'}}></div>
-                    </div>
-                    <div aria-hidden="true" style={{position: 'absolute', left: '-5000px'}}>
-                        <input type="text" readOnly name="b_c1a5a210340eb6c7bff33b2ba_0462d244aa" tabIndex={-1} value=""/>
-                    </div>
                     <div className="clear">
                         <Flex
                             height="48" alignItems="center">
                             <Button
-                                id="mc-embedded-subscribe"
-                                value="Subscribe"
+                                type="submit"
                                 size="m"
-                                fillWidth>
-                                Sign up
+                                fillWidth
+                                disabled={isSubmitting || !validateEmail(email)}>
+                                {isSubmitting ? 'Subscribing...' : 'Sign up'}
                             </Button>
                         </Flex>
                     </div>
                 </Flex>
+                {submitStatus === 'success' && (
+                    <Text
+                        style={{
+                            position: 'relative',
+                            color: 'var(--accent)',
+                            marginTop: '1rem'
+                        }}>
+                        Successfully subscribed! Thank you for joining.
+                    </Text>
+                )}
             </form>
         </Flex>
     )
