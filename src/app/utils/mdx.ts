@@ -19,6 +19,8 @@ export async function readMDXFile(slug: string): Promise<Project> {
         images: data.images || [],
         team: data.team || [],
         tags: data.tags || [],
+        description: data.description || '',
+        updatedAt: data.updatedAt
     };
 
     return {

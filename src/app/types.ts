@@ -1,3 +1,9 @@
+export interface Team {
+    name: string;
+    role: string;
+    avatar: string;
+}
+
 export interface ProjectMetadata {
     title: string;
     summary: string;
@@ -5,6 +11,9 @@ export interface ProjectMetadata {
     tags: string[];
     publishedAt: string;
     updatedAt?: string;
+    image?: string;
+    team: Team[];
+    description: string;
 }
 
 export interface Image {

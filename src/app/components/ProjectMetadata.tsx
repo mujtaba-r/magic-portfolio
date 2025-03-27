@@ -15,7 +15,7 @@ export function ProjectMetadata({ metadata }: ProjectMetadataProps) {
                     <Tag key={tag}>{tag}</Tag>
                 ))}
             </Flex>
-            {metadata.team.length > 0 && (
+            {metadata.team && metadata.team.length > 0 && (
                 <Flex direction="column" gap="8">
                     <Heading as="h3">Team</Heading>
                     <Flex gap="16" wrap>
