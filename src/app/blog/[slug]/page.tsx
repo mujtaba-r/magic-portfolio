@@ -1,80 +1,77 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/app/components/mdx'
 import { formatDate } from '@/app/utils'
-import { getPosts } from '@/app/lib/server'
+import { getPosts, getPost } from '@/app/lib/server'
 import { Avatar, Button, Flex, Heading, Text } from '@/once-ui/components'
+import { Post } from '@/app/blog/components/Post'
 
 import { person, baseURL } from '@/app/resources'
 
-interface BlogParams {
-    params: { 
+interface BlogPostPageProps {
+    params: {
         slug: string;
     };
 }
 
 export async function generateStaticParams() {
-	const posts = await getPosts('blog')
+	const posts = await getPosts()
 
 	return posts.map((post) => ({
 		slug: post.slug,
 	}))
 }
 
-export async function generateMetadata({ params }: BlogParams) {
-	const posts = await getPosts('blog')
-	const post = posts.find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+	const post = await getPost(params.slug)
 
 	if (!post) {
-		return
+		return {}
 	}
 
-	let {
-		title,
-		publishedAt: publishedTime,
-		summary: description,
-		image,
-	} = post.metadata;
-	let ogImage = image
-		? `https://${baseURL}${image}`
-		: `https://${baseURL}/og?title=${title}`;
+	const { title, description, publishedAt, image, author } = post.metadata
+	const ogImage = image || `https://${baseURL}/og/${params.slug}`
 
 	return {
 		title,
 		description,
+		authors: [{ name: author || person.name }],
 		openGraph: {
 			title,
 			description,
 			type: 'article',
-			publishedTime,
-			url: `https://${baseURL}/blog/${post.slug}`,
+			publishedTime: publishedAt,
+			authors: [author || person.name],
 			images: [
 				{
 					url: ogImage,
-				},
+					width: 1200,
+					height: 630,
+					alt: title,
+				}
 			],
 		},
-			twitter: {
+		twitter: {
 			card: 'summary_large_image',
 			title,
 			description,
 			images: [ogImage],
 		},
+		alternates: {
+			canonical: `https://${baseURL}/blog/${params.slug}`,
+		},
 	}
 }
 
-export default async function Blog({ params }: BlogParams) {
-	const posts = await getPosts('blog')
-	const post = posts.find((post) => post.slug === params.slug)
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+	const post = await getPost(params.slug)
 
 	if (!post) {
 		notFound()
 	}
 
 	return (
-		<Flex as="section"
-			fillWidth maxWidth="xs"
-			direction="column"
-			gap="m">
+		<>
 			<script
 				type="application/ld+json"
 				suppressHydrationWarning
@@ -83,51 +80,31 @@ export default async function Blog({ params }: BlogParams) {
 						'@context': 'https://schema.org',
 						'@type': 'BlogPosting',
 						headline: post.metadata.title,
+						description: post.metadata.description,
+						image: post.metadata.image || `https://${baseURL}/og/${params.slug}`,
 						datePublished: post.metadata.publishedAt,
-						dateModified: post.metadata.publishedAt,
-						description: post.metadata.summary,
-						image: post.metadata.image
-							? `https://${baseURL}${post.metadata.image}`
-							: `https://${baseURL}/og?title=${post.metadata.title}`,
-							url: `https://${baseURL}/blog/${post.slug}`,
+						dateModified: post.metadata.updatedAt || post.metadata.publishedAt,
 						author: {
 							'@type': 'Person',
-							name: person.name,
+							name: post.metadata.author || person.name,
+							url: `https://${baseURL}/about`,
+						},
+						publisher: {
+							'@type': 'Organization',
+							name: `${person.name}'s Blog`,
+							logo: {
+								'@type': 'ImageObject',
+								url: `https://${baseURL}/logo.png`,
+							},
+						},
+						mainEntityOfPage: {
+							'@type': 'WebPage',
+							'@id': `https://${baseURL}/blog/${params.slug}`,
 						},
 					}),
 				}}
 			/>
-			<Button
-				href="/blog"
-				variant="tertiary"
-				size="s"
-				prefixIcon="chevronLeft">
-				Posts
-			</Button>
-			<Heading
-				variant="display-strong-s">
-				{post.metadata.title}
-			</Heading>
-			<Flex
-				gap="12"
-				alignItems="center">
-				{ person.avatar && (
-					<Avatar
-						size="s"
-						src={person.avatar}/>
-				)}
-				<Text
-					variant="body-default-s"
-					onBackground="neutral-weak">
-					{formatDate(post.metadata.publishedAt)}
-				</Text>
-			</Flex>
-			<Flex
-				as="article"
-				direction="column"
-				fillWidth>
-				<CustomMDX source={post.content} />
-			</Flex>
-		</Flex>
+			<Post post={post} />
+		</>
 	)
 }

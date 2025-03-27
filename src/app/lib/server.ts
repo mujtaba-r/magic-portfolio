@@ -111,20 +111,38 @@ async function getMDXData(dir: string) {
     return data;
 }
 
-export const getPosts = cache(async (type: ContentType) => {
+export const getPosts = cache(async () => {
     try {
-        console.log('getPosts called with type:', type);
-        
-        const contentDir = getContentDirectory(type);
+        const contentDir = getContentDirectory('blog');
         console.log('Content directory:', contentDir);
         
         const data = await getMDXData(contentDir);
-        console.log(`Found ${data.length} posts in ${contentDir}`);
+        console.log(`Found ${data.length} posts`);
         
-        return data;
+        return data.sort((a, b) => 
+            new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+        );
     } catch (error) {
         console.error(`Error in getPosts:`, error);
-        console.error(`Failed type: ${type}`);
         return [];
+    }
+});
+
+export const getPost = cache(async (slug: string) => {
+    try {
+        const contentDir = getContentDirectory('blog');
+        const filePath = path.join(contentDir, `${slug}.mdx`);
+        
+        const fileData = await readMDXFile(filePath);
+        if (!fileData) return null;
+        
+        return {
+            metadata: fileData.metadata,
+            slug,
+            content: fileData.content,
+        };
+    } catch (error) {
+        console.error(`Error in getPost:`, error);
+        return null;
     }
 }); 
