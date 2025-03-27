@@ -112,7 +112,7 @@ export const Header = () => {
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
                 textVariant="body-default-s"
-                className={styles.locationDisplay}>
+                className={styles.timeDisplayContainer}>
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
                 )}

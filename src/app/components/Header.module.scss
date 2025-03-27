@@ -22,9 +22,19 @@
 .timeDisplay {
     font-size: 1.1rem;
     letter-spacing: 0.5px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .locationDisplay {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.timeDisplayContainer {
     @media (max-width: 768px) {
         display: none;
     }
