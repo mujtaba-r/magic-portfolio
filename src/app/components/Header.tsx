@@ -53,7 +53,7 @@ export function Header() {
 
     return (
         <header className={styles.position}>
-            <Flex className={`pl-12 ${styles.hideOnMobile}`} alignItems="center" fillWidth>
+            <Flex className={styles.location} alignItems="center" fillWidth>
                 {timeZone}
             </Flex>
             
@@ -81,7 +81,7 @@ export function Header() {
                 </Flex>
             </Flex>
 
-            <Flex className={`pr-12 ${styles.hideOnMobile}`} justifyContent="flex-end" alignItems="center" fillWidth>
+            <Flex className={styles.time} justifyContent="flex-end" alignItems="center" fillWidth>
                 {time}
             </Flex>
         </header>

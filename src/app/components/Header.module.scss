@@ -78,14 +78,6 @@
     }
 }
 
-:global {
-    .s-flex-hide {
-        @media (max-width: 768px) {
-            display: none;
-        }
-    }
-}
-
 .hideOnMobile {
     @media (max-width: 768px) {
         display: none;
