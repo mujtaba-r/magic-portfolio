@@ -136,14 +136,14 @@ export const Mailchimp = () => {
                 </Flex>
                 {submitStatus === 'success' && (
                     <Text
-                        onBackground="neutral-medium"
+                        onBackground="success-strong"
                         align="center">
                         Successfully subscribed! Thank you for joining.
                     </Text>
                 )}
                 {submitStatus === 'error' && (
                     <Text
-                        onBackground="neutral-medium"
+                        onBackground="danger-strong"
                         align="center">
                         {error}
                     </Text>
