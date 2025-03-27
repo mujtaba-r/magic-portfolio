@@ -73,7 +73,7 @@ export const Header = () => {
                 justifyContent="center">
                 <Flex
                     gap="4"
-                    textVariant="body-default-s"
+                    textVariant="heading-default-s"
                     style={{ fontFamily: 'var(--font-secondary)' }}>
                     { routes['/'] && (
                         <ToggleButton
