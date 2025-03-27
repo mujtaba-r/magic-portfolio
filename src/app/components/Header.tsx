@@ -39,11 +39,7 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
     }, [timeZone, locale]);
 
     return (
-        <span style={{ 
-            fontWeight: 'bold',
-            fontSize: '1.1rem',
-            letterSpacing: '0.5px'
-        }}>
+        <span className={styles.timeDisplay}>
             {currentTime}
         </span>
     );
@@ -64,7 +60,8 @@ export const Header = () => {
             <Flex
                 paddingLeft="12" fillWidth
                 alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                className={styles.locationDisplay}>
                 { display.location && (
                     <>{person.location}</>
                 )}

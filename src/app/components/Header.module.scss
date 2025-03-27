@@ -19,6 +19,17 @@
     }
 }
 
+.timeDisplay {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.locationDisplay {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
 @media (--s) {
     .position {
         top: auto;
