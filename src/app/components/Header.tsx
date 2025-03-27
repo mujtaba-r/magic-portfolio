@@ -114,7 +114,7 @@ export const Header = () => {
                 hide="s"
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
-                textVariant="heading-default-s"
+                textVariant="display-default-s"
                 >
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
