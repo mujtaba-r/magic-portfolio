@@ -61,7 +61,8 @@ export const Header = () => {
                 hide="s"
                 paddingLeft="12" fillWidth
                 alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                style={{ fontFamily: 'var(--font-secondary)' }}>
                 { display.location && (
                     <>{person.location}</>
                 )}
@@ -112,7 +113,8 @@ export const Header = () => {
                 hide="s"
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                style={{ fontFamily: 'var(--font-secondary)' }}>
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
                 )}
