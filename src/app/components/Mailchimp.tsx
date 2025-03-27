@@ -23,7 +23,7 @@ export const Mailchimp = () => {
 
     const validateEmail = (email: string): boolean => {
         if (email === '') {
-            return true;
+            return false;
         }
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +53,7 @@ export const Mailchimp = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.');
             return;
@@ -60,6 +61,7 @@ export const Mailchimp = () => {
 
         setIsSubmitting(true);
         setSubmitStatus('idle');
+        setError('');
 
         try {
             const response = await fetch('/api/subscribe', {
@@ -80,6 +82,7 @@ export const Mailchimp = () => {
             setEmail('');
             setError('');
         } catch (err) {
+            console.error('Subscription error:', err);
             setSubmitStatus('error');
             setError(err instanceof Error ? err.message : 'Failed to subscribe');
         } finally {

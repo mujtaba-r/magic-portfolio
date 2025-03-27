@@ -16,6 +16,11 @@ export async function POST(request: Request) {
         }
 
         if (!MAILCHIMP_API_KEY || !MAILCHIMP_SERVER_PREFIX || !MAILCHIMP_LIST_ID) {
+            console.error('Missing Mailchimp configuration:', {
+                hasApiKey: !!MAILCHIMP_API_KEY,
+                hasServerPrefix: !!MAILCHIMP_SERVER_PREFIX,
+                hasListId: !!MAILCHIMP_LIST_ID
+            });
             return NextResponse.json(
                 { error: 'Mailchimp configuration is missing' },
                 { status: 500 }
@@ -37,10 +42,12 @@ export async function POST(request: Request) {
             }
         );
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const error = await response.json();
+            console.error('Mailchimp API error:', data);
             return NextResponse.json(
-                { error: error.detail || 'Failed to subscribe' },
+                { error: data.detail || 'Failed to subscribe' },
                 { status: response.status }
             );
         }
@@ -50,6 +57,7 @@ export async function POST(request: Request) {
             { status: 200 }
         );
     } catch (error) {
+        console.error('Subscription error:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
