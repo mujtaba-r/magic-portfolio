@@ -107,41 +107,52 @@ export const Mailchimp = () => {
                 }}
                 onSubmit={handleSubmit}>
                 <Flex
-                    fillWidth maxWidth={24} gap="8">
-                    <Input
-                        formNoValidate
-                        labelAsPlaceholder
-                        id="mce-EMAIL"
-                        name="EMAIL"
-                        type="email"
-                        label="Email"
-                        required
-                        value={email}
-                        onChange={handleChange}
-                        error={error}/>
-                    <div className="clear">
-                        <Flex
-                            height="48" alignItems="center">
-                            <Button
-                                type="submit"
-                                size="m"
-                                fillWidth
-                                disabled={isSubmitting || !validateEmail(email)}>
-                                {isSubmitting ? 'Subscribing...' : 'Sign up'}
-                            </Button>
-                        </Flex>
-                    </div>
+                    fillWidth maxWidth={24} gap="8"
+                    direction="column">
+                    <Flex gap="8">
+                        <Input
+                            formNoValidate
+                            labelAsPlaceholder
+                            id="mce-EMAIL"
+                            name="EMAIL"
+                            type="email"
+                            label="Email"
+                            required
+                            value={email}
+                            onChange={handleChange}
+                            error={error}/>
+                        <div className="clear">
+                            <Flex
+                                height="48" alignItems="center">
+                                <Button
+                                    type="submit"
+                                    size="m"
+                                    fillWidth
+                                    disabled={isSubmitting || !validateEmail(email)}>
+                                    {isSubmitting ? 'Subscribing...' : 'Sign up'}
+                                </Button>
+                            </Flex>
+                        </div>
+                    </Flex>
+                    {submitStatus === 'success' && (
+                        <Text
+                            style={{
+                                color: 'var(--accent)',
+                                textAlign: 'center'
+                            }}>
+                            Successfully subscribed! Thank you for joining.
+                        </Text>
+                    )}
+                    {submitStatus === 'error' && error && (
+                        <Text
+                            style={{
+                                color: 'var(--danger)',
+                                textAlign: 'center'
+                            }}>
+                            {error}
+                        </Text>
+                    )}
                 </Flex>
-                {submitStatus === 'success' && (
-                    <Text
-                        style={{
-                            position: 'relative',
-                            color: 'var(--accent)',
-                            marginTop: '1rem'
-                        }}>
-                        Successfully subscribed! Thank you for joining.
-                    </Text>
-                )}
             </form>
         </Flex>
     )
