@@ -9,6 +9,11 @@ interface PageTransitionProps {
 
 export function PageTransition({ children }: PageTransitionProps) {
     const pathname = usePathname();
+    const isHomePage = pathname === '/';
+
+    if (isHomePage) {
+        return <>{children}</>;
+    }
 
     return (
         <AnimatePresence mode="wait">
