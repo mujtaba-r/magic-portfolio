@@ -9,7 +9,7 @@ export interface Team {
     name: string;
     role: string;
     avatar: string;
-    linkedIn: string;
+    linkedIn?: string;
 }
 
 export interface ProjectMetadata {
@@ -21,6 +21,8 @@ export interface ProjectMetadata {
     team: Team[];
     tags: string[];
     description: string;
+    updatedAt?: string;
+    date?: string;
 }
 
 export interface Project {
@@ -46,7 +48,7 @@ export interface Institution {
 export interface Skill {
     title: string;
     description: React.ReactNode;
-    images: Image[];
+    images?: Image[];
 }
 
 export interface SocialLink {
