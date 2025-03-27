@@ -1,5 +1,5 @@
 import { getPosts } from '@/app/lib/server';
-import { Flex } from '@/once-ui/components';
+import { Flex, Heading } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import { baseURL, person, work } from '../resources';
 
@@ -49,16 +49,15 @@ export default async function WorkPage() {
 			<Flex
 				direction="column"
 				fillWidth maxWidth="s" gap="m">
-				<h1
+				<Heading
+					wrap="balance"
+					variant="display-strong-l"
 					style={{
 						color: 'var(--accent)',
 						fontWeight: 'bold',
-						fontSize: '3rem',
-						lineHeight: '1.2',
-						marginBottom: '1rem',
 					}}>
 					My Work & Projects
-				</h1>
+				</Heading>
 				<p
 					style={{
 						color: 'var(--neutral-weak)',

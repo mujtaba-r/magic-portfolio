@@ -1,5 +1,5 @@
 import { getPosts } from '@/app/lib/server';
-import { Flex } from '@/once-ui/components';
+import { Flex, Heading } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
 import styles from '@/app/blog/blog.module.scss';
 
@@ -21,9 +21,15 @@ export default async function BlogPage() {
 				direction="column"
 				fillWidth maxWidth="s" gap="m"
 				className={styles.blogContainer}>
-				<h1 className={styles.title}>
+				<Heading
+					wrap="balance"
+					variant="display-strong-l"
+					style={{
+						color: 'var(--accent)',
+						fontWeight: 'bold',
+					}}>
 					Blog
-				</h1>
+				</Heading>
 				<p className={styles.description}>
 					Insights on technology, entrepreneurship, and the future of AI.
 				</p>
