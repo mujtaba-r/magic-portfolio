@@ -16,11 +16,11 @@ export interface Image {
 
 export interface Experience {
     company: string;
+    timeframe: string;
     role: string;
-    description: string;
-    startDate: string;
-    endDate?: string;
-    images?: Image[];
+    location: string;
+    achievements: JSX.Element[];
+    images: Image[];
 }
 
 export interface Institution {
