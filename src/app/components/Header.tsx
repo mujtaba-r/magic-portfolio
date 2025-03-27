@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { Flex, SegmentedControl } from '@/once-ui/components';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 
 const navigationItems = [
@@ -10,16 +11,20 @@ const navigationItems = [
     { label: 'About', value: '/about', prefixIcon: 'user' },
     { label: 'Work', value: '/work', prefixIcon: 'grid' },
     { label: 'Blog', value: '/blog', prefixIcon: 'book' },
-    { label: 'Light mode', value: 'theme', prefixIcon: 'sun' }
+    { label: 'Dark mode', value: 'theme', prefixIcon: 'moon' }
 ];
 
 export function Header() {
     const pathname = usePathname();
     const router = useRouter();
     const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
 
-    // Get the currently selected value based on pathname or theme
+    // After mounting, we have access to the theme
+    useEffect(() => setMounted(true), []);
+
     const getSelectedValue = () => {
+        // Don't highlight theme toggle button
         if (pathname === '/') return '/';
         if (pathname === '/about') return '/about';
         if (pathname === '/work') return '/work';
@@ -35,6 +40,37 @@ export function Header() {
         router.push(value);
     };
 
+    if (!mounted) {
+        return (
+            <header className={styles.header}>
+                <Flex
+                    fillWidth
+                    justifyContent="center"
+                    alignItems="center"
+                    padding="m">
+                    <Flex className={styles.navContainer} radius="m">
+                        <SegmentedControl
+                            buttons={navigationItems}
+                            selected={getSelectedValue()}
+                            onToggle={handleToggle}
+                        />
+                    </Flex>
+                </Flex>
+            </header>
+        );
+    }
+
+    const updatedNavigationItems = navigationItems.map(item => {
+        if (item.value === 'theme') {
+            return {
+                ...item,
+                label: theme === 'dark' ? 'Light mode' : 'Dark mode',
+                prefixIcon: theme === 'dark' ? 'sun' : 'moon'
+            };
+        }
+        return item;
+    });
+
     return (
         <header className={styles.header}>
             <Flex
@@ -42,19 +78,9 @@ export function Header() {
                 justifyContent="center"
                 alignItems="center"
                 padding="m">
-                <Flex
-                    className={styles.navContainer}
-                    radius="m">
+                <Flex className={styles.navContainer} radius="m">
                     <SegmentedControl
-                        buttons={navigationItems.map(item => ({
-                            ...item,
-                            prefixIcon: item.value === 'theme' 
-                                ? theme === 'dark' ? 'sun' : 'moon'
-                                : item.prefixIcon,
-                            label: item.value === 'theme'
-                                ? theme === 'dark' ? 'Light mode' : 'Dark mode'
-                                : item.label
-                        }))}
+                        buttons={updatedNavigationItems}
                         selected={getSelectedValue()}
                         onToggle={handleToggle}
                     />

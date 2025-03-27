@@ -17,7 +17,6 @@
 }
 
 .navContainer {
-    border: 1px solid var(--neutral-border-medium);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     background: var(--surface-transparent);
@@ -28,27 +27,32 @@
     :global {
         .once-segmented-control {
             gap: var(--static-space-4);
+            border: 1px solid var(--neutral-border-medium);
+            border-radius: var(--radius-m);
+            padding: var(--static-space-2);
         }
 
-        .once-button-tertiary {
-            color: var(--text);
-            border-color: transparent;
+        .once-button {
+            border: none !important;
+            background: transparent;
             
             &:hover {
                 background: var(--surface-hover);
-                border-color: var(--neutral-border-medium);
+            }
+
+            &.once-button-secondary {
+                background: var(--surface-active);
+
+                &:hover {
+                    background: var(--surface-active-hover);
+                }
             }
         }
 
-        .once-button-secondary {
-            background: var(--surface-active);
-            color: var(--text);
-            border-color: var(--neutral-border-medium);
-
-            &:hover {
-                background: var(--surface-active-hover);
-                border-color: var(--neutral-border-strong);
-            }
+        .once-button-icon {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -64,14 +68,21 @@
         :global {
             .once-segmented-control {
                 gap: var(--static-space-2);
+                padding: var(--static-space-1);
             }
 
             .once-button {
                 padding: var(--static-space-8) !important;
+                min-width: var(--static-space-40) !important;
+                height: var(--static-space-40) !important;
             }
 
-            .font-label {
+            .once-button-label {
                 display: none;
+            }
+
+            .once-button-icon {
+                margin: 0 !important;
             }
         }
     }
