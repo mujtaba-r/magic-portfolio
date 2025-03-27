@@ -60,7 +60,7 @@ export function FeaturedBlogPosts() {
                 <div className={styles.postsGrid}>
                     <Suspense fallback={<LoadingPosts />}>
                         {/* @ts-ignore */}
-                        <Posts range={[1, 3]} columns="3" />
+                        <Posts range={[0, 3]} columns="3" />
                     </Suspense>
                 </div>
             </RevealFx>

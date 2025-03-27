@@ -57,7 +57,7 @@ export function FeaturedProjects() {
                 <div className={styles.projectsGrid}>
                     <Suspense fallback={<LoadingProjects />}>
                         {/* @ts-ignore */}
-                        <Projects range={[1, 3]} />
+                        <Projects range={[0, 3]} />
                     </Suspense>
                 </div>
             </RevealFx>

@@ -1,6 +1,7 @@
 import { getWorkPosts } from '@/app/lib/server';
-import { Flex } from '@/once-ui/components';
+import { Flex, RevealFx } from '@/once-ui/components';
 import { ProjectCard } from '@/app/components';
+import styles from './Projects.module.scss';
 
 interface ProjectsProps {
     range?: [number, number?];
@@ -19,7 +20,7 @@ export async function Projects({ range }: ProjectsProps) {
 
         // Apply range filter if provided
         const displayedProjects = range
-            ? allProjects.slice(range[0] - 1, range[1] ?? allProjects.length)
+            ? allProjects.slice(range[0], range[1] ?? allProjects.length)
             : allProjects;
 
         console.log(`Projects component: Displaying ${displayedProjects.length} projects`);
@@ -33,12 +34,13 @@ export async function Projects({ range }: ProjectsProps) {
             <Flex
                 fillWidth gap="l" marginBottom="40" paddingX="l"
                 direction="column">
-                {displayedProjects.map((post) => (
-                    <ProjectCard
-                        key={post.slug}
-                        metadata={post.metadata}
-                        slug={post.slug}
-                    />
+                {displayedProjects.map((post, index) => (
+                    <RevealFx key={post.slug} translateY="16" delay={index * 0.2} speed="medium">
+                        <ProjectCard
+                            metadata={post.metadata}
+                            slug={post.slug}
+                        />
+                    </RevealFx>
                 ))}
             </Flex>
         );
