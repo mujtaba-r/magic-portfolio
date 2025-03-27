@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/once-ui/components';
-import styles from '@/app/components/Header.module.scss';
+import { ToggleButton } from '@/once-ui/components';
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState('dark');
@@ -19,14 +18,15 @@ const ThemeToggle = () => {
   };
 
   return (
-    <Button
+    <ToggleButton
       onClick={toggleTheme}
-      variant="tertiary"
+      selected={false}
       size="s"
       prefixIcon={theme === 'dark' ? 'sun' : 'moon'}
-      label={theme === 'dark' ? 'Light mode' : 'Dark mode'}
-      className={styles.navButton}
-    />
+      weight="default"
+    >
+      {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+    </ToggleButton>
   );
 };
 
