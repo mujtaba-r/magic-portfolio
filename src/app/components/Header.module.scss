@@ -1,4 +1,4 @@
-.header {
+.position {
     position: sticky;
     top: 0;
     z-index: 100;
@@ -89,6 +89,7 @@
 }
 
 .navButton {
+    text-decoration: none;
     min-width: auto !important;
     padding: 0.5rem 0.75rem !important;
     font-weight: 500 !important;
@@ -131,5 +132,13 @@
 .mobileBodyPadding {
     @media (max-width: 768px) {
         padding-bottom: 5rem;
+    }
+}
+
+:global {
+    .s-flex-hide {
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 }
