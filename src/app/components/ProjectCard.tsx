@@ -54,7 +54,6 @@ export function ProjectCard({ metadata, slug }: ProjectCardProps) {
                 <div className={styles.content}>
                     <h3 className={styles.title}>{metadata.title}</h3>
                     <p className={styles.description}>{metadata.summary}</p>
-                    <p className={styles.blurb}>{metadata.blurb}</p>
                     <div className={styles.tags}>
                         {metadata.tags?.map((tag, index) => (
                             <span key={index} className={styles.tag}>{tag}</span>
