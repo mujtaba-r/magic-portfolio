@@ -1,5 +1,5 @@
 "use client";
-
+//test comment
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -22,13 +22,13 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            const options: Intl.DateTimeFormatOptions = {
+            const timeOptions: Intl.DateTimeFormatOptions = {
                 timeZone,
                 hour: 'numeric',
                 minute: '2-digit',
                 hour12: true,
             };
-            const timeString = new Intl.DateTimeFormat(locale, options).format(now);
+            const timeString = new Intl.DateTimeFormat(locale, timeOptions).format(now);
             setCurrentTime(timeString);
         };
 
@@ -39,9 +39,9 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' })
     }, [timeZone, locale]);
 
     return (
-        <>
+        <span className={styles.timeDisplay}>
             {currentTime}
-        </>
+        </span>
     );
 };
 
@@ -58,10 +58,10 @@ export const Header = () => {
             fillWidth padding="8"
             justifyContent="center">
             <Flex
-                hide="s"
                 paddingLeft="12" fillWidth
                 alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                className={styles.locationDisplay}>
                 { display.location && (
                     <>{person.location}</>
                 )}
@@ -109,10 +109,10 @@ export const Header = () => {
                 </Flex>
             </Flex>
             <Flex
-                hide="s"
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                className={styles.timeDisplayContainer}>
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
                 )}
