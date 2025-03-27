@@ -13,7 +13,7 @@ const navigationItems = [
     { label: 'Light mode', value: 'theme', prefixIcon: 'sun' }
 ];
 
-export default function Header() {
+export function Header() {
     const pathname = usePathname();
     const router = useRouter();
     const { theme, setTheme } = useTheme();
@@ -39,7 +39,7 @@ export default function Header() {
                     background="surface">
                     <SegmentedControl
                         buttons={navigationItems}
-                        selected={pathname}
+                        selected={pathname || '/'}
                         onToggle={handleToggle}
                     />
                 </Flex>
@@ -47,3 +47,5 @@ export default function Header() {
         </header>
     );
 }
+
+export default Header;
