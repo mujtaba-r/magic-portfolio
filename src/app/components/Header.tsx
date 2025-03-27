@@ -1,91 +1,124 @@
 "use client";
 
-import { usePathname, useRouter } from 'next/navigation';
-import { Flex, Button } from '@/once-ui/components';
-import { useEffect, useState } from 'react';
-import styles from './Header.module.scss';
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-// Navigation items
-const navigationItems = [
-    { label: 'Home', value: '/', prefixIcon: 'home' },
-    { label: 'About', value: '/about', prefixIcon: 'person' },
-    { label: 'Work', value: '/work', prefixIcon: 'grid' },
-    { label: 'Blog', value: '/blog', prefixIcon: 'book' }
-];
+import { Flex, ToggleButton } from "@/once-ui/components"
+import styles from '@/app/components/Header.module.scss'
 
-export function Header() {
-    const pathname = usePathname();
-    const router = useRouter();
-    const [theme, setTheme] = useState('dark');
-    const [mounted, setMounted] = useState(false);
-    const [time, setTime] = useState('');
-    const timeZone = 'America/Toronto';
+import { routes, display } from '@/app/resources'
+import { person, home, about, blog, work, gallery } from '@/app/resources'
+
+import ThemeToggle from './ThemeToggle';
+
+type TimeDisplayProps = {
+    timeZone: string;
+    locale?: string;  // Optionally allow locale, defaulting to 'en-GB'
+};
+
+const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = 'en-GB' }) => {
+    const [currentTime, setCurrentTime] = useState('');
 
     useEffect(() => {
-        setMounted(true);
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        setTheme(savedTheme);
-
-        // Update time every second
         const updateTime = () => {
             const now = new Date();
-            setTime(now.toLocaleTimeString('en-US', { 
-                hour12: false,
+            const timeOptions: Intl.DateTimeFormatOptions = {
                 timeZone,
-                hour: '2-digit',
+                hour: 'numeric',
                 minute: '2-digit',
-                second: '2-digit'
-            }));
+                hour12: true,
+            };
+            const timeString = new Intl.DateTimeFormat(locale, timeOptions).format(now);
+            setCurrentTime(timeString);
         };
 
         updateTime();
-        const interval = setInterval(updateTime, 1000);
+        const intervalId = setInterval(updateTime, 1000);
 
-        return () => clearInterval(interval);
-    }, []);
-
-    const handleThemeToggle = () => {
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-    };
+        return () => clearInterval(intervalId);
+    }, [timeZone, locale]);
 
     return (
-        <header className={styles.position}>
-            <Flex className={styles.location} alignItems="center" fillWidth>
-                {timeZone}
+        <span style={{ 
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+            letterSpacing: '0.5px'
+        }}>
+            {currentTime}
+        </span>
+    );
+};
+
+export default TimeDisplay;
+
+export const Header = () => {
+    const pathname = usePathname() ?? '';
+
+    return (
+        <Flex style={{height: 'fit-content'}}
+            className={styles.position}
+            as="header"
+            zIndex={9}
+            fillWidth padding="8"
+            justifyContent="center">
+            <Flex
+                paddingLeft="12" fillWidth
+                alignItems="center"
+                textVariant="body-default-s">
+                { display.location && (
+                    <>{person.location}</>
+                )}
             </Flex>
-            
-            <Flex className={styles.navContainer} justifyContent="center">
-                <Flex gap="4">
-                    {navigationItems.map((item) => (
-                        <Button
-                            key={item.value}
-                            href={item.value}
-                            variant={pathname === item.value ? 'secondary' : 'tertiary'}
-                            size="m"
-                            prefixIcon={item.prefixIcon}
-                            label={item.label}
-                            className={styles.navButton}
-                        />
-                    ))}
-                    <Button
-                        variant="tertiary"
-                        size="s"
-                        onClick={handleThemeToggle}
-                        prefixIcon={theme === 'dark' ? 'sun' : 'moon'}
-                        label={theme === 'dark' ? 'Light mode' : 'Dark mode'}
-                        className={styles.navButton}
-                    />
+            <Flex
+                background="surface" border="neutral-medium" borderStyle="solid-1" radius="m-4" shadow="l"
+                padding="4"
+                justifyContent="center">
+                <Flex
+                    gap="4"
+                    textVariant="body-default-s">
+                    { routes['/'] && (
+                        <ToggleButton
+                            prefixIcon="home"
+                            href="/"
+                            selected={pathname === "/"}>
+                            {home.label}
+                        </ToggleButton>
+                    )}
+                    { routes['/about'] && (
+                        <ToggleButton
+                            prefixIcon="person"
+                            href="/about"
+                            selected={pathname === "/about"}>
+                            {about.label}
+                        </ToggleButton>
+                    )}
+                    { routes['/work'] && (
+                        <ToggleButton
+                            prefixIcon="grid"
+                            href="/work"
+                            selected={pathname.startsWith('/work')}>
+                            {work.label}
+                        </ToggleButton>
+                    )}
+                    { routes['/blog'] && (
+                        <ToggleButton
+                            prefixIcon="book"
+                            href="/blog"
+                            selected={pathname.startsWith('/blog')}>
+                            {blog.label}
+                        </ToggleButton>
+                    )}
+                    <ThemeToggle />
                 </Flex>
             </Flex>
-
-            <Flex className={styles.time} justifyContent="flex-end" alignItems="center" fillWidth>
-                {time}
+            <Flex
+                paddingRight="12" fillWidth
+                justifyContent="flex-end" alignItems="center"
+                textVariant="body-default-s">
+                { display.time && (
+                    <TimeDisplay timeZone={person.location}/>
+                )}
             </Flex>
-        </header>
-    );
+        </Flex>
+    )
 }
-
-export default Header;
