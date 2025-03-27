@@ -16,10 +16,13 @@ type Metadata = {
     title: string;
     publishedAt: string;
     summary: string;
+    description: string;
     image?: string;
     images: string[];
     team: Team[];
     tags: string[];
+    author?: string;
+    updatedAt?: string;
 };
 
 type ContentType = 'blog' | 'work';
@@ -68,11 +71,14 @@ async function readMDXFile(filePath: string) {
         const metadata: Metadata = {
             title: data.title || '',
             publishedAt: publishedAt || new Date().toISOString(),
-            summary: data.summary || data.description || '',
+            summary: data.summary || '',
+            description: data.description || data.summary || '',
             image: data.image,
             images: data.images || (data.image ? [data.image] : []),
             team: data.team || [],
             tags: data.tags || [],
+            author: data.author,
+            updatedAt: data.updatedAt || data.publishedAt || data.date,
         };
 
         console.log(`Successfully read file ${filePath} with title: ${metadata.title}`);
