@@ -115,7 +115,7 @@ export const Header = () => {
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
                 textVariant="heading-default-s"
-                >
+                style={{ fontFamily: 'var(--font-secondary)' }}>
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
                 )}
