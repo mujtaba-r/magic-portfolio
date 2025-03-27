@@ -52,13 +52,13 @@ export function Header() {
     };
 
     return (
-        <header className={`flex p-8 ${styles.position}`} style={{ justifyContent: 'center', width: '100%', height: 'fit-content', zIndex: 9 }}>
-            <Flex className="pl-12 s-flex-hide font-body font-default font-s" alignItems="center" fillWidth>
+        <header className={styles.position}>
+            <Flex className={`pl-12 ${styles.hideOnMobile}`} alignItems="center" fillWidth>
                 {timeZone}
             </Flex>
             
-            <Flex className="p-4 surface-background neutral-border-medium border-solid-1 radius-m-4 shadow-l" justifyContent="center">
-                <Flex className="g-4 font-body font-default font-s">
+            <Flex className={styles.navContainer} justifyContent="center">
+                <Flex gap="4">
                     {navigationItems.map((item) => (
                         <Button
                             key={item.value}
@@ -81,7 +81,7 @@ export function Header() {
                 </Flex>
             </Flex>
 
-            <Flex className="pr-12 s-flex-hide font-body font-default font-s" justifyContent="flex-end" alignItems="center" fillWidth>
+            <Flex className={`pr-12 ${styles.hideOnMobile}`} justifyContent="flex-end" alignItems="center" fillWidth>
                 {time}
             </Flex>
         </header>

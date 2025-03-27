@@ -24,38 +24,6 @@
     padding: var(--static-space-4);
     min-width: 480px;
 
-    :global {
-        .once-segmented-control {
-            gap: var(--static-space-4);
-            border: 1px solid var(--neutral-border-medium);
-            border-radius: var(--radius-m);
-            padding: var(--static-space-2);
-        }
-
-        .once-button {
-            border: none !important;
-            background: transparent;
-            
-            &:hover {
-                background: var(--surface-hover);
-            }
-
-            &.once-button-secondary {
-                background: var(--surface-active);
-
-                &:hover {
-                    background: var(--surface-active-hover);
-                }
-            }
-        }
-
-        .once-button-icon {
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-
     @media (max-width: 768px) {
         position: fixed;
         bottom: var(--static-space-16);
@@ -64,27 +32,6 @@
         min-width: auto;
         width: auto;
         padding: var(--static-space-2);
-        
-        :global {
-            .once-segmented-control {
-                gap: var(--static-space-2);
-                padding: var(--static-space-1);
-            }
-
-            .once-button {
-                padding: var(--static-space-8) !important;
-                min-width: var(--static-space-40) !important;
-                height: var(--static-space-40) !important;
-            }
-
-            .once-button-label {
-                display: none;
-            }
-
-            .once-button-icon {
-                margin: 0 !important;
-            }
-        }
     }
 }
 
@@ -96,10 +43,6 @@
 
     @media (max-width: 768px) {
         padding: 0.5rem !important;
-
-        :global(.font-label) {
-            display: none;
-        }
     }
 }
 
@@ -140,5 +83,11 @@
         @media (max-width: 768px) {
             display: none;
         }
+    }
+}
+
+.hideOnMobile {
+    @media (max-width: 768px) {
+        display: none;
     }
 }
