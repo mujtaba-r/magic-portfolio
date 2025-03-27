@@ -337,19 +337,18 @@ export default function About() {
 													onBackground="neutral-weak">
 													{skill.description}
 												</Text>
-												{skill.images.map((image: Image, index) => (
+												{skill.images && skill.images.map((image: Image, index) => (
 													<Flex
 														key={index}
 														border="neutral-medium"
-														borderStyle="solid-1"
 														radius="m"
-														minWidth={image.width} height={image.height}>
+														overflow="hidden"
+														marginTop="m">
 														<ClientSmartImage
-															enlarge
-															radius="m"
-															sizes={image.width.toString()}
-															alt={image.alt}
 															src={image.src}
+															alt={image.alt}
+															sizes={image.width.toString()}
+															radius="m"
 														/>
 													</Flex>
 												))}
