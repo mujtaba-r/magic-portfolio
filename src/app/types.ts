@@ -25,11 +25,11 @@ export interface Experience {
 
 export interface Institution {
     name: string;
-    description: string;
+    description: JSX.Element;
 }
 
 export interface Skill {
     title: string;
-    description: string;
+    description: JSX.Element;
     images?: Image[];
 } 
