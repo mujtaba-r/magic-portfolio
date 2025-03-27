@@ -22,27 +22,15 @@ export function FeaturedBlogPosts() {
             direction="column"
             paddingY="xl"
             gap="l"
-            style={{
-                position: 'relative',
-                background: 'radial-gradient(circle at top right, var(--accent-weak), transparent 50%)',
-                overflow: 'visible',
-            }}>
+            className={styles.container}>
             <Flex
                 direction="column"
-                fillWidth maxWidth="s" gap="m"
-                style={{
-                    position: 'relative',
-                    zIndex: 1
-                }}>
+                fillWidth maxWidth="s" gap="m">
                 <RevealFx translateY="4" speed="medium">
                     <Heading
                         wrap="balance"
                         variant="display-strong-l"
-                        className={styles.sectionTitle}
-                        style={{
-                            color: 'var(--accent)',
-                            fontWeight: 'bold',
-                        }}>
+                        className={styles.sectionTitle}>
                         Latest Thoughts
                     </Heading>
                 </RevealFx>
@@ -60,38 +48,10 @@ export function FeaturedBlogPosts() {
                 <div className={styles.postsGrid}>
                     <Suspense fallback={<LoadingPosts />}>
                         {/* @ts-ignore */}
-                        <Posts range={[0, 3]} columns="3" />
+                        <Posts range={[1, 3]} columns="3" />
                     </Suspense>
                 </div>
             </RevealFx>
-            <Flex
-                style={{
-                    position: 'absolute',
-                    bottom: '20%',
-                    right: '10%',
-                    width: '400px',
-                    height: '400px',
-                    background: 'var(--accent-weak)',
-                    borderRadius: '50%',
-                    filter: 'blur(100px)',
-                    opacity: 0.3,
-                    pointerEvents: 'none',
-                }}>
-            </Flex>
-            <Flex
-                style={{
-                    position: 'absolute',
-                    top: '20%',
-                    left: '10%',
-                    width: '300px',
-                    height: '300px',
-                    background: 'var(--accent-weak)',
-                    borderRadius: '50%',
-                    filter: 'blur(100px)',
-                    opacity: 0.2,
-                    pointerEvents: 'none',
-                }}>
-            </Flex>
         </Flex>
     );
 } 

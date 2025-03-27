@@ -22,12 +22,7 @@ export function FeaturedProjects() {
             direction="column"
             paddingY="xl"
             gap="l"
-            style={{
-                position: 'relative',
-                background: 'radial-gradient(circle at bottom left, var(--accent-weak), transparent 50%)',
-                overflow: 'hidden',
-                minHeight: 'auto',
-            }}>
+            className={styles.container}>
             <Flex
                 direction="column"
                 fillWidth maxWidth="s" gap="m">
@@ -35,11 +30,7 @@ export function FeaturedProjects() {
                     <Heading
                         wrap="balance"
                         variant="display-strong-l"
-                        className={styles.sectionTitle}
-                        style={{
-                            color: 'var(--accent)',
-                            fontWeight: 'bold',
-                        }}>
+                        className={styles.sectionTitle}>
                         Featured Projects
                     </Heading>
                 </RevealFx>
@@ -57,42 +48,10 @@ export function FeaturedProjects() {
                 <div className={styles.projectsGrid}>
                     <Suspense fallback={<LoadingProjects />}>
                         {/* @ts-ignore */}
-                        <Projects range={[0, 3]} />
+                        <Projects range={[1, 3]} />
                     </Suspense>
                 </div>
             </RevealFx>
-            <Flex
-                style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '10%',
-                    width: '400px',
-                    height: '400px',
-                    background: 'var(--accent-weak)',
-                    borderRadius: '50%',
-                    filter: 'blur(100px)',
-                    opacity: 0.3,
-                    pointerEvents: 'none',
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden'
-                }}
-            />
-            <Flex
-                style={{
-                    position: 'absolute',
-                    bottom: '20%',
-                    right: '10%',
-                    width: '300px',
-                    height: '300px',
-                    background: 'var(--accent-weak)',
-                    borderRadius: '50%',
-                    filter: 'blur(100px)',
-                    opacity: 0.2,
-                    pointerEvents: 'none',
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden'
-                }}
-            />
         </Flex>
     );
 } 

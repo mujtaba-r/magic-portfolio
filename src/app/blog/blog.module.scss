@@ -32,19 +32,26 @@
 }
 
 .title {
-    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 3rem;
     line-height: 1.2;
     margin-bottom: 1rem;
-    position: relative;
-    z-index: 2;
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
 }
 
 .description {
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
-    line-height: 1.6;
-    opacity: 0.9;
-    position: relative;
-    z-index: 2;
+    color: var(--neutral-weak);
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 768px) {

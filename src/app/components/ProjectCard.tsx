@@ -1,70 +1,66 @@
 "use client";
 
-import { Flex, SmartLink, Text, Tag } from '@/once-ui/components';
+import { AvatarGroup, Flex, Heading, SmartImage, SmartLink, Text, Tag } from "@/once-ui/components";
+import { useState } from "react";
+import { ProjectMetadata } from '@/app/types';
+import Link from 'next/link';
 import styles from './ProjectCard.module.scss';
-import Image from 'next/image';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ProjectCardProps {
-    metadata: {
-        title: string;
-        description: string;
-        image?: string;
-        tags?: string[];
-    };
+    metadata: ProjectMetadata;
     slug: string;
 }
 
 export function ProjectCard({ metadata, slug }: ProjectCardProps) {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+
+    const handleImageClick = () => {
+        setIsTransitioning(true);
+        const nextIndex = (activeIndex + 1) % metadata.images.length;
+        setTimeout(() => {
+            setActiveIndex(nextIndex);
+            setIsTransitioning(false);
+        }, 200);
+    };
+
+    const handleControlClick = (index: number) => {
+        if (index !== activeIndex) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setActiveIndex(index);
+                setIsTransitioning(false);
+            }, 200);
+        }
+    };
+
     return (
-        <SmartLink
-            href={`/work/${slug}`}
-            className={styles.projectCard}>
-            <Flex
-                fillWidth
-                direction="column"
-                gap="m"
-                className={styles.content}>
-                {metadata.image && (
-                    <div className={styles.imageContainer}>
-                        <Image
-                            src={metadata.image}
+        <Link href={`/work/${slug}`}>
+            <div className={styles.projectCard}>
+                {metadata.images?.length > 0 && (
+                    <div className={styles.imageContainer} onClick={handleImageClick}>
+                        <OptimizedImage
+                            src={metadata.images[activeIndex]}
                             alt={metadata.title}
                             width={1200}
-                            height={630}
-                            className={styles.image}
+                            height={675}
+                            className={`${styles.image} ${isTransitioning ? styles.transitioning : ''}`}
+                            objectFit="cover"
                         />
                         <div className={styles.imageOverlay} />
                     </div>
                 )}
-                <Flex
-                    direction="column"
-                    gap="s"
-                    className={styles.details}>
-                    <Text
-                        variant="heading-strong-l"
-                        className={styles.title}>
-                        {metadata.title}
-                    </Text>
-                    <Text
-                        variant="body-default-m"
-                        onBackground="neutral-weak"
-                        className={styles.description}>
-                        {metadata.description}
-                    </Text>
-                    {metadata.tags && metadata.tags.length > 0 && (
-                        <Flex gap="s" wrap className={styles.tags}>
-                            {metadata.tags.map((tag) => (
-                                <Tag
-                                    key={tag}
-                                    variant="accent"
-                                    size="s">
-                                    {tag}
-                                </Tag>
-                            ))}
-                        </Flex>
-                    )}
-                </Flex>
-            </Flex>
-        </SmartLink>
+                <div className={styles.content}>
+                    <h3 className={styles.title}>{metadata.title}</h3>
+                    <p className={styles.description}>{metadata.summary}</p>
+                    <div className={styles.tags}>
+                        {metadata.tags?.map((tag, index) => (
+                            <span key={index} className={styles.tag}>{tag}</span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </Link>
     );
 }
