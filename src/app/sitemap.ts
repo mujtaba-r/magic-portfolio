@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
 import { baseURL, routes } from '@/app/resources';
-import { getPosts } from '@/app/lib/server';
+import { getPosts, getWorkPosts } from '@/app/lib/server';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // Get all blog posts
+    // Get all posts
     const posts = await getPosts();
+    const workPosts = await getWorkPosts();
     
     // Base routes from config
     const baseRoutes = Object.entries(routes)
@@ -19,10 +20,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Blog post routes
     const blogRoutes = posts.map((post) => ({
         url: `https://${baseURL}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
+        lastModified: new Date(post.metadata.publishedAt),
         changeFrequency: 'monthly' as const,
         priority: 0.6,
     }));
 
-    return [...baseRoutes, ...blogRoutes];
+    // Work post routes
+    const workRoutes = workPosts.map((post) => ({
+        url: `https://${baseURL}/work/${post.slug}`,
+        lastModified: new Date(post.metadata.publishedAt),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    return [...baseRoutes, ...blogRoutes, ...workRoutes];
 }

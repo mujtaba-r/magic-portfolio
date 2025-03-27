@@ -17,26 +17,10 @@ export async function Projects({ range }: ProjectsProps) {
             return null;
         }
 
-        const sortedProjects = allProjects.sort((a, b) => {
-            try {
-                const dateA = new Date(a.metadata.publishedAt);
-                const dateB = new Date(b.metadata.publishedAt);
-                
-                if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
-                    console.warn('Projects component: Invalid date found', { a: a.metadata.publishedAt, b: b.metadata.publishedAt });
-                    return 0;
-                }
-                
-                return dateB.getTime() - dateA.getTime(); // Sort in descending order (newest first)
-            } catch (error) {
-                console.warn('Projects component: Error sorting dates:', error);
-                return 0;
-            }
-        });
-
+        // Apply range filter if provided
         const displayedProjects = range
-            ? sortedProjects.slice(range[0] - 1, range[1] ?? sortedProjects.length)
-            : sortedProjects;
+            ? allProjects.slice(range[0] - 1, range[1] ?? allProjects.length)
+            : allProjects;
 
         console.log(`Projects component: Displaying ${displayedProjects.length} projects`);
 
