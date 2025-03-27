@@ -57,6 +57,7 @@ export function OptimizedImage({
                 position: 'relative',
                 overflow: 'hidden',
                 aspectRatio: aspectRatio || (width && height ? `${width}/${height}` : '16/9'),
+                borderRadius: 'var(--radius-m)',
                 ...style
             }}>
             <Image
