@@ -59,7 +59,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
                             height="1" width="16"
                             background="neutral-strong">
                         </Flex>
-                        <Text>
+                        <Text variant="heading-default-xs">
                             {section.title}
                         </Text>
                     </Flex>
@@ -77,7 +77,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
                                         height="1" width="8"
                                         background="neutral-strong">
                                     </Flex>
-                                    <Text>
+                                    <Text variant="heading-default-xs">
                                         {item}
                                     </Text>
                                 </Flex>
