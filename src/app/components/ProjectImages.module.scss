@@ -1,0 +1,13 @@
+.projectImage {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+    transition: transform 0.2s ease-in-out;
+}
+
+.imageContainer {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-s);
+    background: var(--surface);
+} 
