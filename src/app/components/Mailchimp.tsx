@@ -6,18 +6,9 @@ import { Button, Flex, Heading, Input, Text } from '@/once-ui/components';
 import { Background } from '@/once-ui/components/Background';
 import { useState } from 'react';
 
-function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T {
-    let timeout: ReturnType<typeof setTimeout>;
-    return ((...args: Parameters<T>) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-    }) as T;
-}
-
 export const Mailchimp = () => {
     const [email, setEmail] = useState<string>('');
     const [error, setError] = useState<string>('');
-    const [touched, setTouched] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -39,15 +30,6 @@ export const Mailchimp = () => {
             setError('Please enter a valid email address.');
         } else {
             setError('');
-        }
-    };
-
-    const debouncedHandleChange = debounce(handleChange, 2000);
-
-    const handleBlur = () => {
-        setTouched(true);
-        if (!validateEmail(email)) {
-            setError('Please enter a valid email address.');
         }
     };
 
@@ -135,14 +117,7 @@ export const Mailchimp = () => {
                         label="Email"
                         required
                         value={email}
-                        onChange={(e) => {
-                            if (error) {
-                                handleChange(e);
-                            } else {
-                                debouncedHandleChange(e);
-                            }
-                        }}
-                        onBlur={handleBlur}
+                        onChange={handleChange}
                         error={error}/>
                     <div className="clear">
                         <Flex
