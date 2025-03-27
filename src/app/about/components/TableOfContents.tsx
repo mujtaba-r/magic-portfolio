@@ -78,9 +78,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
                                         background="neutral-strong">
                                     </Flex>
                                     <Text>
-                                        <style>fontFamily: 'var(--font-secondary)'
                                         {item}
-                                        </style>
                                     </Text>
                                 </Flex>
                             ))}
