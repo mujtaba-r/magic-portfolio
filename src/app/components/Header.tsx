@@ -18,6 +18,15 @@ export function Header() {
     const router = useRouter();
     const { theme, setTheme } = useTheme();
 
+    // Get the currently selected value based on pathname or theme
+    const getSelectedValue = () => {
+        if (pathname === '/') return '/';
+        if (pathname === '/about') return '/about';
+        if (pathname === '/work') return '/work';
+        if (pathname === '/blog') return '/blog';
+        return pathname || '/';
+    };
+
     const handleToggle = (value: string) => {
         if (value === 'theme') {
             setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -35,11 +44,18 @@ export function Header() {
                 padding="m">
                 <Flex
                     className={styles.navContainer}
-                    radius="m"
-                    background="surface">
+                    radius="m">
                     <SegmentedControl
-                        buttons={navigationItems}
-                        selected={pathname || '/'}
+                        buttons={navigationItems.map(item => ({
+                            ...item,
+                            prefixIcon: item.value === 'theme' 
+                                ? theme === 'dark' ? 'sun' : 'moon'
+                                : item.prefixIcon,
+                            label: item.value === 'theme'
+                                ? theme === 'dark' ? 'Light mode' : 'Dark mode'
+                                : item.label
+                        }))}
+                        selected={getSelectedValue()}
                         onToggle={handleToggle}
                     />
                 </Flex>

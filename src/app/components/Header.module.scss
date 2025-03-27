@@ -4,7 +4,6 @@
     z-index: 100;
     width: 100%;
     padding: var(--static-space-16) 0;
-    background: var(--page);
 
     @media (max-width: 768px) {
         position: fixed;
@@ -14,7 +13,6 @@
         right: 0;
         margin: 0;
         padding: var(--static-space-8) 0;
-        background: var(--page);
     }
 }
 
@@ -27,17 +25,11 @@
     padding: var(--static-space-4);
     min-width: 480px;
 
-    nav {
-        ul {
-            display: flex;
-            gap: 0.25rem;
-            padding: 0.25rem;
-            margin: 0;
-            list-style: none;
-        }
-    }
-
     :global {
+        .once-segmented-control {
+            gap: var(--static-space-4);
+        }
+
         .once-button-tertiary {
             color: var(--text);
             border-color: transparent;
@@ -67,9 +59,20 @@
         transform: translateX(-50%);
         min-width: auto;
         width: auto;
+        padding: var(--static-space-2);
         
-        :global(.font-label) {
-            display: none;
+        :global {
+            .once-segmented-control {
+                gap: var(--static-space-2);
+            }
+
+            .once-button {
+                padding: var(--static-space-8) !important;
+            }
+
+            .font-label {
+                display: none;
+            }
         }
     }
 }
