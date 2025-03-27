@@ -63,7 +63,7 @@ export const Header = () => {
                 textVariant="body-default-s"
                 className={styles.locationDisplay}>
                 { display.location && (
-                    <span className={styles.locationDisplay}>{person.location}</span>
+                    <>{person.location}</>
                 )}
             </Flex>
             <Flex
