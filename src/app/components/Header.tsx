@@ -2,7 +2,6 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { Flex, SegmentedControl } from '@/once-ui/components';
-import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 
@@ -17,29 +16,19 @@ const navigationItems = [
 export function Header() {
     const pathname = usePathname();
     const router = useRouter();
-    const { theme, setTheme, systemTheme } = useTheme();
+    const [theme, setTheme] = useState('dark');
     const [mounted, setMounted] = useState(false);
-    const [currentTheme, setCurrentTheme] = useState<string>('system');
 
-    // After mounting, we have access to the theme
     useEffect(() => {
         setMounted(true);
-        // Initialize current theme
-        const savedTheme = localStorage.getItem('theme') || 'system';
-        setCurrentTheme(savedTheme);
+        // Get saved theme or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
     }, []);
-
-    // Keep currentTheme in sync with theme changes
-    useEffect(() => {
-        if (mounted && theme) {
-            setCurrentTheme(theme);
-            localStorage.setItem('theme', theme);
-        }
-    }, [theme, mounted]);
 
     const getSelectedValue = () => {
         // Special handling for theme toggle
-        if (pathname === currentTheme) return currentTheme;
+        if (pathname === theme) return theme;
         // Return the current path for navigation items
         return pathname || '/';
     };
@@ -47,21 +36,20 @@ export function Header() {
     const handleToggle = (value: string) => {
         if (value === 'light' || value === 'dark') {
             setTheme(value);
+            localStorage.setItem('theme', value);
+            document.documentElement.setAttribute('data-theme', value);
             return;
         }
         router.push(value);
     };
 
-    // Determine the actual theme considering system preference
-    const resolvedTheme = theme === 'system' ? systemTheme : theme;
-
     // Combine navigation items with theme toggle
     const allButtons = [
         ...navigationItems,
         {
-            label: resolvedTheme === 'dark' ? 'Light mode' : 'Dark mode',
-            value: resolvedTheme === 'dark' ? 'light' : 'dark',
-            prefixIcon: resolvedTheme === 'dark' ? 'sun' : 'moon'
+            label: theme === 'dark' ? 'Light mode' : 'Dark mode',
+            value: theme === 'dark' ? 'light' : 'dark',
+            prefixIcon: theme === 'dark' ? 'sun' : 'moon'
         }
     ];
 
