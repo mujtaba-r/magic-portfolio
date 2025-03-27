@@ -1,4 +1,4 @@
-import { getPosts } from '@/app/lib/server';
+import { getWorkPosts } from '@/app/lib/server';
 import { Flex } from '@/once-ui/components';
 import { ProjectCard } from '@/app/components';
 
@@ -9,7 +9,7 @@ interface ProjectsProps {
 export async function Projects({ range }: ProjectsProps) {
     try {
         console.log('Projects component: Fetching projects...');
-        let allProjects = await getPosts('work');
+        let allProjects = await getWorkPosts();
         console.log(`Projects component: Found ${allProjects.length} projects`);
 
         if (allProjects.length === 0) {

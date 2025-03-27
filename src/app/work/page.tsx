@@ -1,4 +1,4 @@
-import { getPosts } from '@/app/lib/server';
+import { getWorkPosts } from '@/app/lib/server';
 import { Flex } from '@/once-ui/components';
 import { Projects } from '@/app/work/components/Projects';
 import { baseURL, person, work } from '../resources';
@@ -33,7 +33,7 @@ export function generateMetadata() {
 }
 
 export default async function WorkPage() {
-	const posts = await getPosts('work');
+	const posts = await getWorkPosts();
 
 	return (
 		<Flex

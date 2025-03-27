@@ -1,10 +1,11 @@
-import { getPosts } from '@/app/lib/server';
 import { Flex } from '@/once-ui/components';
 import { Posts } from '@/app/blog/components/Posts';
+import { getPosts } from '@/app/lib/server';
+import { Metadata } from 'next';
 import styles from '@/app/blog/blog.module.scss';
 
 export default async function BlogPage() {
-	const posts = await getPosts('blog');
+	const posts = await getPosts();
 
 	return (
 		<Flex
@@ -29,7 +30,7 @@ export default async function BlogPage() {
 				</p>
 			</Flex>
 			<div className="posts-grid">
-				<Posts />
+				<Posts range={[0, posts.length]} columns="2" />
 			</div>
 			<Flex
 				style={{
@@ -62,3 +63,8 @@ export default async function BlogPage() {
 		</Flex>
 	);
 }
+
+export const metadata: Metadata = {
+	title: 'Blog',
+	description: 'Thoughts on software development, design, and technology.',
+};

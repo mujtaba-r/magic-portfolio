@@ -134,6 +134,23 @@ export const getPosts = cache(async () => {
     }
 });
 
+export const getWorkPosts = cache(async () => {
+    try {
+        const contentDir = getContentDirectory('work');
+        console.log('Content directory:', contentDir);
+        
+        const data = await getMDXData(contentDir);
+        console.log(`Found ${data.length} work posts`);
+        
+        return data.sort((a, b) => 
+            new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+        );
+    } catch (error) {
+        console.error(`Error in getWorkPosts:`, error);
+        return [];
+    }
+});
+
 export const getPost = cache(async (slug: string) => {
     try {
         const contentDir = getContentDirectory('blog');
@@ -149,6 +166,25 @@ export const getPost = cache(async (slug: string) => {
         };
     } catch (error) {
         console.error(`Error in getPost:`, error);
+        return null;
+    }
+});
+
+export const getWorkPost = cache(async (slug: string) => {
+    try {
+        const contentDir = getContentDirectory('work');
+        const filePath = path.join(contentDir, `${slug}.mdx`);
+        
+        const fileData = await readMDXFile(filePath);
+        if (!fileData) return null;
+        
+        return {
+            metadata: fileData.metadata,
+            slug,
+            content: fileData.content,
+        };
+    } catch (error) {
+        console.error(`Error in getWorkPost:`, error);
         return null;
     }
 }); 

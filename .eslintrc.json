@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
@@ -28,9 +29,16 @@
       "extends": ["plugin:testing-library/react"]
     }
   ],
+  "settings": {
+    "next": {
+      "rootDir": ["./"]
+    }
+  },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "ignorePatterns": ["node_modules/", ".next/", "out/"]
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "*.js", "*.jsx"]
 }
