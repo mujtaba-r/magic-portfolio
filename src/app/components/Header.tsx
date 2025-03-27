@@ -1,112 +1,48 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import Link from 'next/link';
-import { Button, Flex, Text, SegmentedControl } from '@/once-ui/components';
-import styles from '@/app/components/Header.module.scss'
-import { person } from '@/app/resources'
-import ThemeToggle from './ThemeToggle';
+import { usePathname, useRouter } from 'next/navigation';
+import { Flex, SegmentedControl } from '@/once-ui/components';
+import { useTheme } from 'next-themes';
+import styles from './Header.module.scss';
 
-interface Route {
-    name: string;
-    href: string;
-    icon?: string;
-}
-
-const navigationRoutes: Route[] = [
-    { name: 'Home', href: '/', icon: 'home' },
-    { name: 'About', href: '/about', icon: 'person' },
-    { name: 'Work', href: '/work', icon: 'grid' },
-    { name: 'Blog', href: '/blog', icon: 'book' }
+const navigationItems = [
+    { label: 'Home', value: '/', prefixIcon: 'home' },
+    { label: 'About', value: '/about', prefixIcon: 'user' },
+    { label: 'Work', value: '/work', prefixIcon: 'grid' },
+    { label: 'Blog', value: '/blog', prefixIcon: 'book' },
+    { label: 'Light mode', value: 'theme', prefixIcon: 'sun' }
 ];
 
-export function Header() {
-    const [mounted, setMounted] = useState(false);
-    const [currentTime, setCurrentTime] = useState('');
+export default function Header() {
     const pathname = usePathname();
-    
-    useEffect(() => {
-        setMounted(true);
-        const updateTime = () => {
-            const now = new Date();
-            const timeOptions: Intl.DateTimeFormatOptions = {
-                timeZone: person.location,
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true,
-            };
-            const timeString = new Intl.DateTimeFormat('en-US', timeOptions).format(now);
-            setCurrentTime(timeString);
-        };
+    const router = useRouter();
+    const { theme, setTheme } = useTheme();
 
-        updateTime();
-        const intervalId = setInterval(updateTime, 1000);
-
-        return () => clearInterval(intervalId);
-    }, []);
-
-    if (!mounted) return null;
+    const handleToggle = (value: string) => {
+        if (value === 'theme') {
+            setTheme(theme === 'dark' ? 'light' : 'dark');
+            return;
+        }
+        router.push(value);
+    };
 
     return (
-        <header className={styles.header} role="banner">
+        <header className={styles.header}>
             <Flex
                 fillWidth
-                maxWidth="xl"
-                style={{ margin: '0 auto' }}
-                paddingX="m"
+                justifyContent="center"
                 alignItems="center"
-                justifyContent="space-between">
-                <Text 
-                    variant="body-default-s" 
-                    className={styles.location}>
-                    {person.location.replace('_', '/')}
-                </Text>
-                
+                padding="m">
                 <Flex
                     className={styles.navContainer}
-                    background="surface"
-                    radius="m">
-                    <nav aria-label="Main navigation">
-                        <Flex
-                            as="ul"
-                            role="menubar"
-                            aria-label="Main menu"
-                            gap="2">
-                            {navigationRoutes.map((route) => {
-                                const isActive = pathname === route.href;
-                                return (
-                                    <li key={route.name} role="none">
-                                        <Link
-                                            href={route.href}
-                                            passHref
-                                            legacyBehavior>
-                                            <Button
-                                                href={route.href}
-                                                role="menuitem"
-                                                aria-current={isActive ? 'page' : undefined}
-                                                variant={isActive ? 'secondary' : 'tertiary'}
-                                                size="s"
-                                                prefixIcon={route.icon}
-                                                label={route.name}
-                                                className={styles.navButton}
-                                            />
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                            <li role="none">
-                                <ThemeToggle />
-                            </li>
-                        </Flex>
-                    </nav>
+                    radius="m"
+                    background="surface">
+                    <SegmentedControl
+                        buttons={navigationItems}
+                        selected={pathname}
+                        onToggle={handleToggle}
+                    />
                 </Flex>
-
-                <Text 
-                    variant="body-default-s" 
-                    className={styles.time}>
-                    {currentTime.toLowerCase()}
-                </Text>
             </Flex>
         </header>
     );
