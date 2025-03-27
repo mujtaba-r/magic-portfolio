@@ -111,7 +111,8 @@ export const Header = () => {
             <Flex
                 paddingRight="12" fillWidth
                 justifyContent="flex-end" alignItems="center"
-                textVariant="body-default-s">
+                textVariant="body-default-s"
+                className={styles.locationDisplay}>
                 { display.time && (
                     <TimeDisplay timeZone={person.location}/>
                 )}
