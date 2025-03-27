@@ -137,7 +137,7 @@ export const Mailchimp = () => {
                 {submitStatus === 'success' && (
                     <Text
                         style={{
-                            color: 'var(--accent)',
+                            color: 'var(--success-on-background-strong)',
                             textAlign: 'center'
                         }}>
                         Successfully subscribed! Thank you for joining.
