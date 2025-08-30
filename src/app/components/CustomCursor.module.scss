@@ -22,16 +22,14 @@
     // Remove the transition property for smooth animation
 }
 
-.hovering {
-    &.cursor {
-        width: 16px;
-        height: 16px;
-        background-color: var(--brand-on-background-medium);
-    }
+.cursor.hovering {
+    width: 16px;
+    height: 16px;
+    background-color: var(--brand-on-background-medium);
+}
 
-    &.cursorRing {
-        width: 32px;
-        height: 32px;
-        border-color: var(--brand-alpha-weak);
-    }
+.cursorRing.hovering {
+    width: 32px;
+    height: 32px;
+    border-color: var(--brand-alpha-weak);
 }
