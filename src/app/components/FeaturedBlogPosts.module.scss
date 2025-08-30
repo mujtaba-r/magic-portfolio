@@ -46,6 +46,12 @@
 .hover {
     position: relative;
     transition: all 0.3s ease;
+
+    &:hover {
+        .indicator {
+            transform: translateX(var(--static-space-4)) scale(1.15);
+        }
+    }
 }
 
 .indicator {
