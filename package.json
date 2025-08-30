@@ -3,6 +3,9 @@
 	"version": "0.1.0",
 	"scripts": {
 		"dev": "next dev",
+		"storybook": "start-storybook -p 6006",
+		"storybook:build": "build-storybook",
+		"test:a11y": "npx playwright test playwright/accessibility.spec.ts",
 		"export": "next export",
 		"build": "next build",
 		"start": "next start",
@@ -32,15 +35,21 @@
 		"sass": "^1.77.6"
 	},
 	"devDependencies": {
-		"@csstools/postcss-global-data": "^2.1.1",
-		"@types/cookie": "^0.6.0",
+		"@axe-core/playwright": "^4.4.1",
+		"@playwright/test": "^1.40.0",
+		"@storybook/addon-essentials": "^7.0.0",
+		"@storybook/addon-links": "^7.0.0",
+		"@storybook/react-webpack5": "^7.0.0",
 		"@types/node": "^20",
 		"@types/react": "^18.3.9",
 		"@types/react-dom": "^18",
+		"@types/cookie": "^0.6.0",
+		"playwright": "^1.40.0",
+		"typescript": "^5",
+		"@csstools/postcss-global-data": "^2.1.1",
 		"eslint": "^9.23.0",
 		"postcss-custom-media": "^10.0.7",
 		"postcss-flexbugs-fixes": "^5.0.2",
-		"sharp": "^0.33.5",
-		"typescript": "^5"
+		"sharp": "^0.33.5"
 	}
 }
