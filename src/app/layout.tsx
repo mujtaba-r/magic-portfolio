@@ -14,7 +14,7 @@ import { Sora } from 'next/font/google';
 
 import { Metadata } from "next";
 import ThemeProvider from '@/app/components/ThemeProvider';
-import CustomCursor from '@/app/components/CustomCursor';
+// Custom cursor removed to restore default system cursor
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { PageTransition } from '@/app/components/PageTransition';
@@ -150,7 +150,7 @@ export default function RootLayout({ children } : RootLayoutProps) {
 						</Flex>
 					</Flex>
 					<Footer/>
-					<CustomCursor />
+					{/* Custom cursor removed to preserve default OS cursor */}
 				</Flex>
 				<Analytics />
 				<SpeedInsights />

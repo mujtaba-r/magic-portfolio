@@ -82,26 +82,7 @@ a {
     }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  body, * {
-    cursor: none !important;
-  }
-
-  a, button, [role="button"], .clickable, .control, [tabindex="0"], img.clickable {
-    cursor: none !important;
-    
-    &:hover ~ #custom-cursor,
-    &:hover ~ #custom-cursor-follower {
-      transform: translate(-50%, -50%) scale(1.5);
-    }
-  }
-}
-
-#custom-cursor,
-#custom-cursor-follower {
-    pointer-events: none;
-    position: fixed;
-    z-index: 10000;
-}
-
-/* Remove any other cursor-related styles that might be conflicting */
+/* Ensure the OS cursor is visible by default. Custom cursor functionality
+    was causing the default cursor to be hidden (cursor: none). If you want
+    a custom cursor in the future, add scoped styles and mount/unmount the
+    component safely without globally hiding the system cursor. */
