@@ -1,79 +1,73 @@
-# **Build your portfolio with Once UI's Magic Portfolio**
+# ✨ Welcome to My Portfolio
 
-Magic Portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+.
+Hi, I'm **Mujtaba Rizvi**, a passionate front-end developer with a love for creating beautiful, functional, and user-centric web experiences. This repository contains the source code for my personal portfolio website.
 
-**1. Clone the repository**
-```
-git clone https://github.com/once-ui-system/magic-portfolio.git
-```
+### 🌐 **View Live Site**
 
-**2. Install dependencies**
-```
-npm install
-```
+---
 
-**3. Run dev server**
-```
-npm run dev
-```
+  <p align="center">
+    <img src="https://api.apify.com/v2/key-value-stores/zLu60fWtnOmfUOA0d/records/www.mujtabahassanrizvi.com-scroll_original" alt="Portfolio Screenshot" width="800"/>
+  </p>
 
-**4. Edit config**
-```
-src/app/resources/config
-```
+## 🚀 About This Project
 
-**5. Edit content**
-```
-src/app/resources/content
-```
+This portfolio is more than just a list of projects; it's a project in itself. It's a fully-featured, responsive, and performant website built from the ground up to showcase my skills in modern web development.
 
-**6. Create blog posts / projects**
-```
-Add a new .mdx file to src/app/blog/posts or src/app/work/projects
-```
+### Key Features
 
-# **Features**
+- **Elegant & Responsive Design:** Built with a mobile-first approach to ensure a seamless experience on all devices, from phones to desktops.
+- **Performant:** Optimized for speed with Next.js static site generation, image optimization, and Vercel's Speed Insights.
+- **SEO Optimized:** Automatic generation of metadata, schemas, and Open Graph images to ensure excellent search engine visibility.
+- **MDX-Powered Content:** Blog posts and project case studies are written in MDX, allowing for a rich mix of Markdown and interactive React components.
 
-## **Once UI**
-- All tokens, components & features of [Once UI](https://once-ui.com) (v0.3.1)
+## 🛠️ Tech Stack
 
-## **SEO**
-- Automatic open-graph and X image generation with next/og
-- Automatic schema and metadata generation based on the content file
+This project was built using a modern and robust set of technologies:
 
-## **Design**
-- Responsive layout optimized for all screen sizes
-- Timeless design without heavy animations and motion
-- Endless customization options through [data attributes](https://once-ui.com/docs/theming)
+- **Framework:** Next.js (React)
+- **Styling:** Sass, PostCSS, and Once UI for a consistent design system.
+- **Animation:** Framer Motion for smooth, subtle animations.
+- **Content:** MDX for blog posts and project details.
+- **Deployment:** Vercel with integrated Analytics and Speed Insights.
 
-TIP:
-You try pre-built designs by changing the imports for the config and content in src/app/resources/index.ts
+## ⚙️ Running Locally
 
-## **Content**
-- Render sections conditionally based on the content file
-- Enable or disable pages for blog, work, gallery and about / CV
-- Generate and display social links automatically
-- Set up password protection for URLs
+If you'd like to explore the code or run this project on your local machine, follow these steps:
 
-# **Authors**
+1.  **Clone the repository:**
 
-Connect with us on X or LinkedIn.
+    ```bash
+    git clone https://github.com/mujtaba-r/magic-portfolio.git
+    cd magic-portfolio
+    ```
 
-Lorant Toth: [X](https://x.com/lorant_one), [LinkedIn](https://www.linkedin.com/in/tothlorant/)  
-Zsofia Komaromi: [X](https://x.com/zsofiakomaromi), [LinkedIn](https://www.linkedin.com/in/zsofiakomaromi/)
+2.  **Install dependencies:**
 
-# **Get involved**
+    ```bash
+    npm install
+    ```
 
-- Join the [Once UI Discord server](https://discord.com/invite/5EyAQ4eNdS) and share your portfolio with designers and developers!
-- Report a [bug](https://github.com/once-ui-system/magic-portfolio/issues/new?labels=bug&template=bug_report.md).
+3.  **Run the development server:**
 
-# **License**
+    ```bash
+    npm run dev
+    ```
 
-Distributed under the CC BY-NC 4.0 License.
-- Commercial usage is not allowed.
-- Attribution is required.
+    The site will be available at `http://localhost:3000`.
 
-See `LICENSE.txt` for more information.
+## 🤝 Connect With Me
 
-# **Deploy with Vercel**
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&project-name=portfolio&repository-name=portfolio&redirect-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&demo-title=Magic%20Portfolio&demo-description=Showcase%20your%20designers%20or%20developer%20portfolio&demo-url=https%3A%2F%2Fdemo.magic-portfolio.com&demo-image=https%3A%2F%2Fonce-ui.com%2Fimages%2Ftemplates%2Fmagic-portfolio%2Fcover.jpg)
+I'm always open to connecting with other developers, designers, and potential collaborators. Feel free to reach out!
+
+- **LinkedIn:** https://www.linkedin.com/in/mujtabahassanrizvi
+- **GitHub:** @mujtaba-r
+- **X (Twitter):** @MujtabaRizvii
+
+## 🙏 Acknowledgements
+
+This portfolio was built using the fantastic **Magic Portfolio** template by the creators of Once UI. A huge thank you to them for providing such a great open-source starting point.
+
+## 📄 License
+
+The code in this repository is available under the **MIT License**.
