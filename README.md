@@ -7,7 +7,7 @@ Hi, I'm **Mujtaba Rizvi**, a passionate front-end developer with a love for crea
 ---
 
   <p align="center">
-    <img src="https://api.apify.com/v2/key-value-stores/zLu60fWtnOmfUOA0d/records/www.mujtabahassanrizvi.com-scroll_original" alt="Portfolio Screenshot" width="800"/>
+    <img src="public/images/portfolio.gif" alt="Portfolio Screenshot" width="800"/>
   </p>
 
 ## 🚀 About This Project
